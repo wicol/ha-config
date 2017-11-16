@@ -1,0 +1,28 @@
+- platform: cast
+  host: cc-01
+- platform: cast
+  host: cc-audio-01
+- platform: cast
+  host: tv
+- platform: denonavr
+  host: '192.168.0.116'
+  name: Denon 3300
+  scan_interval: 15
+  timeout: 5
+- platform: braviatv
+  host: tv
+- platform: kodi
+  host: ht
+  username: !secret kodi_username
+  password: !secret kodi_password
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: 00:01:2e:1f:c4:50
+  turn_off_action:
+    service: media_player.kodi_call_method
+    data:
+      entity_id: media_player.kodi
+      method: System.Shutdown
+  enable_websocket: 'false'
+  timeout: 7

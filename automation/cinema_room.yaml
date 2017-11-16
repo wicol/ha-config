@@ -1,0 +1,123 @@
+- alias: 'Ventilate for max 2h'
+  trigger:
+    platform: state
+    entity_id: switch.cinema_ventilation
+    to: 'on'
+    for:
+      minutes: 120
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.cinema_ventilation
+
+#- alias: 'Denon 3300 auto on + source'
+#  trigger:
+#    - platform: state
+#      entity_id:
+#        - media_player.kodi
+#        - binary_sensor.xbox360
+#        - binary_sensor.ps3
+#        - binary_sensor.ps4
+#        - media_player.bio
+#        - binary_sensor.dummy
+#      to: 'on'
+#  action:
+#    - service: media_player.select_source
+#      data_template:
+#        entity_id: media_player.denon_3300
+#        source: >
+#          {% if trigger.entity_id == 'binary_sensor.kodi' %}
+#          HTPC
+#          {% elif trigger.entity_id == 'binary_sensor.xbox360' %}
+#          XBOX 360
+#          {% elif trigger.entity_id == 'binary_sensor.ps3' %}
+#          PS3
+#          {% elif trigger.entity_id == 'binary_sensor.ps4' %}
+#          PS4
+#          {% elif trigger.entity_id == 'media_player.bio' %}
+#          Media Player
+#          {% elif trigger.entity_id == 'binary_sensor.dummy' %}
+#          AUX1
+#          {% endif %}
+ 
+
+#- alias: 'Denon 3300 auto on + source'
+#  trigger:
+#    - platform: state
+#      entity_id:
+#        - binary_sensor.xbox360
+#        - binary_sensor.ps3
+#        - binary_sensor.ps4
+#        - binary_sensor.dummy
+#        - media_player.kodi
+#        - media_player.bio
+#      # Some go into idle/playing etc, so best use from off
+#      from: 'off'
+#  action:
+#    - service: python_script.denon_source
+#      data_template:
+#        entity_id: "{{ trigger.entity_id }}"
+
+#- alias: 'Denon 3300 auto off'
+#  trigger:
+#    - platform: state
+#      entity_id:
+#        - media_player.kodi
+#        - binary_sensor.xbox360
+#        - binary_sensor.ps3
+#        - binary_sensor.ps4
+#        - media_player.bio 
+#        - binary_sensor.dummy
+#      to: 'off'
+#      for:
+#        minutes: 1
+#  condition:
+#    condition: and
+#    conditions:
+#     - condition: state
+#       entity_id: media_player.kodi
+#       state: 'off'
+#     - condition: state
+#       entity_id: binary_sensor.xbox360
+#       state: 'off'
+#     - condition: state
+#       entity_id: binary_sensor.ps3
+#       state: 'off'
+#     - condition: state
+#       entity_id: binary_sensor.ps4
+#       state: 'off'
+#     - condition: state
+#       entity_id: media_player.bio
+#       state: 'off'
+#     - condition: state
+#       entity_id: binary_sensor.dummy
+#       state: 'off'
+#     # Seems stupid but it could be 'playing' or 'paused' (spotify connect etc)
+#     # and in that case we should leave it alone
+#     - condition: state
+#       entity_id: media_player.denon_3300
+#       state: 'on'
+#  action:
+#    - service: homeassistant.turn_off
+#      entity_id: media_player.denon_3300
+#
+#
+#
+#- alias: 'Denon 3300 - auto off'
+#  trigger:
+#    - platform: state
+#      entity_id: group.cinema_sources
+#      to: 'off'
+#      for:
+#        minutes: 2
+#  action:
+#    - service: homeassistant.turn_off
+#      entity_id: media_player.denon_3300
+
+#- service: logbook.log
+    #  data_template:
+    #    name: denon_on
+    #    message: "Triggered by: {{ trigger }}, {{ trigger.entity_id }}"
+    #    # Optional
+    #    #entity_id: media_player.denon_3300
+    #    #domain: media_player
+

@@ -1,0 +1,28 @@
+- alias: 'Christmas lights on'
+  trigger:
+    - platform: time
+      at: '05:00:00'
+    - platform: sun
+      event: sunset
+  condition:
+    condition: state
+    state: off
+    entity_id: switch.plug_158d0001dc40bb
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.plug_158d0001dc40bb
+
+- alias: 'Christmas lights off'
+  trigger:
+    - platform: time
+      at: '01:00:00'
+    - platform: sun
+      event: sunrise
+      offset: '-00:30:00'
+  condition:
+    condition: state
+    state: on
+    entity_id: switch.plug_158d0001dc40bb
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.plug_158d0001dc40bb

@@ -1,0 +1,20 @@
+ventilate_for_15_mins:
+  alias: "Ventilate for 15 mins"
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.cinema_ventilation
+    - delay:
+        minutes: 15
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.cinema_ventilation
+
+update_library:
+    alias: Update Kodi Library
+    sequence:
+      - alias: Call Kodi update
+        service: media_player.kodi_call_method
+        data:
+          entity_id: media_player.kodi
+          method: VideoLibrary.Scan

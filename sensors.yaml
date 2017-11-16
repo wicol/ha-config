@@ -1,0 +1,14 @@
+- platform: mqtt
+  name: Power usage
+  state_topic: "power_meter/power"
+  unit_of_measurement: W
+  value_template: '{{ value | int }}'
+- platform: influxdb
+  scan_interval: 300
+  queries:
+    - name: temperature_darksky
+      database: telegraf
+      measurement: temperature
+      group_function: last
+      where: 'friendly_name = ''Outside'''
+      unit_of_measurement: '°C'

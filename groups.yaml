@@ -1,0 +1,95 @@
+default_view:
+    name: Living room
+    view: yes
+    icon: mdi:home
+    entities:
+        - group.living_room
+
+cinema_view:
+    view: yes
+    name: Cinema
+    icon: mdi:theater
+    entities:
+        - group.cinema
+
+garage_view:
+    name: Garage
+    view: yes
+    icon: mdi:garage
+    entities:
+        - group.garage
+
+misc_view:
+    name: Misc
+    view: yes
+    entities:
+        - switch.plug_158d0001dc40bb
+        - group.measurements
+        - group.all_automations
+
+cinema:
+    name: Biorum
+    #view: yes
+    control: hidden
+    entities:
+        - script.ventilate_for_15_mins
+        - switch.cinema_ventilation
+        - switch.projector
+        - input_boolean.denon_auto_source
+        - input_boolean.denon_auto_off
+        - binary_sensor.kodi
+        - binary_sensor.xbox360
+        - binary_sensor.ps3
+        - binary_sensor.ps4
+        - media_player.denon_3300
+        - media_player.bio
+        - media_player.kodi
+        - binary_sensor.dummy
+        - script.update_library
+
+cinema_sources:
+    name: Cinema source devices
+    entities:
+        - media_player.kodi
+        - binary_sensor.xbox360
+        - binary_sensor.ps3
+        - binary_sensor.ps4
+        - media_player.bio
+        - media_player.denon_3300
+        - binary_sensor.dummy
+
+living_room:
+    name: Vardagsrum
+    #view: yes
+    control: hidden
+    entities:
+        - sensor.temperature_158d0001b8d57d
+        - switch.living_room_receiver
+        - media_player.vardagsrum__stereo
+        - media_player.sony_bravia_tv
+        - media_player.kdl50w808c
+
+garage:
+    name: Garage
+    control: hidden
+    entities:
+        - binary_sensor.cam_01_motion
+        - binary_sensor.door_window_sensor_158d00016c7a5c
+        - camera.garage
+
+measurements:
+    name: Measurements
+    entities:
+        - sensor.power_usage
+        - sensor.temperature_darksky 
+        - sensor.temperature_158d0001b8d3d5
+        - sensor.temperature_158d0001b8d4af
+        - sensor.temperature_158d0001b8d519
+        - sensor.temperature_158d0001b8d57d
+        - sensor.humidity_158d0001b8d3d5
+        - sensor.humidity_158d0001b8d4af
+        - sensor.humidity_158d0001b8d519
+        - sensor.humidity_158d0001b8d57d
+        - sensor.illumination_158d00016db717
+        - sensor.illumination_158d0001a252a7
+        - sensor.temperature_darksky 

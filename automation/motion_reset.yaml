@@ -1,0 +1,15 @@
+- alias: 'Motion sensor reset'
+  trigger:
+    #- platform: mqtt
+    #  topic: 'emqtt/cam-01unts.se'
+    #  payload: 'ON'
+    - platform: state
+      entity_id: binary_sensor.cam_01_motion
+      to: 'on'
+      for:
+        minutes: 5
+  action:
+    service: mqtt.publish
+    data:
+        topic: 'emqtt/cam-01unts.se'
+        payload: 'OFF'

@@ -1,0 +1,11 @@
+garage_door_activate:
+  name: Enable garage door control
+  icon: mdi:lock-open
+denon_auto_source:
+  name: Denon auto source
+  initial: on
+  icon: mdi:code-tags
+denon_auto_off:
+  name: Denon auto off
+  initial: on
+  icon: mdi:code-tags

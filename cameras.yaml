@@ -1,0 +1,6 @@
+- platform: mjpeg
+  name: Garage
+  mjpeg_url: http://cam-01/video.cgi
+  still_image_url: http://cam-01/image.jpg
+  username: !secret cam-01_username
+  password: !secret cam-01_password

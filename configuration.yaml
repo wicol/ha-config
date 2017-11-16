@@ -1,0 +1,102 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret location_lat
+  longitude: !secret location_long
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 19
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret api_password 
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+  include:
+    domains:
+      - sensor
+      - binary_sensor
+      - switch
+      - media_player
+      - device_tracker
+      - updater
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Text to speech
+tts:
+  platform: google
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.automation: debug
+    homeassistant.components.notify: debug
+    homeassistant.components.python_script: debug
+    homeassistant.components.media_player: debug
+    homeassistant.components.switch.broadlink: debug
+    homeassistant.components.xiaomi_aqara: debug
+    #homeassistant.components.mqtt: debug
+    homeassistant.components.logbook: debug
+    PyXiaomiGateway: debug
+
+python_script:
+wake_on_lan:
+mqtt:
+  broker: localhost
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - host: '192.168.0.127'
+      key: !secret xiaomi_key
+
+influxdb: !include influxdb.yaml
+group: !include groups.yaml
+switch: !include switches.yaml
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+automation: !include_dir_merge_list automation
+script: !include scripts.yaml
+media_player: !include media_players.yaml
+device_tracker: !include device_trackers.yaml
+input_boolean: !include input_boolean.yaml
+camera: !include cameras.yaml
+notify: !include notify.yaml

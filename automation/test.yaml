@@ -1,0 +1,30 @@
+- alias: 'vrum stereo notify test'
+  trigger:
+    - platform: state
+      entity_id: switch.living_room_receiver
+      to: 'on'
+  action:
+    - service: notify.html5
+      data_template:
+        message: "Vrum receiver state is {{ states('switch.living_room_receiver') }}."
+      data:
+        data:
+          tag: 'vrum-receiver-state'
+          actions:
+            - action: 'do_thing'
+              title: 'Do thing'
+
+- alias: 'notification action test'
+  trigger:
+    - platform: event
+      event_type: html5_notification.clicked
+      event_data:
+        action: do_thing
+  action:
+    - service: logbook.log
+      data_template:
+        name: did_thing
+        message: "Triggered by: {{ trigger }}, {{ trigger.entity_id }}"
+        # Optional
+        #entity_id: media_player.denon_3300
+        #domain: media_player

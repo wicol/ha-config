@@ -1,0 +1,14 @@
+- platform: ddwrt
+  host: '192.168.0.1'
+  username: !secret ddwrt_username
+  password: !secret ddwrt_password
+  interval_seconds: 10
+  consider_home: 180
+  track_new_devices: true
+# False positives
+#- platform: ping
+#  hosts:
+#    xbox360: 192.168.0.119
+#    ps3: 192.168.0.118
+#    kodi: 192.168.0.114
+#  count: 4

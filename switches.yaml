@@ -1,0 +1,23 @@
+- platform: command_line
+  switches:
+    cinema_ventilation:
+      command_on: "/config/switches/cinema_ventilation.py True"
+      command_off: "/config/switches/cinema_ventilation.py False"
+      command_state: "/config/switches/cinema_ventilation.py | grep True"
+      friendly_name: "Ventilation"
+    # omg rebuild this plz
+    living_room_receiver:
+      command_on: "/config/switches/living_room_receiver.py False"
+      command_off: "/config/switches/living_room_receiver.py True"
+      command_state: "/config/switches/living_room_receiver.py | grep False"
+      friendly_name: "Stereo"
+
+- platform: broadlink
+  host: '192.168.0.126'
+  mac: '34:EA:34:40:7C:D0'
+  friendly_name: RMMini3
+  switches:
+    projector:
+      friendly_name: Projector
+      command_on: 'JgBoAAABKZAVNRU0Fg8VEBYzFjQVEBUQFRAVEBUQFRAVEBYPFg8WDxUQFg8WDxUQFhAVEBUQFRAUNRU0FTQWNBU0FTQWMxY0FQAFpwABKEgVAAxFAAEpRxUADEUAAShIFQAMRQABKEgUAA0F'
+      command_off: 'JgBQAAABKJQSOBI4EhMSExI4EjgSExITEhMSExITEhMSExITEhMSExI4EhMSExITEhMSOBITEjgSExI4EjgSOBI4EhMSOBITEgAFpAABKEoSAAyWDQUAAAAAAAA='

@@ -1,0 +1,35 @@
+database: telegraf
+username: !secret influxdb_username
+password: !secret influxdb_password
+default_measurement: state
+component_config_glob:
+  'sensor.temperature*':
+    override_measurement: 'temperature'
+  'sensor.humidity*':
+    override_measurement: 'humidity'
+  'sensor.illumination*':
+    override_measurement: 'illumination'
+  'binary_sensor.door_window*':
+    override_measurement: 'door_window'
+  'binary_sensor.*motion*':
+    override_measurement: 'motion'
+include:
+  entities:
+    - sensor.temperature_158d0001b8d3d5
+    - sensor.temperature_158d0001b8d4af
+    - sensor.temperature_158d0001b8d519
+    - sensor.temperature_158d0001b8d57d
+    - sensor.humidity_158d0001b8d3d5
+    - sensor.humidity_158d0001b8d4af
+    - sensor.humidity_158d0001b8d519
+    - sensor.humidity_158d0001b8d57d
+    - sensor.illumination_158d00016db717
+    - sensor.illumination_158d0001a252a7
+    - binary_sensor.motion_sensor_158d00016db717
+    - binary_sensor.motion_sensor_158d0001a252a7
+    - binary_sensor.door_window_sensor_158d00016c7a5c
+    - binary_sensor.cam_01_motion
+tags:
+  source: ha
+tags_attributes:
+  - friendly_name
