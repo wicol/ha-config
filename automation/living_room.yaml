@@ -1,4 +1,4 @@
-- alias: 'Vardagsrum receiver auto on'
+- alias: 'Living room receiver auto on'
   trigger:
     - platform: state
       entity_id: media_player.vardagsrum__stereo
@@ -10,7 +10,7 @@
     - service: homeassistant.turn_on
       entity_id: switch.living_room_receiver 
 
-- alias: 'Vardagsrum receiver auto off'
+- alias: 'Living room receiver auto off'
   trigger:
     - platform: state
       entity_id: media_player.vardagsrum__stereo
