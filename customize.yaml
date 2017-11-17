@@ -1,4 +1,3 @@
-# todo
 switch.projector:
     icon: mdi:projector
 binary_sensor.xbox360:
@@ -27,6 +26,10 @@ media_player.denon_3300:
     icon: mdi:speaker
 switch.living_room_receiver:
     icon: mdi:speaker
+switch.garage_door:
+    icon: mdi:garage
+binary_sensor.cam_01_motion:
+    friendly_name: Motion
 
 sensor.power_usage:
     icon: mdi:flash

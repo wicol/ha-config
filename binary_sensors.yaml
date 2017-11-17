@@ -27,9 +27,6 @@
   name: cam_01_motion
   state_topic: "emqtt/cam-01unts.se"
   device_class: motion
-  #value_template: '{% if as_timestamp(now()) - value|int < 20 %}ON{% else %}OFF{% endif %}'
-  #value_template: 'ON'
-
 
 - platform: command_line
   name: dummy

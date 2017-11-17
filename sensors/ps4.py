@@ -10,7 +10,6 @@ class PS4:
     port = 987
 
     def __init__(self, host):
-        #super(self.__class__, self).__init__(*args, **kwargs)
         self.host = host
         self.state = None
         self.latest_response = ''

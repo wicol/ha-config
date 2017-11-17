@@ -18,6 +18,7 @@ garage_view:
     icon: mdi:garage
     entities:
         - group.garage
+        - group.garage_door_lock
 
 misc_view:
     name: Misc
@@ -26,40 +27,40 @@ misc_view:
         - switch.plug_158d0001dc40bb
         - group.measurements
         - group.all_automations
+        - group.appdaemon_apps
 
 cinema:
-    name: Biorum
+    name: Cinema
     #view: yes
     control: hidden
     entities:
         - script.ventilate_for_15_mins
         - switch.cinema_ventilation
         - switch.projector
-        - input_boolean.denon_auto_source
-        - input_boolean.denon_auto_off
         - binary_sensor.kodi
         - binary_sensor.xbox360
         - binary_sensor.ps3
         - binary_sensor.ps4
-        - media_player.denon_3300
-        - media_player.bio
-        - media_player.kodi
         - binary_sensor.dummy
         - script.update_library
-
-cinema_sources:
-    name: Cinema source devices
-    entities:
-        - media_player.kodi
-        - binary_sensor.xbox360
-        - binary_sensor.ps3
-        - binary_sensor.ps4
-        - media_player.bio
         - media_player.denon_3300
-        - binary_sensor.dummy
+        - media_player.kodi
+        - media_player.bio
+
+# Not used atm
+#cinema_sources:
+#    name: Cinema source devices
+#    entities:
+#        - media_player.kodi
+#        - binary_sensor.xbox360
+#        - binary_sensor.ps3
+#        - binary_sensor.ps4
+#        - media_player.bio
+#        - media_player.denon_3300
+#        - binary_sensor.dummy
 
 living_room:
-    name: Vardagsrum
+    name: Living room
     #view: yes
     control: hidden
     entities:
@@ -73,9 +74,23 @@ garage:
     name: Garage
     control: hidden
     entities:
-        - binary_sensor.cam_01_motion
+        - switch.garage_door
         - binary_sensor.door_window_sensor_158d00016c7a5c
+        - binary_sensor.cam_01_motion
         - camera.garage
+
+# Needs to be in a separate group to move it down/right in UI
+garage_door_lock:
+    name: Garage door lock
+    control: hidden
+    entities:
+        - input_boolean.garage_door_enabled
+
+appdaemon_apps:
+    name: Appdaemon apps
+    entities:
+        - input_boolean.denon_auto_source
+        - input_boolean.denon_auto_off
 
 measurements:
     name: Measurements

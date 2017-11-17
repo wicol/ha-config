@@ -1,5 +1,6 @@
-garage_door_activate:
+garage_door_enabled:
   name: Enable garage door control
+  initial: 'off'
   icon: mdi:lock-open
 denon_auto_source:
   name: Denon auto source

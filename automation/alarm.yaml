@@ -1,4 +1,4 @@
-- alias: 'cam-01-motion-notification'
+- alias: 'cam-01 motion notification'
   trigger:
     - platform: state
       entity_id: binary_sensor.cam_01_motion
@@ -8,6 +8,18 @@
       data_template:
         title: 'Garage motion'
         message: 'Motion detected in garage'
-      #data:
-      #  data:
-      #    tag: 'cam-01-motion'
+      data:
+        data:
+          tag: 'cam-01-motion'
+
+- alias: 'Garage door open notification'
+  trigger:
+    - platform: state
+      entity_id: switch.garage_door
+      to: 'on'
+  action:
+    - service: notify.html5
+      data_template:
+        title: 'Garage door open'
+        message: '{{ now() }}'
+ 

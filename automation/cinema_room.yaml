@@ -9,6 +9,8 @@
     service: homeassistant.turn_off
     entity_id: switch.cinema_ventilation
 
+## Kinda works, but kodi might go from off to idle or something 
+## and I don't like the if-rake in the action :/
 #- alias: 'Denon 3300 auto on + source'
 #  trigger:
 #    - platform: state
@@ -40,6 +42,7 @@
 #          {% endif %}
  
 
+# Cleaner version of above, works pretty well
 #- alias: 'Denon 3300 auto on + source'
 #  trigger:
 #    - platform: state
@@ -57,6 +60,7 @@
 #      data_template:
 #        entity_id: "{{ trigger.entity_id }}"
 
+# Kinda works but would need for: in all the conditions..
 #- alias: 'Denon 3300 auto off'
 #  trigger:
 #    - platform: state
@@ -102,6 +106,7 @@
 #
 #
 #
+# # Doesn't work at all, the group doesn't seem to receive any events
 #- alias: 'Denon 3300 - auto off'
 #  trigger:
 #    - platform: state

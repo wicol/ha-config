@@ -6,7 +6,7 @@
       event: sunset
   condition:
     condition: state
-    state: off
+    state: 'off'
     entity_id: switch.plug_158d0001dc40bb
   action:
     service: homeassistant.turn_on
@@ -21,7 +21,7 @@
       offset: '-00:30:00'
   condition:
     condition: state
-    state: on
+    state: 'on'
     entity_id: switch.plug_158d0001dc40bb
   action:
     service: homeassistant.turn_off

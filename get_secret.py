@@ -1,4 +1,4 @@
-#!/usr/env/python3
+#!/usr/bin/env python3
 import sys
 
 if len(sys.argv) < 2:
@@ -8,6 +8,8 @@ if len(sys.argv) < 2:
 
 target_secret_name = sys.argv[1]
 secrets_str = open('secrets.yaml').read()
+
+# PyYAML is for suckers
 secrets_dict = {}
 for s in secrets_str.splitlines():
     secret_name, secret = s.split(': ', 1)

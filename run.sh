@@ -14,5 +14,3 @@ docker run \
     --net=host \
     homeassistant/home-assistant:$tag
 
-    #-p 8123:8123 \
-    #-p 1883:1883 \
