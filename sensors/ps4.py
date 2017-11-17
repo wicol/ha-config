@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import socket
 import logging
 
@@ -64,7 +65,13 @@ class PS4:
 
 
 if __name__ == '__main__':
-    ps4 = PS4('ps4')
+    if len(sys.argv) < 2:
+        print('{} <host/IP of PS4>'.format(__file__))
+        sys.exit(1)
+    host = sys.argv[1]
+    
+    ps4 = PS4(host)
+    
     if ps4.is_active():
         print('ON')
     else:
