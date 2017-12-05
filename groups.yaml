@@ -25,6 +25,8 @@ misc_view:
     view: yes
     entities:
         - switch.plug_158d0001dc40bb
+        - switch.telldus_tzwp100_plugin_switch_switch
+        - zwave.telldus_tzwp100_plugin_switch
         - group.measurements
         - group.all_automations
         - group.appdaemon_apps
@@ -69,6 +71,7 @@ living_room:
         - media_player.vardagsrum__stereo
         - media_player.sony_bravia_tv
         - media_player.kdl50w808c
+        - media_player.spotify
 
 garage:
     name: Garage

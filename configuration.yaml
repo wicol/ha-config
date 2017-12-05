@@ -26,7 +26,7 @@ http:
   # Uncomment this to add a password (recommended!)
   api_password: !secret api_password 
   # Uncomment this if you are using SSL or running in Docker etc
-  # base_url: example.duckdns.org:8123
+  base_url: !secret base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -74,6 +74,7 @@ logger:
     #homeassistant.components.mqtt: debug
     homeassistant.components.logbook: debug
     PyXiaomiGateway: debug
+    homeassistant.components.zwave: info
 
 python_script:
 wake_on_lan:
@@ -88,6 +89,10 @@ xiaomi_aqara:
     - host: '192.168.0.127'
       key: !secret xiaomi_key
 
+zwave:
+  usb_path: /dev/ttyACM0
+  debug: true
+
 influxdb: !include influxdb.yaml
 group: !include groups.yaml
 switch: !include switches.yaml
@@ -100,3 +105,4 @@ device_tracker: !include device_trackers.yaml
 input_boolean: !include input_boolean.yaml
 camera: !include cameras.yaml
 notify: !include notify.yaml
+timer: !include timers.yaml

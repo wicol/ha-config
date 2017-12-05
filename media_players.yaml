@@ -1,7 +1,8 @@
 - platform: cast
   host: cc-01
 - platform: cast
-  host: cc-audio-01
+  host: '192.168.0.112'
+  #host: cc-audio-01
 - platform: cast
   host: tv
 - platform: denonavr
@@ -26,3 +27,10 @@
       method: System.Shutdown
   enable_websocket: 'false'
   timeout: 7
+
+- platform: spotify
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+  #aliases:
+  #  abc123def456: 'Living Room'
+  #  9183abas000: 'Bed Room'

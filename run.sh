@@ -9,6 +9,7 @@ docker run \
     --name="home-assistant" \
     -d \
     --restart always \
+    --device /dev/ttyACM0 \
     -v /srv/app/homeassistant:/config \
     -v /etc/localtime:/etc/localtime:ro \
     --net=host \

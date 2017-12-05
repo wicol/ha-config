@@ -29,7 +29,7 @@ switch.living_room_receiver:
 switch.garage_door:
     icon: mdi:garage
 binary_sensor.cam_01_motion:
-    friendly_name: Motion
+    friendly_name: Garage motion
 
 sensor.power_usage:
     icon: mdi:flash

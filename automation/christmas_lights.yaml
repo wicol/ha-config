@@ -7,10 +7,10 @@
   condition:
     condition: state
     state: 'off'
-    entity_id: switch.plug_158d0001dc40bb
+    entity_id: switch.telldus_tzwp100_plugin_switch_switch
   action:
     service: homeassistant.turn_on
-    entity_id: switch.plug_158d0001dc40bb
+    entity_id: switch.telldus_tzwp100_plugin_switch_switch
 
 - alias: 'Christmas lights off'
   trigger:
@@ -18,11 +18,11 @@
       at: '01:00:00'
     - platform: sun
       event: sunrise
-      offset: '-00:30:00'
+      offset: '-00:15:00'
   condition:
     condition: state
     state: 'on'
-    entity_id: switch.plug_158d0001dc40bb
+    entity_id: switch.telldus_tzwp100_plugin_switch_switch
   action:
     service: homeassistant.turn_off
-    entity_id: switch.plug_158d0001dc40bb
+    entity_id: switch.telldus_tzwp100_plugin_switch_switch
