@@ -1,56 +1,56 @@
-- alias: 'vrum stereo notify test'
-  trigger:
-    - platform: state
-      entity_id: switch.living_room_receiver
-      to: 'on'
-  action:
-    - service: notify.html5
-      data_template:
-        message: "Vrum receiver state is {{ states('switch.living_room_receiver') }}."
-      data:
-        data:
-          tag: 'vrum-receiver-state'
-          actions:
-            - action: 'do_thing'
-              title: 'Do thing'
-
-- alias: 'notification action test'
-  trigger:
-    - platform: event
-      event_type: html5_notification.clicked
-      event_data:
-        action: do_thing
-  action:
-    - service: logbook.log
-      data_template:
-        name: did_thing
-        message: "Triggered by: {{ trigger }}, {{ trigger.entity_id }}"
-        # Optional
-        #entity_id: media_player.denon_3300
-        #domain: media_player
-
-- alias: 'cam-01 motion notification'
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.cam_01_motion
-      to: 'on'
-  action:
-    - service: notify.html5
-      data_template:
-        title: 'Garage motion'
-        message: 'Motion detected in garage'
-      data:
-        data:
-          tag: 'cam-01-motion'
-
-- alias: 'Garage door open notification'
-  trigger:
-    - platform: state
-      entity_id: switch.garage_door
-      to: 'on'
-  action:
-    - service: notify.html5
-      data_template:
-        title: 'Garage door open'
-        message: '{{ now() }}'
+#- alias: 'vrum stereo notify test'
+#  trigger:
+#    - platform: state
+#      entity_id: switch.living_room_receiver
+#      to: 'on'
+#  action:
+#    - service: notify.html5
+#      data_template:
+#        message: "Vrum receiver state is {{ states('switch.living_room_receiver') }}."
+#      data:
+#        data:
+#          tag: 'vrum-receiver-state'
+#          actions:
+#            - action: 'do_thing'
+#              title: 'Do thing'
+#
+#- alias: 'notification action test'
+#  trigger:
+#    - platform: event
+#      event_type: html5_notification.clicked
+#      event_data:
+#        action: do_thing
+#  action:
+#    - service: logbook.log
+#      data_template:
+#        name: did_thing
+#        message: "Triggered by: {{ trigger }}, {{ trigger.entity_id }}"
+#        # Optional
+#        #entity_id: media_player.denon_3300
+#        #domain: media_player
+#
+#- alias: 'cam-01 motion notification'
+#  trigger:
+#    - platform: state
+#      entity_id: binary_sensor.cam_01_motion
+#      to: 'on'
+#  action:
+#    - service: notify.html5
+#      data_template:
+#        title: 'Garage motion'
+#        message: 'Motion detected in garage'
+#      data:
+#        data:
+#          tag: 'cam-01-motion'
+#
+#- alias: 'Garage door open notification'
+#  trigger:
+#    - platform: state
+#      entity_id: switch.garage_door
+#      to: 'on'
+#  action:
+#    - service: notify.html5
+#      data_template:
+#        title: 'Garage door open'
+#        message: '{{ now() }}'
  

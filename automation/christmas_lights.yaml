@@ -7,10 +7,10 @@
   condition:
     condition: state
     state: 'off'
-    entity_id: switch.telldus_tzwp100_plugin_switch_switch
+    entity_id: switch.plug_1_switch
   action:
     service: homeassistant.turn_on
-    entity_id: switch.telldus_tzwp100_plugin_switch_switch
+    entity_id: switch.plug_1_switch
 
 - alias: 'Christmas lights off'
   trigger:
@@ -22,7 +22,7 @@
   condition:
     condition: state
     state: 'on'
-    entity_id: switch.telldus_tzwp100_plugin_switch_switch
+    entity_id: switch.plug_1_switch
   action:
     service: homeassistant.turn_off
-    entity_id: switch.telldus_tzwp100_plugin_switch_switch
+    entity_id: switch.plug_1_switch

@@ -1,0 +1,17 @@
+# Kind of a "the guests have arrived" thing
+- alias: 'Relative alert'
+  trigger:
+    - platform: state
+      entity_id: group.relatives
+      to: home
+  action:
+    - service: notify.html5
+      data_template:
+        title: 'Relative'
+        message: >
+          {%- for m in states.group.relatives.attributes.entity_id %}{% if states(m) == 'home' %}{{ m.split('.')[1] }}
+          {% endif %}{% endfor %}
+        #target:
+        #  - 'wicphone'
+
+

@@ -65,3 +65,5 @@ binary_sensor.motion_sensor_158d0001a252a7:
 
 group.all_automations:
     hidden: false
+group.all_switches:
+    hidden: false

@@ -20,16 +20,23 @@ garage_view:
         - group.garage
         - group.garage_door_lock
 
+alarm_view:
+    name: Alarm
+    view: yes
+    icon: mdi:alarm-light
+    entities:
+        - group.alarm
+
 misc_view:
     name: Misc
     view: yes
     entities:
-        - switch.plug_158d0001dc40bb
-        - switch.telldus_tzwp100_plugin_switch_switch
-        - zwave.telldus_tzwp100_plugin_switch
         - group.measurements
         - group.all_automations
+        - group.all_switches
         - group.appdaemon_apps
+        - group.family
+        - group.friends
 
 cinema:
     name: Cinema
@@ -68,6 +75,7 @@ living_room:
     entities:
         - sensor.temperature_158d0001b8d57d
         - switch.living_room_receiver
+        - sensor.tv_time
         - media_player.vardagsrum__stereo
         - media_player.sony_bravia_tv
         - media_player.kdl50w808c
@@ -88,6 +96,16 @@ garage_door_lock:
     control: hidden
     entities:
         - input_boolean.garage_door_enabled
+
+alarm:
+    name: Alarm
+    entities:
+        - alarm_control_panel.ha_alarm
+        - binary_sensor.door_window_sensor_158d00016c7a5c
+        - binary_sensor.cam_01_motion
+        - binary_sensor.motion_sensor_158d00016db717
+        - binary_sensor.motion_sensor_158d0001a252a7
+
 
 appdaemon_apps:
     name: Appdaemon apps
@@ -111,3 +129,27 @@ measurements:
         - sensor.illumination_158d00016db717
         - sensor.illumination_158d0001a252a7
         - sensor.temperature_darksky 
+
+family:
+    name: Family
+    icon: mdi:account-multiple
+    entities:
+        - device_tracker.wicphone
+        - device_tracker.jophone
+
+relatives:
+    name: Relatives
+    icon: mdi:account-multiple
+    entities:
+        - device_tracker.christedsiphone
+        - device_tracker.fridasiphone
+        - device_tracker.hannasiphone
+        # tmp
+        - device_tracker.jophone
+
+friends:
+    name: Friends
+    icon: mdi:account-multiple
+    entities:
+        - device_tracker.davidsiphone4
+        - device_tracker.joelsiphone6s

@@ -13,6 +13,8 @@ component_config_glob:
     override_measurement: 'door_window'
   'binary_sensor.*motion*':
     override_measurement: 'motion'
+  'media_player.*':
+    override_measurement: 'device_log'
 include:
   entities:
     - sensor.temperature_158d0001b8d3d5
@@ -29,6 +31,7 @@ include:
     - binary_sensor.motion_sensor_158d0001a252a7
     - binary_sensor.door_window_sensor_158d00016c7a5c
     - binary_sensor.cam_01_motion
+    - media_player.sony_bravia_tv
 tags:
   source: ha
 tags_attributes:

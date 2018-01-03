@@ -59,21 +59,21 @@ logbook:
 sun:
 
 # Text to speech
-tts:
-  platform: google
+#tts:
+#  platform: google
 
 logger:
   default: warning
   logs:
-    homeassistant.components.automation: debug
+    #homeassistant.components.automation: debug
     homeassistant.components.notify: debug
     homeassistant.components.python_script: debug
     homeassistant.components.media_player: debug
-    homeassistant.components.switch.broadlink: debug
-    homeassistant.components.xiaomi_aqara: debug
+    #homeassistant.components.switch.broadlink: debug
+    #homeassistant.components.xiaomi_aqara: debug
     #homeassistant.components.mqtt: debug
-    homeassistant.components.logbook: debug
-    PyXiaomiGateway: debug
+    #homeassistant.components.logbook: debug
+    #PyXiaomiGateway: debug
     homeassistant.components.zwave: info
 
 python_script:
@@ -92,6 +92,9 @@ xiaomi_aqara:
 zwave:
   usb_path: /dev/ttyACM0
   debug: true
+
+alarm_control_panel:
+  - platform: manual
 
 influxdb: !include influxdb.yaml
 group: !include groups.yaml

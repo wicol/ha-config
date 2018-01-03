@@ -11,6 +11,7 @@ docker run \
     --restart always \
     --device /dev/ttyACM0 \
     -v /srv/app/homeassistant:/config \
+    -v /srv/code/homeassistant/src:/usr/src/app \
     -v /etc/localtime:/etc/localtime:ro \
     --net=host \
     homeassistant/home-assistant:$tag

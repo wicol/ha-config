@@ -1,0 +1,174 @@
+- alias: 'Arm alarm when noone home'
+  trigger:
+    - platform: state
+      entity_id: group.family
+      to: not_home
+      for:
+        minutes: 10
+  condition: 
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: disarmed
+  action:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.ha_alarm
+    - service: notify.html5
+      data_template:
+        title: 'Arming alarm'
+        message: "No one home at {{ now().strftime('%H:%M') }}"
+        #target:
+        #  - 'wicphone'
+      data:
+        data:
+          tag: arming
+          actions:
+            - action: disarm_alarm
+              title: Disarm
+
+- alias: 'Abort alarm arming'
+  trigger:
+    - platform: event
+      event_type: html5_notification.clicked
+      event_data:
+        action: disarm_alarm
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+    - service: logbook.log
+      data_template:
+        name: 'Aborted arming'
+    
+- alias: 'Disarm alarm when someone comes home'
+  trigger:
+    - platform: state
+      entity_id: group.family
+      to: home
+  condition: 
+    # Add or for armed-home if it's used..
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+    - service: notify.html5
+      data_template:
+        title: 'Disarming alarm'
+        message: "Someone came home at {{ now().strftime('%H:%M') }}"
+
+- alias: 'Trigger alarm'
+  trigger:
+    # Garage door
+    - platform: state
+      entity_id: binary_sensor.door_window_sensor_158d00016c7a5c
+      to: 'on'
+    # Garage cam
+    - platform: state
+      entity_id: binary_sensor.cam_01_motion
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: armed_away
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.ha_alarm
+    # NOTE: At this point the alarm is actually pending triggered
+    - service: notify.html5
+      data_template:
+        title: 'Alarm triggered'
+        message: "Alarm triggered by {{ trigger.to_state.attributes.friendly_name }}."
+
+- alias: 'Motion outside basement door triggers light inside'
+  trigger:
+      # Basement door motion
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d00016db717
+      to: 'on'
+      for:
+        seconds: 15
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.ha_alarm
+    state: armed_away
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.in_wall_swich_1_switch
+
+#- alias: 'Motion outside back door triggers light inside'
+#  trigger:
+#      # Back door motion
+#      platform: state
+#      entity_id: binary_sensor.motion_sensor_158d0001a252a7 
+#      to: 'on'
+#      for:
+#        seconds: 15
+#  condition:
+#    condition: state
+#    entity_id: alarm_control_panel.ha_alarm
+#    state: armed_away
+#  action:
+#    service: homeassistant.turn_on
+#    entity_id: some_switch
+
+
+
+# More of a reminder than an alarm maybe..
+- alias: 'Garage door left open'
+  trigger:
+    # Garage door
+    platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00016c7a5c
+    to: 'on'
+    for:
+      minutes: 5
+  condition:
+    condition: state
+    entity_id: group.family
+    state: not_home
+  action:
+    service: notify.html5
+    data_template:
+      title: 'Garage door open'
+      message: "It's been open for 5 mins..."
+
+- alias: 'Alarm auto on if noone home'
+  trigger:
+    platform: time
+    at: '20:00:00'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: disarmed
+    - condition: state
+      entity_id: group.family
+      state: not_home
+  action:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.ha_alarm
+    - service: notify.html5
+      data_template:
+        title: 'Arming alarm'
+        message: "No one home and it's {{ now().strftime('%H:%M') }}"
+        #target:
+        #  - 'wicphone'
+      data:
+        data:
+          tag: arming
+          actions:
+            - action: disarm_alarm
+              title: Disarm
+
+- alias: 'Alarm auto off'
+  initial_state: 'off'
+  trigger:
+    platform: time
+    at: '06:30:00'
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.ha_alarm
+    - service: notify.html5
+      data_template:
+        title: 'Disarming alarm'
+        message: "At {{ now().strftime('%H:%M') }}"
+

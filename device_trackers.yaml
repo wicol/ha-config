@@ -1,10 +1,10 @@
-- platform: ddwrt
-  host: '192.168.0.1'
-  username: !secret ddwrt_username
-  password: !secret ddwrt_password
-  interval_seconds: 10
-  consider_home: 180
-  track_new_devices: true
+#- platform: ddwrt
+#  host: '192.168.0.1'
+#  username: !secret ddwrt_username
+#  password: !secret ddwrt_password
+#  interval_seconds: 10
+#  #consider_home: 180
+#  track_new_devices: true
 # False positives
 #- platform: ping
 #  hosts:
@@ -12,3 +12,9 @@
 #    ps3: 192.168.0.118
 #    kodi: 192.168.0.114
 #  count: 4
+- platform: unifi_direct
+  host: '192.168.0.128'
+  username: !secret unifi_ap_username
+  password: !secret unifi_ap_password
+  interval_seconds: 15
+
