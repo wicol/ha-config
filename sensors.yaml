@@ -12,11 +12,14 @@
       group_function: last
       where: 'friendly_name = ''Outside'''
       unit_of_measurement: '°C'
-- platform: template
-  sensors:
-    tv_time:
-      friendly_name: "TV Time"
-      #entity_id: media_player.sony_bravia_tv
-      value_template: "{{ ((now() - states.media_player.sony_bravia_tv.last_changed).total_seconds()/60)|round(0) }}"
-      unit_of_measurement: 'minutes'
-  #scan_interval: 30
+- platform: command_line
+  name: TV today
+  command: /config/sensors/tv_time.py
+  unit_of_measurement: minutes
+  scan_interval: 60
+- platform: command_line
+  name: TV last session
+  friendly_name: TV Time last session
+  command: /config/sensors/tv_time.py last_session
+  unit_of_measurement: minutes
+  scan_interval: 60

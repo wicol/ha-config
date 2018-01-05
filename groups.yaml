@@ -38,24 +38,6 @@ misc_view:
         - group.family
         - group.friends
 
-cinema:
-    name: Cinema
-    #view: yes
-    control: hidden
-    entities:
-        - script.ventilate_for_15_mins
-        - switch.cinema_ventilation
-        - switch.projector
-        - binary_sensor.kodi
-        - binary_sensor.xbox360
-        - binary_sensor.ps3
-        - binary_sensor.ps4
-        - binary_sensor.dummy
-        - script.update_library
-        - media_player.denon_3300
-        - media_player.kodi
-        - media_player.bio
-
 # Not used atm
 #cinema_sources:
 #    name: Cinema source devices
@@ -75,11 +57,30 @@ living_room:
     entities:
         - sensor.temperature_158d0001b8d57d
         - switch.living_room_receiver
-        - sensor.tv_time
+        - sensor.tv_today
+        - sensor.tv_last_session
         - media_player.vardagsrum__stereo
         - media_player.sony_bravia_tv
         - media_player.kdl50w808c
         - media_player.spotify
+
+cinema:
+    name: Cinema
+    #view: yes
+    control: hidden
+    entities:
+        - sensor.temperature_158d0001b8d519
+        - switch.cinema_ventilation
+        - switch.projector
+        - binary_sensor.kodi
+        - binary_sensor.xbox360
+        - binary_sensor.ps3
+        - binary_sensor.ps4
+        - binary_sensor.dummy
+        - script.update_library
+        - media_player.denon_3300
+        - media_player.kodi
+        - media_player.bio
 
 garage:
     name: Garage
@@ -153,3 +154,4 @@ friends:
     entities:
         - device_tracker.davidsiphone4
         - device_tracker.joelsiphone6s
+        - device_tracker.gammy
