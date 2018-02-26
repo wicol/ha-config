@@ -59,8 +59,8 @@ logbook:
 sun:
 
 # Text to speech
-#tts:
-#  platform: google
+tts:
+  platform: google
 
 logger:
   default: warning
