@@ -11,24 +11,24 @@ ventilate_for_15_mins:
         entity_id: switch.cinema_ventilation
 
 update_library:
-    alias: Update Kodi Library
-    sequence:
-      - alias: Call Kodi update
-        service: media_player.kodi_call_method
-        data:
-          entity_id: media_player.kodi
-          method: VideoLibrary.Scan
+  alias: Update Kodi Library
+  sequence:
+    - alias: Call Kodi update
+      service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi
+        method: VideoLibrary.Scan
 
 garage_door:
-    alias: Garage door
-    sequence:
-      - condition: state
-        entity_id: input_boolean.garage_door_enabled
-        state: 'on'
-      - service: homeassistant.turn_on
-        entity_id: switch.garage_door_raw
-      - delay:
-          seconds: 10
-      - service: homeassistant.turn_off
-        entity_id: input_boolean.garage_door_enabled
-        
+  alias: Garage door
+  sequence:
+    - condition: state
+      entity_id: input_boolean.garage_door_enabled
+      state: 'on'
+    - service: homeassistant.turn_on
+      entity_id: switch.garage_door_raw
+    - delay:
+        seconds: 120
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.garage_door_enabled
+ 
