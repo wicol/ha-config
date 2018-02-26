@@ -6,7 +6,4 @@
     service: notify.html5
     data_template: 
       title: 'New Home Assistant Release'
-      target:
-        - 'wics s6' 
-        - 'macbook chrome'
       message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
