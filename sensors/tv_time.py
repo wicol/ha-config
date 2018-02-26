@@ -42,6 +42,7 @@ if not res:
 #    'duration': timedelta
 # }]
 for point in res.get_points():
+    # The number of decimals is too damn high!
     point_dt = datetime.datetime.strptime(point['time'][:26], '%Y-%m-%dT%H:%M:%S.%f')
     # Add duration and end to last state
     if state_log:

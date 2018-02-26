@@ -15,6 +15,8 @@ component_config_glob:
     override_measurement: 'motion'
   'media_player.*':
     override_measurement: 'device_log'
+  'sensor.tv_today*':
+    override_measurement: 'device_time'
 include:
   entities:
     - sensor.temperature_158d0001b8d3d5
@@ -32,6 +34,8 @@ include:
     - binary_sensor.door_window_sensor_158d00016c7a5c
     - binary_sensor.cam_01_motion
     - media_player.sony_bravia_tv
+    - media_player.denon_3300
+    - sensor.tv_today
 tags:
   source: ha
 tags_attributes:
