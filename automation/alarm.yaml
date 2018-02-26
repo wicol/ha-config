@@ -85,33 +85,35 @@
       platform: state
       entity_id: binary_sensor.motion_sensor_158d00016db717
       to: 'on'
-      for:
-        seconds: 15
   condition:
     condition: state
     entity_id: alarm_control_panel.ha_alarm
     state: armed_away
   action:
-    service: homeassistant.turn_on
-    entity_id: switch.in_wall_swich_1_switch
+    - delay: '00:00:{{ range(12, 30)|random|int }}'
+    - service: homeassistant.turn_on
+      entity_id: switch.in_wall_swich_1_switch
+    - delay: '00:0{{ range(0, 3)|random|int }}:{{ range(20, 40)|random|int }}'
+    - service: homeassistant.turn_off
+      entity_id: switch.in_wall_swich_1_switch
 
-#- alias: 'Motion outside back door triggers light inside'
-#  trigger:
-#      # Back door motion
-#      platform: state
-#      entity_id: binary_sensor.motion_sensor_158d0001a252a7 
-#      to: 'on'
-#      for:
-#        seconds: 15
-#  condition:
-#    condition: state
-#    entity_id: alarm_control_panel.ha_alarm
-#    state: armed_away
-#  action:
-#    service: homeassistant.turn_on
-#    entity_id: some_switch
-
-
+- alias: 'Motion outside back door triggers light inside'
+  trigger:
+      # Back door motion
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001a252a7 
+      to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.ha_alarm
+    state: armed_away
+  action:
+    - delay: '00:00:{{ range(12, 30)|random|int }}'
+    - service: homeassistant.turn_on
+      entity_id: switch.plug_3_switch
+    - delay: '00:0{{ range(0, 3)|random|int }}:{{ range(20, 40)|random|int }}'
+    - service: homeassistant.turn_off
+      entity_id: switch.plug_3_switch
 
 # More of a reminder than an alarm maybe..
 - alias: 'Garage door left open'
