@@ -1,2 +1,2 @@
 #!/bin/bash
-docker restart home-assistant
+docker restart ha
