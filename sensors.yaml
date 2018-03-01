@@ -14,12 +14,17 @@
       unit_of_measurement: '°C'
 - platform: command_line
   name: TV today
-  command: /config/sensors/tv_time.py
+  command: /config/sensors/device_time.py telegraf device_log entity_id sony_bravia_tv
   unit_of_measurement: minutes
   scan_interval: 60
 - platform: command_line
   name: TV last session
   friendly_name: TV Time last session
-  command: /config/sensors/tv_time.py last_session
+  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id sony_bravia_tv
+  unit_of_measurement: minutes
+  scan_interval: 60
+- platform: command_line
+  name: Denon 3300 today
+  command: /config/sensors/device_time.py telegraf device_log entity_id denon_3300
   unit_of_measurement: minutes
   scan_interval: 60

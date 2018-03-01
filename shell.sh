@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec -it home-assistant bash
+docker exec -it ha bash

@@ -17,6 +17,8 @@ component_config_glob:
     override_measurement: 'device_log'
   'sensor.tv_today*':
     override_measurement: 'device_time'
+  'sensor.denon_3300_today':
+    override_measurement: 'device_time'
 include:
   entities:
     - sensor.temperature_158d0001b8d3d5
@@ -36,6 +38,7 @@ include:
     - media_player.sony_bravia_tv
     - media_player.denon_3300
     - sensor.tv_today
+    - sensor.denon_3300_today
 tags:
   source: ha
 tags_attributes:

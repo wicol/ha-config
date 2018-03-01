@@ -70,6 +70,7 @@ cinema:
     control: hidden
     entities:
         - sensor.temperature_158d0001b8d519
+        - sensor.denon_3300_today
         - switch.cinema_ventilation
         - switch.projector
         - binary_sensor.kodi
