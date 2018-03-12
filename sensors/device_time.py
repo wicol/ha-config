@@ -10,11 +10,11 @@ from influxdb import InfluxDBClient
 @click.command()
 @click.option(
     '--date',
-    default=datetime.datetime.now().strftime('%Y%m%d'),
+    default=datetime.datetime.utcnow().strftime('%Y%m%d'),
     help='Get value for specific date. Format: "YYYYMMDD". Defaults to today.'
 )
-@click.option('--state', default='on',
-    help='What state? (Value of --field-key). Defaults to "on".')
+@click.option('--states', default='on',
+    help='What states? (Value of --field-key). Separate with ",". Defaults to "on".')
 @click.option('--field-key', default='state',
     help='Name of the field key that contains the state. Defaults to "state".')
 @click.option('--last-session', is_flag=True)
@@ -25,7 +25,7 @@ from influxdb import InfluxDBClient
 @click.argument('tag_key')
 @click.argument('tag_value')
 def get_time_in_state(
-        database, measurement, tag_key, tag_value, date, state,
+        database, measurement, tag_key, tag_value, date, states,
         field_key, last_session, max_pause_seconds, debug):
     """
     Get minutes spent in <state> for a device and date. (<state> defaults to 'on').
@@ -37,10 +37,10 @@ def get_time_in_state(
     device_time.py --date 20180301 telegraf device_log entity_id sony_bravia_tv
     """
     # Init
-    # TODO: credentials
+    # TODO: credentials, host
     client = InfluxDBClient(database=database)
-    # Maybe .replace(tzinfo=pytz.UTC) ?
     date = datetime.datetime.strptime(date, '%Y%m%d')
+    states = states.split(',')
     
     state_log = []
     
@@ -53,7 +53,7 @@ def get_time_in_state(
         state_log.append({
             # First period starts at the beginning of today
             'start': date,
-            'state': next(initial_state_res.get_points())['state'] == state
+            'state': next(initial_state_res.get_points())['state'] in states
         })
     
     # Get measurements from date
@@ -82,7 +82,7 @@ def get_time_in_state(
                 'duration': point_dt - state_log[-1]['start'],
                 'end': point_dt
             })
-        state_log.append({'start': point_dt, 'state': point['state'] == state})
+        state_log.append({'start': point_dt, 'state': point['state'] in states})
     
     # Add duration and end to last state
     # Let it end at earliest of now or end of same day (allows for getting dates in

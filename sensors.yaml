@@ -25,6 +25,6 @@
   scan_interval: 60
 - platform: command_line
   name: Denon 3300 today
-  command: /config/sensors/device_time.py telegraf device_log entity_id denon_3300
+  command: /config/sensors/device_time.py --states on,playing telegraf device_log entity_id denon_3300
   unit_of_measurement: minutes
   scan_interval: 60
