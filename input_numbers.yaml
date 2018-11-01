@@ -1,0 +1,7 @@
+kitchen_cabinet_lights:
+  name: Kitchen cabinet lights
+  initial: 0
+  min: 0
+  max: 2
+  step: 1
+  icon: mdi:lightbulb

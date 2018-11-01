@@ -120,3 +120,4 @@ input_boolean: !include input_boolean.yaml
 camera: !include cameras.yaml
 notify: !include notify.yaml
 timer: !include timers.yaml
+input_number: !include input_numbers.yaml

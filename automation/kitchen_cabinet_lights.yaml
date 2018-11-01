@@ -1,0 +1,21 @@
+- alias: Kitchen light set state
+  trigger:
+    platform: state
+    entity_id: input_number.kitchen_cabinet_lights
+  action:
+    service: mqtt.publish
+    # Note the use of 'data_template:' below rather than the normal 'data:' if you weren't using an input variable
+    data_template:
+      topic: "lights/kitchen_cabinets/set"
+      payload: "{{ trigger.to_state.state | int }}"
+
+- alias: Kitchen light get state
+  trigger:
+    platform: mqtt
+    topic: "lights/kitchen_cabinets/get"
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.kitchen_cabinet_lights
+      value: "{{ trigger.payload }}"
+
