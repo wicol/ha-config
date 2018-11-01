@@ -1,9 +1,9 @@
 default_view:
-    name: Living room
+    name: Home
     view: yes
     icon: mdi:home
     entities:
-        - group.living_room
+        - group.ground_floor
 
 cinema_view:
     view: yes
@@ -50,15 +50,18 @@ misc_view:
 #        - media_player.denon_3300
 #        - binary_sensor.dummy
 
-living_room:
-    name: Living room
+ground_floor:
+    name: Ground floor
     #view: yes
     control: hidden
     entities:
-        - sensor.temperature_158d0001b8d57d
+        - sensor.temperature_1
         - switch.living_room_receiver
         - sensor.tv_today
         - sensor.tv_last_session
+        - switch.in_wall_2
+        - switch.in_wall_3
+        - input_number.kitchen_cabinet_lights
         - media_player.vardagsrum__stereo
         - media_player.sony_bravia_tv
         - media_player.kdl50w808c
@@ -69,7 +72,7 @@ cinema:
     #view: yes
     control: hidden
     entities:
-        - sensor.temperature_158d0001b8d519
+        - sensor.temperature_2
         - sensor.denon_3300_today
         - switch.cinema_ventilation
         - switch.projector
@@ -88,7 +91,7 @@ garage:
     control: hidden
     entities:
         - switch.garage_door
-        - binary_sensor.door_window_sensor_158d00016c7a5c
+        - binary_sensor.openclose_1
         - binary_sensor.cam_01_motion
         - camera.garage
 
@@ -103,10 +106,12 @@ alarm:
     name: Alarm
     entities:
         - alarm_control_panel.ha_alarm
-        - binary_sensor.door_window_sensor_158d00016c7a5c
+        - binary_sensor.openclose_1
+        - binary_sensor.openclose_2
+        - binary_sensor.openclose_3
         - binary_sensor.cam_01_motion
-        - binary_sensor.motion_sensor_158d00016db717
-        - binary_sensor.motion_sensor_158d0001a252a7
+        - binary_sensor.motion_1
+        - binary_sensor.motion_2
 
 
 appdaemon_apps:
@@ -120,16 +125,16 @@ measurements:
     entities:
         - sensor.power_usage
         - sensor.temperature_darksky 
-        - sensor.temperature_158d0001b8d3d5
-        - sensor.temperature_158d0001b8d4af
-        - sensor.temperature_158d0001b8d519
-        - sensor.temperature_158d0001b8d57d
-        - sensor.humidity_158d0001b8d3d5
-        - sensor.humidity_158d0001b8d4af
-        - sensor.humidity_158d0001b8d519
-        - sensor.humidity_158d0001b8d57d
-        - sensor.illumination_158d00016db717
-        - sensor.illumination_158d0001a252a7
+        - sensor.temperature_1
+        - sensor.temperature_2
+        - sensor.temperature_3
+        - sensor.temperature_4
+        - sensor.humidity_1
+        - sensor.humidity_2
+        - sensor.humidity_3
+        - sensor.humidity_4
+        - sensor.light_1
+        - sensor.light_2
         - sensor.temperature_darksky 
 
 family:
@@ -153,6 +158,6 @@ friends:
     name: Friends
     icon: mdi:account-multiple
     entities:
-        - device_tracker.davidsiphone4
+        - device_tracker.davidsiphone
         - device_tracker.joelsiphone6s
         - device_tracker.gammy

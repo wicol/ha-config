@@ -1,2 +1,2 @@
 #!/bin/bash
-docker restart ha
+docker exec -it ha kill -1 1

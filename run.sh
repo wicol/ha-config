@@ -9,7 +9,7 @@ docker run \
     --name="ha" \
     -d \
     --restart always \
-    --device /dev/ttyACM0 \
+    --device /dev/zwave \
     -v /srv/app/homeassistant:/config \
     -v /etc/localtime:/etc/localtime:ro \
     --net=host \

@@ -17,4 +17,5 @@
   username: !secret unifi_ap_username
   password: !secret unifi_ap_password
   interval_seconds: 15
+  track_new_devices: false
 

@@ -33,35 +33,10 @@ binary_sensor.cam_01_motion:
 
 sensor.power_usage:
     icon: mdi:flash
-sensor.temperature_158d0001b8d3d5:
-    friendly_name: Bedroom temp
-sensor.temperature_158d0001b8d4af:
-    friendly_name: Axels room temp
-sensor.temperature_158d0001b8d519:
-    friendly_name: Cinema room temp
-sensor.temperature_158d0001b8d57d:
-    friendly_name: Living room temp
 sensor.temperature_darksky:
     friendly_name: Outside temp
-binary_sensor.door_window_sensor_158d00016c7a5c:
-    friendly_name: Garage door
+binary_sensor.openclose_1:
     icon: mdi:garage
-sensor.humidity_158d0001b8d3d5:
-    friendly_name: Bedroom humidity
-sensor.humidity_158d0001b8d4af:
-    friendly_name: Axels room humidity
-sensor.humidity_158d0001b8d519:
-    friendly_name: Cinema room humidity
-sensor.humidity_158d0001b8d57d:
-    friendly_name: Living room humidity 
-sensor.illumination_158d00016db717:
-    friendly_name: Basement door illumination
-sensor.illumination_158d0001a252a7:
-    friendly_name: Back door illumination
-binary_sensor.motion_sensor_158d00016db717:
-    friendly_name: Basement door motion
-binary_sensor.motion_sensor_158d0001a252a7:
-    friendly_name: Back door motion
 
 group.all_automations:
     hidden: false

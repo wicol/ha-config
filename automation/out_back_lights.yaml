@@ -1,0 +1,17 @@
+- alias: 'Out back lights on'
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "00:15:00"
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.in_wall_2
+
+- alias: 'Out back lights off'
+  trigger:
+    - platform: sun
+      event: sunrise
+      offset: '-00:15:00'
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.in_wall_2

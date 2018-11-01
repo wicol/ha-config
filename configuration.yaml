@@ -54,6 +54,9 @@ history:
 
 # View all events in a logbook
 logbook:
+  exclude:
+    domains:
+      - group
 
 # Track the sun
 sun:
@@ -69,12 +72,15 @@ logger:
     homeassistant.components.notify: debug
     homeassistant.components.python_script: debug
     homeassistant.components.media_player: debug
+    homeassistant.components.media_player.kodi: info
     #homeassistant.components.switch.broadlink: debug
     #homeassistant.components.xiaomi_aqara: debug
     #homeassistant.components.mqtt: debug
     #homeassistant.components.logbook: debug
     #PyXiaomiGateway: debug
     homeassistant.components.zwave: info
+    pydeconz: debug
+    homeassistant.components.deconz: debug
 
 python_script:
 wake_on_lan:
@@ -83,15 +89,20 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
-xiaomi_aqara:
-  discovery_retry: 5
-  gateways:
-    - host: '192.168.0.127'
-      key: !secret xiaomi_key
+#xiaomi_aqara:
+#  discovery_retry: 5
+#  gateways:
+#    - host: '192.168.0.127'
+#      key: !secret xiaomi_key
 
 zwave:
-  usb_path: /dev/ttyACM0
+  usb_path: /dev/zwave
   debug: true
+  device_config_glob:
+    "sensor.in_wall_switch*":
+        ignored: true
+    "zwave.*":
+        ignored: true
 
 alarm_control_panel:
   - platform: manual

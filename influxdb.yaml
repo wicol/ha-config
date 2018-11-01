@@ -7,11 +7,11 @@ component_config_glob:
     override_measurement: 'temperature'
   'sensor.humidity*':
     override_measurement: 'humidity'
-  'sensor.illumination*':
-    override_measurement: 'illumination'
-  'binary_sensor.door_window*':
-    override_measurement: 'door_window'
-  'binary_sensor.*motion*':
+  'sensor.light*':
+    override_measurement: 'light'
+  'binary_sensor.openclose*':
+    override_measurement: 'openclose'
+  'binary_sensor.motion*':
     override_measurement: 'motion'
   'media_player.*':
     override_measurement: 'device_log'
@@ -21,19 +21,20 @@ component_config_glob:
     override_measurement: 'device_time'
 include:
   entities:
-    - sensor.temperature_158d0001b8d3d5
-    - sensor.temperature_158d0001b8d4af
-    - sensor.temperature_158d0001b8d519
-    - sensor.temperature_158d0001b8d57d
-    - sensor.humidity_158d0001b8d3d5
-    - sensor.humidity_158d0001b8d4af
-    - sensor.humidity_158d0001b8d519
-    - sensor.humidity_158d0001b8d57d
-    - sensor.illumination_158d00016db717
-    - sensor.illumination_158d0001a252a7
-    - binary_sensor.motion_sensor_158d00016db717
-    - binary_sensor.motion_sensor_158d0001a252a7
-    - binary_sensor.door_window_sensor_158d00016c7a5c
+    - sensor.temperature_1
+    - sensor.temperature_2
+    - sensor.temperature_3
+    - sensor.temperature_4
+    - sensor.humidity_1
+    - sensor.humidity_2
+    - sensor.humidity_3
+    - sensor.humidity_4
+    - sensor.light_1
+    - sensor.light_2
+    - binary_sensor.motion_1
+    - binary_sensor.motion_2
+    - binary_sensor.openclose_1
+    - binary_sensor.openclose_2
     - binary_sensor.cam_01_motion
     - media_player.sony_bravia_tv
     - media_player.denon_3300

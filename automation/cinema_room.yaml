@@ -145,3 +145,15 @@
     service: homeassistant.turn_off
     entity_id: switch.plug_2_switch
 
+- alias: 'Receiver max 5h'
+  trigger:
+    platform: state
+    entity_id: media_player.denon_3300
+    to: 'on'
+    for:
+      hours: 5
+  action:
+    service: homeassistant.turn_off
+    entity_id: media_player.denon_3300
+
+
