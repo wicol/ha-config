@@ -54,3 +54,15 @@
 #        title: 'Garage door open'
 #        message: '{{ now() }}'
  
+- alias: 'Switch toggle'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: switch_1
+      event: 1000
+  action:
+    service: switch.toggle
+    data:
+      entity_id: switch.plug_1
