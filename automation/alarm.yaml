@@ -15,7 +15,7 @@
     - service: notify.html5
       data_template:
         title: 'Arming alarm'
-        message: "No one home at {{ now().strftime('%H:%M') }}"
+        message: "No one home for 10 mins at {{ now().strftime('%H:%M') }}"
         #target:
         #  - 'wicphone'
       data:
@@ -43,11 +43,15 @@
     - platform: state
       entity_id: group.family
       to: home
-  condition: 
-    # Add or for armed-home if it's used..
-    - condition: state
-      entity_id: alarm_control_panel.ha_alarm
-      state: armed_away
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: alarm_control_panel.ha_alarm
+        state: armed_away
+      - condition: state
+        entity_id: alarm_control_panel.ha_alarm
+        state: triggered
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
@@ -58,13 +62,8 @@
 
 - alias: 'Trigger alarm'
   trigger:
-    # Garage door
     - platform: state
-      entity_id: binary_sensor.door_window_sensor_158d00016c7a5c
-      to: 'on'
-    # Garage cam
-    - platform: state
-      entity_id: binary_sensor.cam_01_motion
+      entity_id: group.alarm
       to: 'on'
   condition:
     - condition: state
@@ -73,17 +72,37 @@
   action:
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.ha_alarm
-    # NOTE: At this point the alarm is actually pending triggered
+    - service: input_text.set_value
+      data_template:
+        entity_id: input_text.triggered_alarm_entities
+        value: |
+          {%- for entity in states.group.alarm.attributes.entity_id if states(entity) == 'on' %}
+          * {{ state_attr(entity, 'friendly_name') -}}
+          {% endfor %}
+
+- alias: 'Notify alarm triggered'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'triggered'
+  action:    
     - service: notify.html5
       data_template:
         title: 'Alarm triggered'
-        message: "Alarm triggered by {{ trigger.to_state.attributes.friendly_name }}."
+        message: >
+          Triggered sensors:
+          {{ states('input_text.triggered_alarm_entities') }}
+    # Clear variable
+    - service: input_text.set_value
+      data:
+        entity_id: input_text.triggered_alarm_entities
+        value: ''
 
 - alias: 'Motion outside basement door triggers light inside'
   trigger:
       # Basement door motion
       platform: state
-      entity_id: binary_sensor.motion_sensor_158d00016db717
+      entity_id: binary_sensor.motion_2
       to: 'on'
   condition:
     condition: state
@@ -110,10 +129,10 @@
   action:
     - delay: '00:00:{{ range(12, 30)|random|int }}'
     - service: homeassistant.turn_on
-      entity_id: switch.plug_3_switch
+      entity_id: switch.plug_3
     - delay: '00:0{{ range(0, 3)|random|int }}:{{ range(20, 40)|random|int }}'
     - service: homeassistant.turn_off
-      entity_id: switch.plug_3_switch
+      entity_id: switch.plug_3
 
 # More of a reminder than an alarm maybe..
 - alias: 'Garage door left open'
