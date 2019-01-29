@@ -7,3 +7,5 @@
     data_template: 
       title: 'New Home Assistant Release'
       message: "Home Assistant  {{ states.updater.updater.state }}  is now available."
+      data:
+        url: 'https://www.home-assistant.io/blog/'
