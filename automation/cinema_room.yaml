@@ -1,13 +1,13 @@
-- alias: 'Ventilate for max 2h'
-  trigger:
-    platform: state
-    entity_id: switch.cinema_ventilation
-    to: 'on'
-    for:
-      minutes: 120
-  action:
-    service: homeassistant.turn_off
-    entity_id: switch.cinema_ventilation
+#- alias: 'Ventilate for max 2h'
+#  trigger:
+#    platform: state
+#    entity_id: switch.cinema_ventilation
+#    to: 'on'
+#    for:
+#      minutes: 120
+#  action:
+#    service: homeassistant.turn_off
+#    entity_id: switch.cinema_ventilation
 
 ## Kinda works, but kodi might go from off to idle or something 
 ## and I don't like the if-rake in the action :/
@@ -129,12 +129,15 @@
 
 - alias: 'Sub auto on'
   trigger:
-    platform: state
-    entity_id: media_player.denon_3300
-    to: 'on'
+    - platform: state
+      entity_id: media_player.denon_3300
+      to: 'on'
+    - platform: state
+      entity_id: media_player.denon_3300
+      to: 'playing'
   action:
     service: homeassistant.turn_on
-    entity_id: switch.plug_2_switch
+    entity_id: switch.plug_2
 
 - alias: 'Sub auto off'
   trigger:
@@ -143,7 +146,7 @@
     to: 'off'
   action:
     service: homeassistant.turn_off
-    entity_id: switch.plug_2_switch
+    entity_id: switch.plug_2
 
 - alias: 'Receiver max 5h'
   trigger:
