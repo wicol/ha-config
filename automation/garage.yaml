@@ -1,0 +1,28 @@
+- alias: Garage lights motion trigger
+  trigger:
+      platform: state
+      #entity_id: group.garage_motion_sensors
+      entity_id: binary_sensor.motion_3
+      to: 'on'
+  condition:
+    condition: state
+    entity_id: switch.in_wall_4
+    state: 'off'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: switch.in_wall_4
+
+- alias: Garage lights motion timeout
+  trigger:
+      platform: state
+      #entity_id: group.garage_motion_sensors
+      entity_id: binary_sensor.motion_3
+      to: 'off'
+      for: '00:02:00'
+  condition:
+    condition: state
+    entity_id: switch.in_wall_4
+    state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: switch.in_wall_4

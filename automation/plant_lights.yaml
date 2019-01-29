@@ -1,0 +1,23 @@
+- alias: 'Plant lights on'
+  trigger:
+    - platform: time
+      at: '07:00:00'
+  condition:
+    condition: state
+    state: 'off'
+    entity_id: switch.zigbee_plug_1
+  action:
+    service: homeassistant.turn_on
+    entity_id: switch.zigbee_plug_1
+
+- alias: 'Plant lights off'
+  trigger:
+    - platform: time
+      at: '13:00:00'
+  condition:
+    condition: state
+    state: 'on'
+    entity_id: switch.zigbee_plug_1
+  action:
+    service: homeassistant.turn_off
+    entity_id: switch.zigbee_plug_1

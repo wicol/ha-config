@@ -12,6 +12,7 @@ homeassistant:
   time_zone: Europe/Stockholm
 
   customize: !include customize.yaml
+  customize_glob: !include customize_glob.yaml
 
 # Show links to resources in log and frontend
 #introduction:
@@ -70,17 +71,18 @@ logger:
   logs:
     #homeassistant.components.automation: debug
     homeassistant.components.notify: debug
-    homeassistant.components.python_script: debug
-    homeassistant.components.media_player: debug
-    homeassistant.components.media_player.kodi: info
+    homeassistant.components.notify.html5: debug
+    #homeassistant.components.python_script: debug
+    #homeassistant.components.media_player: debug
+    #homeassistant.components.media_player.kodi: info
     #homeassistant.components.switch.broadlink: debug
     #homeassistant.components.xiaomi_aqara: debug
     #homeassistant.components.mqtt: debug
     #homeassistant.components.logbook: debug
     #PyXiaomiGateway: debug
-    homeassistant.components.zwave: info
-    pydeconz: debug
-    homeassistant.components.deconz: debug
+    #homeassistant.components.zwave: info
+    #pydeconz: debug
+    #homeassistant.components.deconz: debug
 
 python_script:
 wake_on_lan:
@@ -98,11 +100,12 @@ mqtt:
 zwave:
   usb_path: /dev/zwave
   debug: true
-  device_config_glob:
-    "sensor.in_wall_switch*":
-        ignored: true
-    "zwave.*":
-        ignored: true
+  network_key: !secret zwave_network_key 
+  #device_config_glob:
+    #"sensor.in_wall_switch*":
+    #    ignored: true
+    #"zwave.*":
+    #    ignored: true
 
 alarm_control_panel:
   - platform: manual
@@ -115,9 +118,11 @@ binary_sensor: !include binary_sensors.yaml
 automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 media_player: !include media_players.yaml
+cast: !include cast.yaml
 device_tracker: !include device_trackers.yaml
 input_boolean: !include input_boolean.yaml
+input_number: !include input_numbers.yaml
+input_text: !include input_text.yaml
 camera: !include cameras.yaml
 notify: !include notify.yaml
 timer: !include timers.yaml
-input_number: !include input_numbers.yaml

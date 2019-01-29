@@ -62,10 +62,9 @@ ground_floor:
         - switch.in_wall_2
         - switch.in_wall_3
         - input_number.kitchen_cabinet_lights
-        - media_player.vardagsrum__stereo
+        - media_player.vardagsrum_stereo
         - media_player.sony_bravia_tv
         - media_player.kdl50w808c
-        - media_player.spotify
 
 cinema:
     name: Cinema
@@ -74,7 +73,7 @@ cinema:
     entities:
         - sensor.temperature_2
         - sensor.denon_3300_today
-        - switch.cinema_ventilation
+        #- switch.cinema_ventilation
         - switch.projector
         - binary_sensor.kodi
         - binary_sensor.xbox360
@@ -93,6 +92,8 @@ garage:
         - switch.garage_door
         - binary_sensor.openclose_1
         - binary_sensor.cam_01_motion
+        - binary_sensor.motion_3
+        - switch.in_wall_4
         - camera.garage
 
 # Needs to be in a separate group to move it down/right in UI
@@ -102,6 +103,15 @@ garage_door_lock:
     entities:
         - input_boolean.garage_door_enabled
 
+# Need a separate group for motion sesors to group them in automation
+garage_motion_sensors:
+    name: Garage motion sensors
+    entities:
+      # Garange camera motion sensor
+      - binary_sensor.cam_01_motion
+      # Garage motion sensor
+      - binary_sensor.motion_3
+
 alarm:
     name: Alarm
     entities:
@@ -109,10 +119,8 @@ alarm:
         - binary_sensor.openclose_1
         - binary_sensor.openclose_2
         - binary_sensor.openclose_3
+        - binary_sensor.openclose_4
         - binary_sensor.cam_01_motion
-        - binary_sensor.motion_1
-        - binary_sensor.motion_2
-
 
 appdaemon_apps:
     name: Appdaemon apps

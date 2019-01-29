@@ -12,13 +12,13 @@ binary_sensor.ps3:
 binary_sensor.ps4:
     friendly_name: PS4
     icon: mdi:playstation
-script.ventilate_for_15_mins:
-    icon: mdi:fan
-switch.cinema_ventilation:
-    icon: mdi:fan
+#script.ventilate_for_15_mins:
+#    icon: mdi:fan
+#switch.cinema_ventilation:
+#    icon: mdi:fan
 media_player.bio:
     friendly_name: Chromecast
-media_player.vardagsrum__stereo:
+media_player.vardagsrum_stereo:
     friendly_name: Chromecast Audio
 media_player.kdl50w808c:
     friendly_name: TV Cast service
@@ -29,7 +29,13 @@ switch.living_room_receiver:
 switch.garage_door:
     icon: mdi:garage
 binary_sensor.cam_01_motion:
-    friendly_name: Garage motion
+    friendly_name: Garage camera motion
+binary_sensor.openclose_2:
+    icon: mdi:door
+binary_sensor.openclose_3:
+    icon: mdi:door
+binary_sensor.openclose_4:
+    icon: mdi:door
 
 sensor.power_usage:
     icon: mdi:flash
@@ -42,3 +48,5 @@ group.all_automations:
     hidden: false
 group.all_switches:
     hidden: false
+group.garage_motion_sensors:
+    hidden: true

@@ -1,7 +1,7 @@
 - alias: 'Living room receiver auto on'
   trigger:
     - platform: state
-      entity_id: media_player.vardagsrum__stereo
+      entity_id: media_player.vardagsrum_stereo
       to: 'playing'
     - platform: state
       entity_id: media_player.sony_bravia_tv
@@ -13,7 +13,7 @@
 - alias: 'Living room receiver auto off'
   trigger:
     - platform: state
-      entity_id: media_player.vardagsrum__stereo
+      entity_id: media_player.vardagsrum_stereo
       to: 'off'
       for:
         minutes: 1
@@ -26,7 +26,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: media_player.vardagsrum__stereo
+        entity_id: media_player.vardagsrum_stereo
         state: 'off'
       - condition: state
         entity_id: media_player.sony_bravia_tv

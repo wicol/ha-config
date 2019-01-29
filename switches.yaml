@@ -1,10 +1,10 @@
 - platform: command_line
   switches:
-    cinema_ventilation:
-      command_on: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py True'
-      command_off: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py False'
-      command_state: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py | grep True'
-      friendly_name: Ventilation
+    #cinema_ventilation:
+    #  command_on: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py True'
+    #  command_off: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py False'
+    #  command_state: 'cd /config; password=$(./get_secret.py cinema_vent_password) ./switches/cinema_ventilation.py | grep True'
+    #  friendly_name: Ventilation
     # omg rebuild this plz
     living_room_receiver:
       command_on: 'cd /config; password=$(./get_secret.py living_room_receiver_password) ./switches/living_room_receiver.py False'
@@ -15,7 +15,7 @@
       command_on: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py'
       command_off: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py && sleep 10'
       # off = false = closed, on = true = open
-      value_template: "{{ is_state('binary_sensor.door_window_sensor_158d00016c7a5c', 'on') }}"
+      value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
       
 
 - platform: broadlink
@@ -36,5 +36,5 @@
         service: script.garage_door
       turn_off:
         service: script.garage_door
-      value_template: "{{ is_state('binary_sensor.door_window_sensor_158d00016c7a5c', 'on') }}"
+      value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
 

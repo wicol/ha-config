@@ -1,0 +1,9 @@
+#- alias: Office mood lights
+#  initial_state: 'on'
+#  trigger:
+#    platform: state
+#    entity_id: switch.in_wall_6
+#  action:
+#    service_template: 'switch.turn_{{ trigger.to_state.state }}'
+#    data:
+#      entity_id: switch.plug_1

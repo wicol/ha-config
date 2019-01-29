@@ -139,7 +139,7 @@
   trigger:
     # Garage door
     platform: state
-    entity_id: binary_sensor.door_window_sensor_158d00016c7a5c
+    entity_id: binary_sensor.openclose_1
     to: 'on'
     for:
       minutes: 5

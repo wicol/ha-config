@@ -3,19 +3,29 @@
     platform: state
     entity_id: input_number.kitchen_cabinet_lights
   action:
-    service: mqtt.publish
-    # Note the use of 'data_template:' below rather than the normal 'data:' if you weren't using an input variable
-    data_template:
-      topic: "lights/kitchen_cabinets/set"
-      payload: "{{ trigger.to_state.state | int }}"
+    - service: automation.turn_off
+      entity_id: automation.kitchet_light_get_state
+    - service: mqtt.publish
+      # Note the use of 'data_template:' below rather than the normal 'data:' if you weren't using an input variable
+      data_template:
+        topic: "lights/kitchen_cabinets/set"
+        payload: "{{ trigger.to_state.state | int }}"
+    - delay: '00:00:04'
+    - service: automation.turn_on
+      entity_id: automation.kitchet_light_get_state
 
 - alias: Kitchen light get state
   trigger:
     platform: mqtt
     topic: "lights/kitchen_cabinets/get"
   action:
-    service: input_number.set_value
-    data_template:
-      entity_id: input_number.kitchen_cabinet_lights
-      value: "{{ trigger.payload }}"
+    - service: automation.turn_off
+      entity_id: automation.kitchet_light_set_state
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.kitchen_cabinet_lights
+        value: "{{ trigger.payload }}"
+    - delay: '00:00:04'
+    - service: automation.turn_on
+      entity_id: automation.kitchet_light_set_state
 
