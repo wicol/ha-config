@@ -73,7 +73,7 @@ cinema:
     entities:
         - sensor.temperature_2
         - sensor.denon_3300_today
-        #- switch.cinema_ventilation
+        - switch.zb_plug_2
         - switch.projector
         - binary_sensor.kodi
         - binary_sensor.xbox360
@@ -121,6 +121,7 @@ alarm:
         - binary_sensor.openclose_3
         - binary_sensor.openclose_4
         - binary_sensor.cam_01_motion
+        - camera.living_room
 
 appdaemon_apps:
     name: Appdaemon apps

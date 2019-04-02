@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+  appdaemon:
+    #image: homeassistant/home-assistant:0.88.1
+    image: homeassistant/home-assistant:0.90.2
+    container_name: ha
+    network_mode: host
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/app/homeassistant:/config 
+    devices:
+      - /dev/zwave

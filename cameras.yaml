@@ -4,3 +4,7 @@
   still_image_url: http://cam-01/image.jpg
   username: !secret cam-01_username
   password: !secret cam-01_password
+
+- platform: ffmpeg
+  name: Living room
+  input: !secret cam-02_uri

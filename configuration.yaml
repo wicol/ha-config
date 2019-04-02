@@ -25,7 +25,9 @@ config:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret api_password 
+  # now deprecated
+  #api_password: !secret api_password 
+  
   # Uncomment this if you are using SSL or running in Docker etc
   base_url: !secret base_url
 
@@ -83,6 +85,8 @@ logger:
     #homeassistant.components.zwave: info
     #pydeconz: debug
     #homeassistant.components.deconz: debug
+    #homeassistant.components.device_tracker: debug
+    #homeassistant.components.device_tracker.unifi_direct: debug
 
 python_script:
 wake_on_lan:

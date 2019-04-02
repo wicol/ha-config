@@ -19,7 +19,7 @@
   scan_interval: 60
 - platform: command_line
   name: TV last session
-  friendly_name: TV Time last session
+  #friendly_name: TV Time last session
   command: /config/sensors/device_time.py --last-session telegraf device_log entity_id sony_bravia_tv
   unit_of_measurement: minutes
   scan_interval: 60

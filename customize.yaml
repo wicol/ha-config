@@ -12,10 +12,8 @@ binary_sensor.ps3:
 binary_sensor.ps4:
     friendly_name: PS4
     icon: mdi:playstation
-#script.ventilate_for_15_mins:
-#    icon: mdi:fan
-#switch.cinema_ventilation:
-#    icon: mdi:fan
+switch.zb_plug_2:
+    icon: mdi:fan
 media_player.bio:
     friendly_name: Chromecast
 media_player.vardagsrum_stereo:

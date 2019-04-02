@@ -1,5 +1,5 @@
 - platform: denonavr
-  host: '192.168.0.116'
+  host: 'denon-3300'
   name: Denon 3300
   scan_interval: 15
   timeout: 5
