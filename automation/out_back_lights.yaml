@@ -1,17 +1,29 @@
 - alias: 'Out back lights on'
+  #trigger:
+    #- platform: sun
+    #  event: sunset
+    #  offset: "00:15:00"
   trigger:
-    - platform: sun
-      event: sunset
-      offset: "00:15:00"
+    - platform: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state.attributes.elevation }}"
+      # Can be a positive or negative number
+      below: -4.1
   action:
     service: homeassistant.turn_on
     entity_id: switch.in_wall_2
 
 - alias: 'Out back lights off'
+  #trigger:
+  #  - platform: sun
+  #    event: sunrise
+  #    offset: '-00:15:00'
   trigger:
-    - platform: sun
-      event: sunrise
-      offset: '-00:15:00'
+    - platform: numeric_state
+      entity_id: sun.sun
+      value_template: "{{ state.attributes.elevation }}"
+      # Can be a positive or negative number
+      above: -3.5
   action:
     service: homeassistant.turn_off
     entity_id: switch.in_wall_2

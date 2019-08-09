@@ -1,5 +1,5 @@
-media_player:
-  #- host: cc-01
+#media_player:
+#  - host: cc-01
   #- host: cc-audio-01
   #- host: cc-audio-02
   #- host: tv

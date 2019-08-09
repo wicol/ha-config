@@ -74,6 +74,7 @@ cinema:
         - sensor.temperature_2
         - sensor.denon_3300_today
         - switch.zb_plug_2
+        - light.in_wall_2
         - switch.projector
         - binary_sensor.kodi
         - binary_sensor.xbox360
@@ -93,7 +94,6 @@ garage:
         - binary_sensor.openclose_1
         - binary_sensor.cam_01_motion
         - binary_sensor.motion_3
-        - switch.in_wall_4
         - camera.garage
 
 # Needs to be in a separate group to move it down/right in UI

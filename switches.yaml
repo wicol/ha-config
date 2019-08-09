@@ -16,9 +16,6 @@
       command_off: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py && sleep 10'
       # off = false = closed, on = true = open
       value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
-    garage_door_raw_trigger:
-      command_on: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py'
-      value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
       
 
 - platform: broadlink

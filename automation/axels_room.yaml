@@ -9,4 +9,4 @@
   action:
     service: switch.toggle
     data:
-      entity_id: switch.zb_plug_3
+      entity_id: switch.in_wall_4

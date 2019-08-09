@@ -6,11 +6,11 @@
       to: 'on'
   condition:
     condition: state
-    entity_id: switch.in_wall_4
+    entity_id: switch.in_wall_1
     state: 'off'
   action:
     - service: homeassistant.turn_on
-      entity_id: switch.in_wall_4
+      entity_id: switch.in_wall_1
 
 - alias: Garage lights motion timeout
   trigger:
@@ -21,8 +21,8 @@
       for: '00:02:00'
   condition:
     condition: state
-    entity_id: switch.in_wall_4
+    entity_id: switch.in_wall_1
     state: 'on'
   action:
     - service: homeassistant.turn_off
-      entity_id: switch.in_wall_4
+      entity_id: switch.in_wall_1

@@ -14,6 +14,8 @@ binary_sensor.ps4:
     icon: mdi:playstation
 switch.zb_plug_2:
     icon: mdi:fan
+light.in_wall_2:
+    icon: mdi:fan
 media_player.bio:
     friendly_name: Chromecast
 media_player.vardagsrum_stereo:
