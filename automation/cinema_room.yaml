@@ -8,6 +8,17 @@
   action:
     service: homeassistant.turn_off
     entity_id: switch.zb_plug_2
+ 
+- alias: 'Ventilate for max 6h'
+  trigger:
+    platform: state
+    entity_id: light.in_wall_2
+    to: 'on'
+    for:
+      hours: 6
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.in_wall_2
 
 ## Kinda works, but kodi might go from off to idle or something 
 ## and I don't like the if-rake in the action :/
@@ -158,5 +169,16 @@
   action:
     service: homeassistant.turn_off
     entity_id: media_player.denon_3300
+
+- alias: 'HTPC max 4h idle'
+  trigger:
+    platform: state
+    entity_id: media_player.kodi
+    to: 'idle'
+    for:
+      hours: 4
+  action:
+    service: homeassistant.turn_off
+    entity_id: media_player.kodi
 
 
