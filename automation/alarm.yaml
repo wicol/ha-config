@@ -3,8 +3,8 @@
     - platform: state
       entity_id: group.family
       to: not_home
-      for:
-        minutes: 10
+      #for:
+      #  minutes: 10
   condition: 
     - condition: state
       entity_id: alarm_control_panel.ha_alarm
@@ -15,12 +15,12 @@
     - service: notify.html5
       data_template:
         title: 'Arming alarm'
-        message: "No one home for 10 mins at {{ now().strftime('%H:%M') }}"
+        message: "No one home at {{ now().strftime('%H:%M') }}"
         #target:
         #  - 'wicphone'
       data:
         data:
-          tag: arming
+          #tag: arming
           actions:
             - action: disarm_alarm
               title: Disarm
@@ -42,22 +42,21 @@
   trigger:
     - platform: state
       entity_id: group.family
-      to: home
+      to: 'home'
+    - platform: state
+      entity_id: switch.garage_door_raw
+      to: 'on'
   condition:
-    condition: or
     conditions:
-      - condition: state
-        entity_id: alarm_control_panel.ha_alarm
-        state: armed_away
-      - condition: state
-        entity_id: alarm_control_panel.ha_alarm
-        state: triggered
+      - condition: template
+        value_template: '{{ states("alarm_control_panel.ha_alarm") != "disarmed" }}'
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
     - service: notify.html5
       data_template:
         title: 'Disarming alarm'
+        # TODO: who?
         message: "Someone came home at {{ now().strftime('%H:%M') }}"
 
 - alias: 'Trigger alarm'
