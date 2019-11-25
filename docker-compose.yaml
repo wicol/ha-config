@@ -1,8 +1,8 @@
 version: "3.6"
 services:
-  appdaemon:
-    image: homeassistant/home-assistant:0.97.0
-    #image: homeassistant/home-assistant:0.92.2
+  ha:
+    #image: homeassistant/home-assistant:0.99.3
+    image: homeassistant/home-assistant:0.102.2
     container_name: ha
     network_mode: host
     restart: always
