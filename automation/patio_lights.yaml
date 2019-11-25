@@ -1,4 +1,4 @@
-- alias: 'Out back lights on'
+- alias: 'Patio lights on'
   #trigger:
     #- platform: sun
     #  event: sunset
@@ -8,12 +8,12 @@
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
       # Can be a positive or negative number
-      below: -4.1
+      below: -3.5
   action:
     service: homeassistant.turn_on
     entity_id: switch.in_wall_2
 
-- alias: 'Out back lights off'
+- alias: 'Patio lights off'
   #trigger:
   #  - platform: sun
   #    event: sunrise
