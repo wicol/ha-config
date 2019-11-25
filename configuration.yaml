@@ -85,8 +85,9 @@ logger:
     #homeassistant.components.zwave: info
     #pydeconz: debug
     #homeassistant.components.deconz: debug
-    #homeassistant.components.device_tracker: debug
-    #homeassistant.components.device_tracker.unifi_direct: debug
+    homeassistant.components.device_tracker: debug
+    homeassistant.components.unifi: debug
+    homeassistant.components.device_tracker.unifi: debug
 
 python_script:
 wake_on_lan:
@@ -114,6 +115,16 @@ zwave:
 alarm_control_panel:
   - platform: manual
 
+
+#unifi:
+#  controllers:
+#    - host: localhost
+#      #username: !secret unifi_username
+#      #password: !secret unifi_password
+#      verify_ssl: false
+#      interval_seconds: 8
+#      consider_home: 60
+
 influxdb: !include influxdb.yaml
 group: !include groups.yaml
 switch: !include switches.yaml
@@ -123,7 +134,6 @@ automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 media_player: !include media_players.yaml
 cast: !include cast.yaml
-device_tracker: !include device_trackers.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_numbers.yaml
 input_text: !include input_text.yaml
