@@ -1,0 +1,16 @@
+- alias: 'Christmas lights'
+  trigger:
+    - platform: state
+      entity_id: switch.in_wall_2
+      to: 'on'
+    - platform: state
+      entity_id: switch.in_wall_2
+      to: 'off'
+  action:
+    service_template: >
+      {% if trigger.to_state.state == "on" %}
+      switch.turn_on
+      {% elif trigger.to_state.state == "off" %}
+      switch.turn_off
+      {% endif %}
+    entity_id: switch.zb_plug_3
