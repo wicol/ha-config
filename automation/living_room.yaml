@@ -23,14 +23,12 @@
       for:
         seconds: 30
   condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: media_player.vardagsrum_stereo
-        state: 'off'
-      - condition: state
-        entity_id: media_player.sony_bravia_tv
-        state: 'off'
+    - condition: state
+      entity_id: media_player.vardagsrum_stereo
+      state: 'off'
+    - condition: state
+      entity_id: media_player.sony_bravia_tv
+      state: 'off'
   action:
     - service: homeassistant.turn_off
       entity_id: switch.living_room_receiver 
