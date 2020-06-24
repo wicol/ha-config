@@ -15,31 +15,24 @@ component_config_glob:
     override_measurement: 'motion'
   'media_player.*':
     override_measurement: 'device_log'
-  'sensor.tv_today*':
+  'binary_sensor.pet_*':
+    override_measurement: 'device_log'
+  'sensor.tv_today':
     override_measurement: 'device_time'
   'sensor.denon_3300_today':
     override_measurement: 'device_time'
+  'sensor.*time_today':
+    override_measurement: 'device_time'
+  'sensor.*battery_level':
+    override_measurement: 'battery_level'
+    
 include:
+  domains:
+    - sensor
+    - binary_sensor
   entities:
-    - sensor.temperature_1
-    - sensor.temperature_2
-    - sensor.temperature_3
-    - sensor.temperature_4
-    - sensor.humidity_1
-    - sensor.humidity_2
-    - sensor.humidity_3
-    - sensor.humidity_4
-    - sensor.light_1
-    - sensor.light_2
-    - binary_sensor.motion_1
-    - binary_sensor.motion_2
-    - binary_sensor.openclose_1
-    - binary_sensor.openclose_2
-    - binary_sensor.cam_01_motion
     - media_player.sony_bravia_tv
     - media_player.denon_3300
-    - sensor.tv_today
-    - sensor.denon_3300_today
 tags:
   source: ha
 tags_attributes:
