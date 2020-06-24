@@ -1,0 +1,56 @@
+# Kind of a "the guests have arrived" thing
+#- alias: 'relative alert'
+#  trigger:
+#    - platform: state
+#      entity_id: group.relatives
+#      to: home
+#    - platform: state
+#      entity_id: group.friends
+#      to: home
+#  action:
+#    - service: notify.html5
+#      data_template:
+#        title: 'arrival'
+#        # group.x.entity_id is a list of entity_ids for that group
+#        message: >
+#          {% for ent_id in state_attr(trigger.entity_id, 'entity_id') %}
+#            {%- if states(m) == 'home' %}
+#          {{ m.split('.')[1] }}
+#            {%- endif %}
+#          {%- endfor %}
+#        #target:
+#        #  - 'wicphone'
+
+
+- alias: 'Arrival alert'
+  trigger:
+    - platform: event
+      event_type: state_changed
+#      event_data:
+#        old_state:
+#          state: 'not_home'
+#        new_state:
+#          state: 'home'
+  condition:
+    condition: template
+    value_template: >
+      {{ trigger.event.data.old_state.state == 'not_home' and
+      trigger.event.data.new_state.state == 'home' }}
+   #condition:
+   #  - condition: template
+   #    value_template: >
+   #      {{ 
+   #        trigger.entity_id in
+   #        state_attr('group.family', 'entity_id') + 
+   #        state_attr('group.relatives', 'entity_id') + 
+   #        state_attr('group.friends', 'entity_id')
+   #      }}
+  action:
+    - service: notify.html5
+      data_template:
+        title: 'Arrival'
+        # group.x.entity_id is a list of entity_ids for that group
+        message: "{{ trigger.entity_id.split('.')[1] }}"
+        #message: "Test"
+
+
