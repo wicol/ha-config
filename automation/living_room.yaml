@@ -33,3 +33,46 @@
     - service: homeassistant.turn_off
       entity_id: switch.living_room_receiver 
 
+- alias: 'Living room secondary lights'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1002 # normal release
+  action:
+    - service: switch.toggle
+      entity_id: switch.zb_plug_4
+    - service: switch.toggle
+      entity_id: switch.zb_plug_5
+
+- alias: 'Living room secondary lights left'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3' # double press
+      event: 1004
+  action:
+    - service: switch.toggle
+      entity_id: switch.zb_plug_4
+
+- alias: 'Turn off all lights'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1001 # hold
+  action:
+    - service: switch.turn_off
+      entity_id: switch.zb_plug_4
+    - service: switch.turn_off
+      entity_id: switch.zb_plug_5
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.kitchen_cabinet_lights
+        value: 0
