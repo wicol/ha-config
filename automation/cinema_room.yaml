@@ -155,6 +155,8 @@
     platform: state
     entity_id: media_player.denon_3300
     to: 'off'
+    for:
+      minutes: 7
   action:
     service: homeassistant.turn_off
     entity_id: switch.plug_2
