@@ -4,6 +4,7 @@ default_view:
     icon: mdi:home
     entities:
         - group.ground_floor
+        - group.cats
 
 cinema_view:
     view: yes
@@ -32,11 +33,10 @@ misc_view:
     view: yes
     entities:
         - group.measurements
-        - group.all_automations
-        - group.all_switches
-        - group.appdaemon_apps
         - group.family
         - group.friends
+        - group.appdaemon_apps
+        - group.battery_levels
 
 # Not used atm
 #cinema_sources:
@@ -62,9 +62,11 @@ ground_floor:
         - switch.in_wall_2
         - switch.in_wall_3
         - input_number.kitchen_cabinet_lights
+        - switch.zb_plug_4
+        - switch.zb_plug_5
         - media_player.vardagsrum_stereo
         - media_player.sony_bravia_tv
-        - media_player.kdl50w808c
+        - media_player.kdl_50w808c_2
 
 cinema:
     name: Cinema
@@ -79,9 +81,10 @@ cinema:
         - binary_sensor.kodi
         - binary_sensor.xbox360
         - binary_sensor.ps3
-        - binary_sensor.ps4
+        - media_player.playstation_4
         - binary_sensor.dummy
         - script.update_library
+        - switch.plug_2
         - media_player.denon_3300
         - media_player.kodi
         - media_player.bio
@@ -95,6 +98,7 @@ garage:
         - binary_sensor.cam_01_motion
         - binary_sensor.motion_3
         - camera.garage
+        - switch.in_wall_1
 
 # Needs to be in a separate group to move it down/right in UI
 garage_door_lock:
@@ -121,6 +125,10 @@ alarm:
         - binary_sensor.openclose_3
         - binary_sensor.openclose_4
         - binary_sensor.cam_01_motion
+        # TODO: split this into two groups: one for triggering and one for UI
+        #- binary_sensor.motion_1
+        #- binary_sensor.motion_2
+        #- switch.in_wall_7
         - camera.living_room
 
 appdaemon_apps:
@@ -128,12 +136,14 @@ appdaemon_apps:
     entities:
         - input_boolean.denon_auto_source
         - input_boolean.denon_auto_off
+        - input_boolean.denonavr_auto
 
 measurements:
     name: Measurements
     entities:
         - sensor.power_usage
-        - sensor.temperature_darksky 
+        - sensor.weather_temperature
+        - sensor.outside_temperature
         - sensor.temperature_1
         - sensor.temperature_2
         - sensor.temperature_3
@@ -144,7 +154,6 @@ measurements:
         - sensor.humidity_4
         - sensor.light_1
         - sensor.light_2
-        - sensor.temperature_darksky 
 
 family:
     name: Family
@@ -153,20 +162,57 @@ family:
         - device_tracker.wicphone
         - device_tracker.jophone
 
+cats:
+    name: Cats
+    control: hidden
+    icon: mdi:cat
+    entities:
+        - binary_sensor.pet_pixel
+        - binary_sensor.pet_polly
+
 relatives:
     name: Relatives
     icon: mdi:account-multiple
     entities:
-        - device_tracker.christedsiphone
-        - device_tracker.fridasiphone
-        - device_tracker.hannasiphone
-        # tmp
+        - device_tracker.wivis_iphone
+        - device_tracker.fridas_iphone
+        - device_tracker.hannas_iphone
+        - device_tracker.oscars_iphone
         - device_tracker.jophone
 
 friends:
     name: Friends
     icon: mdi:account-multiple
     entities:
-        - device_tracker.davidsiphone
-        - device_tracker.joelsiphone6s
-        - device_tracker.gammy
+        - device_tracker.davids_iphone
+        - device_tracker.davids_applewatch
+        - device_tracker.joels_iphone
+        - device_tracker.gammys_phone
+        - device_tracker.juhbs_iphone
+        - device_tracker.samuels_iphone
+        - device_tracker.alex_iphone
+
+living_room_secondary_lights:
+    control: hidden
+    entities:
+        - switch.zb_plug_4
+        - switch.zb_plug_5
+
+battery_levels:
+    name: Battery levels
+    control: hidden
+    entities:
+        - sensor.axels_room_temp_battery_level
+        - sensor.back_door_motion_battery_level
+        - sensor.back_door_sensor_battery_level
+        - sensor.basement_door_motion_battery_level
+        - sensor.basement_door_sensor_battery_level
+        - sensor.bedroom_door_sensor_battery_level
+        - sensor.bedroom_temp_battery_level
+        - sensor.button_2_battery_level
+        - sensor.button_3_battery_level
+        - sensor.cinema_room_temp_battery_level
+        - sensor.flap_flap_battery_level
+        - sensor.garage_door_sensor_battery_level
+        - sensor.living_room_temp_battery_level
+        - sensor.motion_sensor_battery_level
