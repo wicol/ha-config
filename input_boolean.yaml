@@ -10,3 +10,7 @@ denon_auto_off:
   name: Denon auto off
   initial: on
   icon: mdi:code-tags
+denonavr_auto:
+  name: Denon AVR auto control
+  initial: on
+
