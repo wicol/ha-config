@@ -20,7 +20,6 @@
       data_template:
         entity_id: input_number.kitchen_cabinet_lights
         value: "{{ trigger.payload }}"
-    - delay: '00:00:04'
     - service: automation.turn_on
       entity_id: automation.kitchen_light_set_state
 
