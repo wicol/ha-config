@@ -20,8 +20,6 @@ media_player.bio:
     friendly_name: Chromecast
 media_player.vardagsrum_stereo:
     friendly_name: Chromecast Audio
-media_player.kdl50w808c:
-    friendly_name: TV Cast service
 media_player.denon_3300:
     icon: mdi:speaker
 switch.living_room_receiver:
@@ -50,3 +48,5 @@ group.all_switches:
     hidden: false
 group.garage_motion_sensors:
     hidden: true
+sensor.weather_temperature:
+    friendly_name: Outside temp (Yr)
