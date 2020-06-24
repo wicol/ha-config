@@ -41,6 +41,8 @@ updater:
 # Discover some devices automatically
 #discovery:
 
+mobile_app:
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 # conversation:
 
@@ -85,9 +87,9 @@ logger:
     #homeassistant.components.zwave: info
     #pydeconz: debug
     #homeassistant.components.deconz: debug
-    homeassistant.components.device_tracker: debug
-    homeassistant.components.unifi: debug
-    homeassistant.components.device_tracker.unifi: debug
+    #homeassistant.components.device_tracker: debug
+    #homeassistant.components.unifi: debug
+    #homeassistant.components.device_tracker.unifi: debug
 
 python_script:
 wake_on_lan:
@@ -124,6 +126,13 @@ alarm_control_panel:
 #      verify_ssl: false
 #      interval_seconds: 8
 #      consider_home: 60
+
+surepetcare:
+  username: !secret surepet_username
+  password: !secret surepet_password
+  household_id: 52500
+  flaps: [{id: 159199, name: Flap}]
+  pets: [{id: 80671, name: Polly}, {id: 80672, name: Pixel}]
 
 influxdb: !include influxdb.yaml
 group: !include groups.yaml
