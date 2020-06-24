@@ -33,8 +33,14 @@
     garage_door:
       friendly_name: Garage door
       turn_on:
-        service: script.garage_door
+        # cancel it if it's already running
+        - service: script.turn_off
+          entity_id: script.garage_door
+        - service: script.garage_door
       turn_off:
-        service: script.garage_door
+        # cancel it if it's already running
+        - service: script.turn_off
+          entity_id: script.garage_door
+        - service: script.garage_door
       value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
 
