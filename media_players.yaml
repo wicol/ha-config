@@ -6,7 +6,7 @@
 - platform: braviatv
   host: tv
 - platform: kodi
-  host: ht
+  host: 192.168.0.36
   username: !secret kodi_username
   password: !secret kodi_password
   turn_on_action:
@@ -14,7 +14,7 @@
     data:
       mac: 00:01:2e:1f:c4:50
   turn_off_action:
-    service: media_player.kodi_call_method
+    service: kodi.call_method
     data:
       entity_id: media_player.kodi
       method: System.Shutdown
