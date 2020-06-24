@@ -1,10 +1,10 @@
-- alias: 'Switch toggle secondary lights'
+- alias: 'Axels room secondary lights'
   initial_state: 'on'
   trigger:
     platform: event
     event_type: deconz_event
     event_data:
-      id: switch_2
+      id: 'button_2'
       event: 1000
   action:
     service: switch.toggle
