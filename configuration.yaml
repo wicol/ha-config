@@ -11,6 +11,9 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Stockholm
 
+  external_url: "https://ha.unts.se"
+  internal_url: "http://192.168.0.2:8123"
+
   customize: !include customize.yaml
   customize_glob: !include customize_glob.yaml
 
@@ -24,12 +27,6 @@ frontend:
 config:
 
 http:
-  # Uncomment this to add a password (recommended!)
-  # now deprecated
-  #api_password: !secret api_password 
-  
-  # Uncomment this if you are using SSL or running in Docker etc
-  base_url: !secret base_url
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -130,9 +127,9 @@ alarm_control_panel:
 surepetcare:
   username: !secret surepet_username
   password: !secret surepet_password
-  household_id: 52500
-  flaps: [{id: 159199, name: Flap}]
-  pets: [{id: 80671, name: Polly}, {id: 80672, name: Pixel}]
+  #household_id: 52500
+  flaps: [159199]
+  pets: [80671, 80672]
 
 influxdb: !include influxdb.yaml
 group: !include groups.yaml

@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec -it ha kill -1 1
+docker exec -it ha s6-svc -h /var/run/s6/services/home-assistant
