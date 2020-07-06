@@ -9,7 +9,7 @@
     living_room_receiver:
       command_on: 'cd /config; password=$(./get_secret.py living_room_receiver_password) ./switches/living_room_receiver.py False'
       command_off: 'cd /config; password=$(./get_secret.py living_room_receiver_password) ./switches/living_room_receiver.py True'
-      command_state: 'cd /config; password=$(./get_secret.py living_room_receiver_password) ./switches/living_room_receiver.py | grep False'
+      command_state: 'cd /config; password=$(./get_secret.py living_room_receiver_password) ./switches/living_room_receiver.py | grep False > /dev/null'
       friendly_name: Stereo
     garage_door_raw:
       command_on: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py'
