@@ -18,6 +18,13 @@
   #scan_interval: 5
   scan_interval: 9
 
+
+- platform: command_line
+  name: ps4
+  command: /config/sensors/ps4.py ps4
+  device_class: connectivity
+  scan_interval: 10
+
 - platform: mqtt
   name: cam_01_motion
   state_topic: "emqtt/cam-01unts.se"
