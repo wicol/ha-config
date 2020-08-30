@@ -1,19 +1,19 @@
 - alias: 'Living room receiver auto on'
   trigger:
     - platform: state
-      entity_id: media_player.vardagsrum_stereo
+      entity_id: media_player.living_room_stereo
       to: 'playing'
     - platform: state
       entity_id: media_player.sony_bravia_tv
       to: 'on'
   action:
     - service: homeassistant.turn_on
-      entity_id: switch.living_room_receiver 
+      entity_id: switch.zb_plug_6
 
 - alias: 'Living room receiver auto off'
   trigger:
     - platform: state
-      entity_id: media_player.vardagsrum_stereo
+      entity_id: media_player.living_room_stereo
       to: 'off'
       for:
         minutes: 1
@@ -24,14 +24,14 @@
         seconds: 30
   condition:
     - condition: state
-      entity_id: media_player.vardagsrum_stereo
+      entity_id: media_player.living_room_stereo
       state: 'off'
     - condition: state
       entity_id: media_player.sony_bravia_tv
       state: 'off'
   action:
     - service: homeassistant.turn_off
-      entity_id: switch.living_room_receiver 
+      entity_id: switch.zb_plug_6
 
 - alias: 'Living room secondary lights'
   initial_state: 'on'

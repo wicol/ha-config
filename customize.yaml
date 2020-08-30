@@ -2,16 +2,16 @@ switch.projector:
     icon: mdi:projector
 binary_sensor.xbox360:
     friendly_name: "Xbox 360"
-    icon: mdi:xbox
+    icon: mdi:microsoft-xbox
 binary_sensor.kodi:
     friendly_name: Kodi
     icon: mdi:kodi
 binary_sensor.ps3:
     friendly_name: PS3
-    icon: mdi:playstation
+    icon: mdi:sony-playstation
 binary_sensor.ps4:
     friendly_name: PS4
-    icon: mdi:playstation
+    icon: mdi:sony-playstation
 switch.zb_plug_2:
     icon: mdi:fan
 light.in_wall_2:
