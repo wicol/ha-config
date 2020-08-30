@@ -1,0 +1,71 @@
+project_id: ha-unts
+service_account: !include google_service_account.json
+report_state: true
+expose_by_default: false
+#exposed_domains:
+#  - media_player
+#  - switch
+#  - light
+entity_config:
+  #switch.kitchen:
+  #  name: CUSTOM_NAME_FOR_GOOGLE_ASSISTANT
+  #  aliases:
+  #    - BRIGHT_LIGHTS
+  #    - ENTRY_LIGHTS
+  #light.living_room:
+  #  expose: false
+  #  room: LIVING_ROOM
+  input_number.kitchen_cabinet_lights:
+    name: Kitchen cabinet lights
+    expose: true
+  light.in_wall_2:
+    name: Cinema ventilation
+    expose: true
+    room: Cinema
+  switch.garage_door_raw:
+    name: Garage door
+    expose: true
+  switch.zb_plug_4:
+    name: Living room secondary lights
+    expose: true
+    room: Living Room
+  switch.in_wall_2:
+    name: Patio wall lights
+    expose: true
+    room: Patio
+  switch.in_wall_5:
+    name: Office main light
+    expose: true
+  switch.in_wall_6:
+    name: Office secondary lights
+    expose: true
+  switch.in_wall_3:
+    name: Patio spotlight motion trigger
+    expose: true
+    room: Patio
+  switch.projector:
+    name: Projector
+    expose: true
+    room: Cinema
+  #media_player.cinema_chromecast:
+  #media_player.garden_speaker:
+  media_player.kodi:
+    name: Kodi
+    expose: true
+    room: Cinema
+  #media_player.living_room_stereo:
+  media_player.playstation_4:
+    name: Playstation 4
+    expose: true
+    room: Cinema
+  media_player.denon_3300:
+    name: Receiver
+    expose: true
+    room: Cinema
+  media_player.sony_bravia_tv:
+    name: TV
+    expose: true
+    room: Living Room
+  sensor.power_usage:
+    name: Power usage
+    expose: true

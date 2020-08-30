@@ -73,6 +73,7 @@ logger:
     #homeassistant.components.automation: debug
     homeassistant.components.notify: debug
     homeassistant.components.notify.html5: debug
+    homeassistant.components.google_assistant: debug
     #homeassistant.components.python_script: debug
     #homeassistant.components.media_player: debug
     #homeassistant.components.media_player.kodi: info
@@ -146,3 +147,4 @@ input_text: !include input_text.yaml
 camera: !include cameras.yaml
 notify: !include notify.yaml
 timer: !include timers.yaml
+google_assistant: !include google_assistant.yaml
