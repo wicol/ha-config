@@ -56,7 +56,7 @@ class PS4:
         try:
             res_msg = s.recv(1024)
         except socket.timeout:
-            log.warning('Timeout waiting for response from ps4')
+            log.debug('Timeout waiting for response from ps4')
             # Probably in transition between standby and on or vice versa
             res_msg = ''
         s.close()
