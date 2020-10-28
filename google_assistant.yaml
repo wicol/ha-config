@@ -26,9 +26,17 @@ entity_config:
     name: Garage door
     expose: true
   switch.zb_plug_4:
-    name: Living room secondary lights
+    name: Secondary lights left
     expose: true
     room: Living Room
+  switch.zb_plug_8:
+    name: Secondary lights right
+    expose: true
+    room: Living Room
+  switch.zb_plug_7:
+    name: Secondary lights
+    expose: true
+    room: Axels Room
   switch.in_wall_2:
     name: Patio wall lights
     expose: true
