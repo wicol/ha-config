@@ -7,6 +7,6 @@ services:
     restart: always
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /srv/app/homeassistant:/config 
+      - ./:/config 
     devices:
       - /dev/zwave
