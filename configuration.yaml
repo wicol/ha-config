@@ -59,6 +59,8 @@ logbook:
   exclude:
     domains:
       - group
+    entity_globs:
+      - sensor.mi_6*
 
 # Track the sun
 sun:
@@ -71,8 +73,6 @@ logger:
   default: warning
   logs:
     #homeassistant.components.automation: debug
-    homeassistant.components.notify: debug
-    homeassistant.components.notify.html5: debug
     homeassistant.components.google_assistant: debug
     #homeassistant.components.python_script: debug
     #homeassistant.components.media_player: debug

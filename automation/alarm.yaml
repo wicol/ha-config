@@ -12,12 +12,10 @@
   action:
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.html5
+    - service: notify.all
       data_template:
         title: 'Arming alarm'
         message: "No one home at {{ now().strftime('%H:%M') }}"
-        #target:
-        #  - 'wicphone'
       data:
         data:
           #tag: arming
@@ -28,7 +26,7 @@
 - alias: 'Abort alarm arming'
   trigger:
     - platform: event
-      event_type: html5_notification.clicked
+      event_type: mobile_app_notification_action
       event_data:
         action: disarm_alarm
   action:
@@ -52,7 +50,7 @@
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.html5
+    - service: notify.all
       data_template:
         title: 'Disarming alarm'
         # TODO: who?
@@ -84,7 +82,7 @@
       entity_id: alarm_control_panel.ha_alarm
       to: 'triggered'
   action:    
-    - service: notify.html5
+    - service: notify.all
       data_template:
         title: 'Alarm triggered'
         message: >
@@ -148,7 +146,7 @@
     entity_id: group.family
     state: not_home
   action:
-    service: notify.html5
+    service: notify.all
     data_template:
       title: 'Garage door open'
       message: "It's been open for 15 mins..."
@@ -167,12 +165,10 @@
   action:
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.html5
+    - service: notify.all
       data_template:
         title: 'Arming alarm'
         message: "No one home and it's {{ now().strftime('%H:%M') }}"
-        #target:
-        #  - 'wicphone'
       data:
         data:
           tag: arming
@@ -188,7 +184,7 @@
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.html5
+    - service: notify.all
       data_template:
         title: 'Disarming alarm'
         message: "At {{ now().strftime('%H:%M') }}"

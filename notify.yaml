@@ -1,7 +1,4 @@
-- platform: html5
-  name: html5
-  vapid_pub_key: !secret vapid_pub_key
-  vapid_prv_key: !secret vapid_prv_key
-  vapid_email: !secret vapid_email
-  # gcm_api_key: !secret gcm_api_key
-  # gcm_sender_id: !secret gcm_sender_id
+- platform: group
+  name: all
+  services:
+    - service: mobile_app_wicphone
