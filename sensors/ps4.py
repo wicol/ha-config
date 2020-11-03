@@ -50,7 +50,7 @@ class PS4:
             log.debug('Sending:\n%s', msg)
             s.sendto(bytes(msg, 'utf-8'), (self.host, self.port))
         except socket.error as e:
-            log.error(e)
+            #log.error(e)
             return False
 
         try:
