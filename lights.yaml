@@ -1,0 +1,44 @@
+# The problem with this one is that the light doesn't report back new state after state is set
+# Might fix that some day and make the input_number interface with this switch instead
+#- platform: mqtt
+#  schema: template
+#  name: "Kitchen kabinet lights"
+#  state_topic: "lights/kitchen_cabinets/get"
+#  state_template: "{% if value == '0' %}off{% else %}on{% endif %}" 
+#  command_topic: "lights/kitchen_cabinets/set"
+#  command_on_template: "2"
+#  command_off_template: "0"
+#  brightness_template: "{{ value }}"
+#
+#  # payload_off: "0"
+#  #brightness_state_topic: 'lights/kitchen_cabinets/get'
+#  #brightness_command_topic: 'lights/kitchen_cabinets/set'
+#  #brightness_scale: 2
+#  #on_command_type: 'brightness'
+- platform: template
+  lights:
+    # This light only interfaces with the input number that controls the actual light
+    # The input number can only have the values [0, 1, 2].
+    # 0 is off, 1 is 50% brightness and 2 is 100% brightness. These values are converted to on/off and 0-255 brightness.
+    kitchen_kabinet_lights:
+      friendly_name: Kitchen kabinet lights input num
+      level_template: "{{ [states('input_number.kitchen_cabinet_lights')|int * 128, 255]|min }}"
+      value_template: "{{ states('input_number.kitchen_cabinet_lights')|int > 0 }}"
+      turn_on:
+        service: input_number.set_value
+        data:
+          entity_id: input_number.kitchen_cabinet_lights
+          value: 2 
+      turn_off:
+        service: input_number.set_value
+        data:
+          entity_id: input_number.kitchen_cabinet_lights
+          value: 0 
+      set_level:
+        service: input_number.set_value
+        data_template:
+          entity_id: input_number.kitchen_cabinet_lights
+          # 0 = 0, 1-80% = 1, 80%+ = 2
+          # actually it never seems to be 0 but whatever
+          value: "{{ (brightness/203)|round(0, 'ceil') }}"
+

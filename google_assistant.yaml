@@ -15,9 +15,10 @@ entity_config:
   #light.living_room:
   #  expose: false
   #  room: LIVING_ROOM
-  input_number.kitchen_cabinet_lights:
+  light.kitchen_kabinet_lights:
     name: Kitchen cabinet lights
     expose: true
+    room: Kitchen
   light.in_wall_2:
     name: Cinema ventilation
     expose: true
