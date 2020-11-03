@@ -13,4 +13,4 @@
       {% elif trigger.to_state.state == "off" %}
       switch.turn_off
       {% endif %}
-    entity_id: switch.zb_plug_3
+    entity_id: switch.zb_plug_5
