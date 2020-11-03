@@ -73,15 +73,16 @@ sun:
 
 logger:
   default: warning
-  logs:
+  #logs:
     #homeassistant.components.automation: debug
-    homeassistant.components.google_assistant: debug
+    #homeassistant.components.google_assistant: debug
     #homeassistant.components.python_script: debug
     #homeassistant.components.media_player: debug
     #homeassistant.components.media_player.kodi: info
     #homeassistant.components.switch.broadlink: debug
     #homeassistant.components.xiaomi_aqara: debug
     #homeassistant.components.mqtt: debug
+    #homeassistant.components.light: debug
     #homeassistant.components.logbook: debug
     #PyXiaomiGateway: debug
     #homeassistant.components.zwave: info
