@@ -73,7 +73,8 @@ sun:
 
 logger:
   default: warning
-  #logs:
+  logs:
+    homeassistant.components.kodi: error
     #homeassistant.components.automation: debug
     #homeassistant.components.google_assistant: debug
     #homeassistant.components.python_script: debug
