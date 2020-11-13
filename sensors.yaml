@@ -41,11 +41,6 @@
   scan_interval: 60
 
 
-- platform: yr
-  name: weather
-  monitored_conditions:
-    - temperature
-
 - platform: template
   sensors:
     outside_temperature:
