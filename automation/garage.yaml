@@ -26,3 +26,33 @@
   action:
     - service: homeassistant.turn_off
       entity_id: switch.in_wall_1
+
+- alias: Garage door auto lock
+  trigger:
+    - platform: state
+      entity_id: input_boolean.garage_door_lock
+      to: 'off'
+      for: '3:00:00'
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'armed_away'
+    - platform: time
+      at: '00:00:00'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.garage_door_lock
+
+- alias: Garage door telegram command auto disable
+  trigger:
+    - platform: state
+      entity_id: input_boolean.telegram_command_garage_door
+      to: 'on'
+      for: '3:00:00'
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'armed_away'
+    - platform: time
+      at: '00:00:00'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.telegram_command_garage_door

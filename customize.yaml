@@ -22,6 +22,8 @@ switch.living_room_receiver:
     icon: mdi:speaker
 switch.garage_door:
     icon: mdi:garage
+switch.garage_door_new:
+    icon: mdi:garage
 binary_sensor.cam_01_motion:
     friendly_name: Garage camera motion
 binary_sensor.openclose_2:

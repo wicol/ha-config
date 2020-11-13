@@ -1,16 +1,23 @@
 garage_door_enabled:
   name: Enable garage door control
-  initial: 'off'
+  initial: false
   icon: mdi:lock-open
+# TODO: use this instead
+garage_door_lock:
+  name: Garage door lock
+  initial: true
+telegram_command_garage_door:
+  name: Garage door telegram integration
+  initial: false
 denon_auto_source:
   name: Denon auto source
-  initial: on
+  initial: true
   icon: mdi:code-tags
 denon_auto_off:
   name: Denon auto off
-  initial: on
+  initial: true
   icon: mdi:code-tags
 denonavr_auto:
   name: Denon AVR auto control
-  initial: on
+  initial: true
 

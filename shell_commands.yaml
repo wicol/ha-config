@@ -1,0 +1,1 @@
+garage_door: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py'

@@ -153,3 +153,5 @@ camera: !include cameras.yaml
 notify: !include notify.yaml
 timer: !include timers.yaml
 google_assistant: !include google_assistant.yaml
+lock: !include locks.yaml
+shell_command: !include shell_commands.yaml

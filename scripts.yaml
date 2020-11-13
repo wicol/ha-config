@@ -31,6 +31,14 @@ garage_door:
         seconds: 120
     - service: homeassistant.turn_off
       entity_id: input_boolean.garage_door_enabled
+
+garage_door_new:
+  alias: Garage door new
+  sequence:
+    - condition: state
+      entity_id: input_boolean.garage_door_lock
+      state: 'off'
+    - service: shell_command.garage_door
  
 test:
   alias: Test

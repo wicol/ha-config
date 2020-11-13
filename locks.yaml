@@ -1,0 +1,11 @@
+# UI entity for controlling the input_boolean
+- platform: template
+  name: Garage door lock
+  value_template: "{{ states('input_boolean.garage_door_lock') }}"
+  lock:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.garage_door_lock
+  unlock:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.garage_door_lock
+
