@@ -23,27 +23,27 @@
       entity_id: sun.sun
       value_template: "{{ state.attributes.elevation }}"
       # Can be a positive or negative number
-      above: -3.5
+      above: 0
   action:
     service: homeassistant.turn_off
     entity_id: switch.in_wall_2
 
-- alias: 'Garden speaker auto on'
-  trigger:
-  - entity_id: media_player.garden_speaker
-    platform: state
-    to: playing
-  action:
-  - service: homeassistant.turn_on
-    entity_id: switch.zb_plug_5
-
-- alias: 'Garden speaker auto off'
-  trigger:
-    - platform: state
-      entity_id: media_player.garden_speaker
-      to: 'off'
-      for:
-        minutes: 1
-  action:
-    - service: homeassistant.turn_off
-      entity_id: switch.zb_plug_5
+#- alias: 'Garden speaker auto on'
+#  trigger:
+#  - entity_id: media_player.garden_speaker
+#    platform: state
+#    to: playing
+#  action:
+#  - service: homeassistant.turn_on
+#    entity_id: switch.zb_plug_5
+#
+#- alias: 'Garden speaker auto off'
+#  trigger:
+#    - platform: state
+#      entity_id: media_player.garden_speaker
+#      to: 'off'
+#      for:
+#        minutes: 1
+#  action:
+#    - service: homeassistant.turn_off
+#      entity_id: switch.zb_plug_5
