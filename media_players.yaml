@@ -1,20 +1,20 @@
 - platform: braviatv
   host: tv
-- platform: kodi
-  host: 192.168.0.36
-  username: !secret kodi_username
-  password: !secret kodi_password
-  turn_on_action:
-    service: wake_on_lan.send_magic_packet
-    data:
-      mac: 00:01:2e:1f:c4:50
-  turn_off_action:
-    service: kodi.call_method
-    data:
-      entity_id: media_player.kodi
-      method: System.Shutdown
-  enable_websocket: 'false'
-  timeout: 7
+#- platform: kodi
+#  host: 192.168.0.36
+#  username: !secret kodi_username
+#  password: !secret kodi_password
+#  turn_on_action:
+#    service: wake_on_lan.send_magic_packet
+#    data:
+#      mac: 00:01:2e:1f:c4:50
+#  turn_off_action:
+#    service: kodi.call_method
+#    data:
+#      entity_id: media_player.kodi
+#      method: System.Shutdown
+#  enable_websocket: 'false'
+#  timeout: 7
 
 #- platform: spotify
 #  client_id: !secret spotify_client_id
