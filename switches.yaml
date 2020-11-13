@@ -14,12 +14,10 @@
       
 
 - platform: broadlink
-  host: 'rm-mini'
   mac: '34:EA:34:40:7C:D0'
-  friendly_name: RMMini3
   switches:
-    projector:
-      friendly_name: Projector
+    - name: Projector
+      # Sanyo PLV-Z3000 discrete off wasn't easy to find!
       command_on: 'JgBoAAABKZAVNRU0Fg8VEBYzFjQVEBUQFRAVEBUQFRAVEBYPFg8WDxUQFg8WDxUQFhAVEBUQFRAUNRU0FTQWNBU0FTQWMxY0FQAFpwABKEgVAAxFAAEpRxUADEUAAShIFQAMRQABKEgUAA0F'
       command_off: 'JgBQAAABKJQSOBI4EhMSExI4EjgSExITEhMSExITEhMSExITEhMSExI4EhMSExITEhMSOBITEjgSExI4EjgSOBI4EhMSOBITEgAFpAABKEoSAAyWDQUAAAAAAAA='
 
