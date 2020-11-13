@@ -1,0 +1,31 @@
+- id: '1604398438605'
+  alias: Kodi ON
+  description: WOL for Kodi/ht
+  trigger:
+  - platform: device
+    device_id: 9ef48db7cfca59f4e368ab64673b7ba8
+    domain: kodi
+    entity_id: media_player.kodi
+    type: turn_on
+  condition: []
+  action:
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: 00:01:2e:1f:c4:50
+  mode: single
+- id: '1604398977874'
+  alias: Kodi OFF
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 9ef48db7cfca59f4e368ab64673b7ba8
+    domain: kodi
+    entity_id: media_player.kodi
+    type: turn_off
+  condition: []
+  action:
+  - service: kodi.call_method
+    data:
+      method: System.Shutdown
+      entity_id: media_player.kodi
+  mode: single
