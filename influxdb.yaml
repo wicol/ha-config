@@ -33,6 +33,9 @@ include:
   entities:
     - media_player.sony_bravia_tv
     - media_player.denon_3300
+exclude:
+  entity_globs:
+    - '*.wicphone*'
 tags:
   source: ha
 tags_attributes:
