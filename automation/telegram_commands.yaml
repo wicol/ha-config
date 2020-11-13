@@ -1,0 +1,16 @@
+#- alias: Garage
+#  trigger:
+#    platform: event
+#    event_type: telegram_command
+#    event_data:
+#      command: '/garage'
+#  #condition:
+#  #  - condition: state
+#  #    entity_id: input_boolean.garage_lock
+#  #    state: 'false'
+#  action:
+#    - service: telegram_bot.send_message
+#      data:
+#        target: '{{ trigger.event.data.chat_id }}'
+#        message: '`garage triggered`'
+#        parse_mode: markdown

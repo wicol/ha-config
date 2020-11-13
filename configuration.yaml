@@ -92,6 +92,7 @@ logger:
     #homeassistant.components.device_tracker: debug
     #homeassistant.components.unifi: debug
     #homeassistant.components.device_tracker.unifi: debug
+    homeassistant.components.telegram_bot: debug
 
 python_script:
 wake_on_lan:
@@ -153,5 +154,6 @@ camera: !include cameras.yaml
 notify: !include notify.yaml
 timer: !include timers.yaml
 google_assistant: !include google_assistant.yaml
+telegram_bot: !include telegram_bot.yaml
 lock: !include locks.yaml
 shell_command: !include shell_commands.yaml
