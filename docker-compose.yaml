@@ -8,5 +8,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./:/config 
+      - /srv/code/homeassistant/src:/usr/src/homeassistant
     devices:
       - /dev/zwave
