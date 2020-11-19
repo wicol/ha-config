@@ -23,9 +23,10 @@ entity_config:
     name: Cinema ventilation
     expose: true
     room: Cinema
-  switch.garage_door_raw:
+  switch.garage_door:
     name: Garage door
     expose: true
+    room: Garage
   switch.zb_plug_4:
     name: Secondary lights left
     expose: true

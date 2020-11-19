@@ -19,21 +19,21 @@ update_library:
         entity_id: media_player.kodi
         method: VideoLibrary.Scan
 
-garage_door:
-  alias: Garage door
-  sequence:
-    - condition: state
-      entity_id: input_boolean.garage_door_enabled
-      state: 'on'
-    - service: switch.toggle
-      entity_id: switch.garage_door_raw
-    - delay:
-        seconds: 120
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.garage_door_enabled
+#garage_door:
+#  alias: Garage door
+#  sequence:
+#    - condition: state
+#      entity_id: input_boolean.garage_door_enabled
+#      state: 'on'
+#    - service: switch.toggle
+#      entity_id: switch.garage_door_raw
+#    - delay:
+#        seconds: 120
+#    - service: homeassistant.turn_off
+#      entity_id: input_boolean.garage_door_enabled
 
-garage_door_new:
-  alias: Garage door new
+garage_door_trigger:
+  alias: Garage door
   sequence:
     - condition: state
       entity_id: input_boolean.garage_door_lock

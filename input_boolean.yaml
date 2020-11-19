@@ -1,7 +1,7 @@
-garage_door_enabled:
-  name: Enable garage door control
-  initial: false
-  icon: mdi:lock-open
+#garage_door_enabled:
+#  name: Enable garage door control
+#  initial: false
+#  icon: mdi:lock-open
 # TODO: use this instead
 garage_door_lock:
   name: Garage door lock
@@ -20,4 +20,3 @@ denon_auto_off:
 denonavr_auto:
   name: Denon AVR auto control
   initial: true
-
