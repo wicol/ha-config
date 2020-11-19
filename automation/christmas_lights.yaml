@@ -1,4 +1,5 @@
 - alias: 'Christmas lights'
+  initial_state: off
   trigger:
     - platform: state
       entity_id: switch.in_wall_2

@@ -1,0 +1,25 @@
+- alias: 'State mapper'
+  trigger:
+    platform: state
+    entity_id:
+      - switch.in_wall_2
+      - switch.in_wall_6
+      - alarm_control_panel.ha_alarm
+  action:
+    service: python_script.state_mapper
+    data:
+      entity_id: "{{ trigger.entity_id }}"
+      state: "{{ trigger.to_state.state }}"
+      state_map:
+        # patio lights -> christmas lights
+        switch.in_wall_2: 
+          target: switch.zb_plug_5
+        # office secondary lights switch -> plug
+        switch.in_wall_6:
+          target: switch.plug_1
+        # alarm disarmed -> unlock garage
+        alarm_control_panel.ha_alarm:
+          state: disarmed
+          target: input_boolean.garage_door_lock
+          match_service: homeassistant.turn_off
+          nomatch_service: homeassistant.turn_on
