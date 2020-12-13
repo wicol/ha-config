@@ -1,0 +1,13 @@
+- alias: 'Bathroom lights auto off'
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: light.in_wall_3
+    to: 'on'
+    for:
+      hours: 2
+  action:
+    service: light.turn_off
+    data:
+      entity_id: light.in_wall_3
+ 
