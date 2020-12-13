@@ -62,7 +62,7 @@ logbook:
     domains:
       - group
     entity_globs:
-      - sensor.mi_6*
+      - sensor.wicphone_*
 
 # Track the sun
 sun:
