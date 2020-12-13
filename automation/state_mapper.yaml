@@ -5,6 +5,7 @@
       - switch.in_wall_2
       - switch.in_wall_6
       - alarm_control_panel.ha_alarm
+      - switch.in_wall_9
   action:
     service: python_script.state_mapper
     data:
@@ -23,3 +24,8 @@
           target: input_boolean.garage_door_lock
           match_service: homeassistant.turn_off
           nomatch_service: homeassistant.turn_on
+        # living room secondary lights
+        switch.in_wall_9:
+          target:
+            - switch.zb_plug_4
+            - switch.zb_plug_8
