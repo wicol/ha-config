@@ -1,12 +1,59 @@
 - alias: 'Axels room secondary lights'
   initial_state: 'on'
   trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_2'
-      event: 1000
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: 'button_2'
+        event: 1002
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: 'button_4'
+        event: 1002
   action:
     service: switch.toggle
     data:
       entity_id: switch.zb_plug_7
+
+- alias: 'Axels button long press on'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_4'
+      event: 1001
+  condition:
+    condition: state
+    entity_id: switch.zb_plug_7
+    state: 'off'
+  action:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.zb_plug_7
+    - service: light.turn_on
+      data:
+        entity_id: light.in_wall_3
+        brightness_pct: 40
+
+- alias: 'Axels button long press off'
+  initial_state: 'on'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_4'
+      event: 1001
+  condition:
+    condition: state
+    entity_id: switch.zb_plug_7
+    state: 'on'
+  action:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.zb_plug_7
+    - service: light.turn_off
+      data:
+        entity_id: light.in_wall_3
+
