@@ -1,4 +1,5 @@
 - alias: 'State mapper'
+  mode: parallel
   trigger:
     platform: state
     entity_id:
