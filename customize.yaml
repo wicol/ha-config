@@ -30,9 +30,9 @@ binary_sensor.openclose_3:
     icon: mdi:door
 binary_sensor.openclose_4:
     icon: mdi:door
+binary_sensor.openclose_5:
+    icon: mdi:door
 sensor.power_usage:
     icon: mdi:flash
 binary_sensor.openclose_1:
     icon: mdi:garage
-sensor.weather_temperature:
-    friendly_name: Outside temp (Yr)
