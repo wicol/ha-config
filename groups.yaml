@@ -1,12 +1,3 @@
-# Need a separate group for motion sesors to group them in automation
-garage_motion_sensors:
-    name: Garage motion sensors
-    entities:
-      # Garange camera motion sensor
-      - binary_sensor.cam_01_motion
-      # Garage motion sensor
-      - binary_sensor.motion_3
-
 alarm:
     name: Alarm
     entities:
@@ -15,12 +6,7 @@ alarm:
         - binary_sensor.openclose_2
         - binary_sensor.openclose_3
         - binary_sensor.openclose_4
-        - binary_sensor.cam_01_motion
-        # TODO: split this into two groups: one for triggering and one for UI
-        #- binary_sensor.motion_1
-        #- binary_sensor.motion_2
-        #- switch.in_wall_7
-        - camera.living_room
+        - binary_sensor.openclose_5
 
 appdaemon_apps:
     name: Appdaemon apps
@@ -53,13 +39,6 @@ family:
         - device_tracker.wicphone
         - device_tracker.jophone
 
-cats:
-    name: Cats
-    icon: mdi:cat
-    entities:
-        - binary_sensor.pet_pixel
-        - binary_sensor.pet_polly
-
 relatives:
     name: Relatives
     icon: mdi:account-multiple
@@ -81,11 +60,6 @@ friends:
         - device_tracker.juhbs_iphone
         - device_tracker.samuels_iphone
         - device_tracker.alex_iphone
-
-living_room_secondary_lights:
-    entities:
-        - switch.zb_plug_4
-        - switch.zb_plug_5
 
 battery_levels:
     name: Battery levels
