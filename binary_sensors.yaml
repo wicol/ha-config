@@ -1,10 +1,10 @@
 #- platform: yr
-- platform: command_line
-  name: kodi
-  command: "(ping -c3 -W2 -w8 ht > /dev/null 2>&1 && echo ON) || echo OFF"
-  device_class: connectivity
-  #scan_interval: 5
-  scan_interval: 11
+#- platform: command_line
+#  name: kodi
+#  command: "(ping -c3 -W2 -w8 ht > /dev/null 2>&1 && echo ON) || echo OFF"
+#  device_class: connectivity
+#  #scan_interval: 5
+#  scan_interval: 11
 - platform: command_line
   name: xbox360
   command: "(ping -c3 -W2 -w8 xbox-360 > /dev/null 2>&1 && echo ON) || echo OFF"
@@ -20,9 +20,8 @@
 
 
 - platform: command_line
-  name: ps4
-  command: /config/sensors/ps4.py ps4-2
-  device_class: connectivity
+  name: ps5
+  command: /config/sensors/ps5.py -b ps5
   scan_interval: 10
 
 - platform: mqtt
@@ -30,7 +29,7 @@
   state_topic: "emqtt/cam-01unts.se"
   device_class: motion
 
-- platform: command_line
-  name: dummy
-  command: "cat /config/dummysensor"
-  scan_interval: 5
+  #- platform: command_line
+  #name: dummy
+  #command: "cat /config/dummysensor"
+  #scan_interval: 5
