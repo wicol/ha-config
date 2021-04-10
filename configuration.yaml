@@ -106,15 +106,15 @@ mqtt:
 #    - host: '192.168.0.127'
 #      key: !secret xiaomi_key
 
-zwave:
-  usb_path: /dev/zwave
-  # debug: true
-  network_key: !secret zwave_network_key 
-  #device_config_glob:
-    #"sensor.in_wall_switch*":
-    #    ignored: true
-    #"zwave.*":
-    #    ignored: true
+#zwave:
+#  usb_path: /dev/zwave
+#  # debug: true
+#  network_key: !secret zwave_network_key 
+#  #device_config_glob:
+#    #"sensor.in_wall_switch*":
+#    #    ignored: true
+#    #"zwave.*":
+#    #    ignored: true
 
 alarm_control_panel:
   - platform: manual
@@ -145,7 +145,6 @@ binary_sensor: !include binary_sensors.yaml
 automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 media_player: !include media_players.yaml
-cast: !include cast.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_numbers.yaml
 input_text: !include input_text.yaml
