@@ -19,3 +19,8 @@
 #- platform: spotify
 #  client_id: !secret spotify_client_id
 #  client_secret: !secret spotify_client_secret
+
+- platform: androidtv
+  name: Shield
+  host: 192.168.0.101
+  exclude_unnamed_apps: false
