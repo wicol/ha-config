@@ -32,7 +32,7 @@
     - platform: state
       entity_id: input_boolean.telegram_command_garage_door
       to: 'on'
-      for: '3:00:00'
+      for: '5:00:00'
     - platform: state
       entity_id: alarm_control_panel.ha_alarm
       to: 'armed_away'
