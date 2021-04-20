@@ -3,29 +3,30 @@
   description: WOL for Kodi/ht
   trigger:
   - platform: device
-    device_id: 9ef48db7cfca59f4e368ab64673b7ba8
+    device_id: 610575461bdb0c78b5292ed50cb4add2
     domain: kodi
     entity_id: media_player.kodi
     type: turn_on
   condition: []
   action:
-  - service: wake_on_lan.send_magic_packet
+  - service: media_player.select_source
     data:
-      mac: 00:01:2e:1f:c4:50
+      entity_id: media_player.shield
+      source: Kodi
   mode: single
 - id: '1604398977874'
   alias: Kodi OFF
   description: ''
   trigger:
   - platform: device
-    device_id: 9ef48db7cfca59f4e368ab64673b7ba8
+    device_id: 610575461bdb0c78b5292ed50cb4add2
     domain: kodi
     entity_id: media_player.kodi
     type: turn_off
   condition: []
   action:
-  - service: kodi.call_method
+  - service: media_player.select_source
     data:
-      method: System.Shutdown
-      entity_id: media_player.kodi
+      entity_id: media_player.shield
+      source: Android TV Launcher
   mode: single
