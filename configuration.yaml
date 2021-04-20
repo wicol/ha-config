@@ -84,8 +84,6 @@ logger:
     #homeassistant.components.mqtt: debug
     #homeassistant.components.light: debug
     #homeassistant.components.logbook: debug
-    #PyXiaomiGateway: debug
-    #homeassistant.components.zwave: info
     #pydeconz: debug
     #homeassistant.components.deconz: debug
     #homeassistant.components.device_tracker: debug
@@ -100,34 +98,8 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
-#xiaomi_aqara:
-#  discovery_retry: 5
-#  gateways:
-#    - host: '192.168.0.127'
-#      key: !secret xiaomi_key
-
-#zwave:
-#  usb_path: /dev/zwave
-#  # debug: true
-#  network_key: !secret zwave_network_key 
-#  #device_config_glob:
-#    #"sensor.in_wall_switch*":
-#    #    ignored: true
-#    #"zwave.*":
-#    #    ignored: true
-
 alarm_control_panel:
   - platform: manual
-
-
-#unifi:
-#  controllers:
-#    - host: localhost
-#      #username: !secret unifi_username
-#      #password: !secret unifi_password
-#      verify_ssl: false
-#      interval_seconds: 8
-#      consider_home: 60
 
 surepetcare:
   username: !secret surepet_username
