@@ -31,11 +31,12 @@ include:
     - sensor
     - binary_sensor
   entities:
-    - media_player.sony_bravia_tv
+    - media_player.living_room_tv
     - media_player.denon_3300
 exclude:
   entity_globs:
     - '*.wicphone*'
+    - '*.s21*'
 tags:
   source: ha
 tags_attributes:

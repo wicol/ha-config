@@ -63,6 +63,8 @@ logbook:
       - group
     entity_globs:
       - sensor.wicphone_*
+      - sensor.s21_*
+      - sensor.bl_wic_*
 
 # Track the sun
 sun:
@@ -100,13 +102,6 @@ mqtt:
 
 alarm_control_panel:
   - platform: manual
-
-surepetcare:
-  username: !secret surepet_username
-  password: !secret surepet_password
-  #household_id: 52500
-  flaps: [159199]
-  pets: [80671, 80672]
 
 influxdb: !include influxdb.yaml
 group: !include groups.yaml
