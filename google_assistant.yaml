@@ -72,10 +72,3 @@ entity_config:
     name: Receiver
     expose: true
     room: Cinema
-  media_player.sony_bravia_tv:
-    name: TV
-    expose: true
-    room: Living Room
-  sensor.power_usage:
-    name: Power usage
-    expose: true

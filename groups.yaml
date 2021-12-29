@@ -36,7 +36,7 @@ family:
     name: Family
     icon: mdi:account-multiple
     entities:
-        - device_tracker.wicphone
+        - person.wictor
         - device_tracker.jophone
 
 relatives:
@@ -78,3 +78,9 @@ battery_levels:
         - sensor.garage_door_sensor_battery_level
         - sensor.living_room_temp_battery_level
         - sensor.motion_sensor_battery_level
+
+watch_entities:
+    name: Watch entities
+    entities:
+        - switch.garage_door
+        - switch.zb_plug_4

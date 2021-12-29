@@ -30,10 +30,6 @@
 - alias: Garage door telegram command auto disable
   trigger:
     - platform: state
-      entity_id: input_boolean.telegram_command_garage_door
-      to: 'on'
-      for: '5:00:00'
-    - platform: state
       entity_id: alarm_control_panel.ha_alarm
       to: 'armed_away'
     - platform: time
@@ -42,3 +38,24 @@
     - service: input_boolean.turn_off
       entity_id: input_boolean.telegram_command_garage_door
 
+
+- alias: 'Enable telegram integration'
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: garage_enable_telegram_integration
+  action:
+    - service: homeassistant.turn_on
+      entity_id: input_boolean.telegram_command_garage_door
+
+- alias: 'Trigger garage door'
+  trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: garage_door_trigger
+  action:
+    - service: homeassistant.toggle
+      entity_id: script.garage_door_trigger
+    # TODO: telegram chat response

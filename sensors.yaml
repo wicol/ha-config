@@ -15,13 +15,13 @@
 #      unit_of_measurement: '°C'
 - platform: command_line
   name: TV today
-  command: /config/sensors/device_time.py telegraf device_log entity_id sony_bravia_tv
+  command: /config/sensors/device_time.py telegraf device_log entity_id living_room_tv
   unit_of_measurement: minutes
   scan_interval: 60
 - platform: command_line
   name: TV last session
   #friendly_name: TV Time last session
-  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id sony_bravia_tv
+  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id living_room_tv
   unit_of_measurement: minutes
   scan_interval: 60
 - platform: command_line
@@ -48,3 +48,15 @@
       unit_of_measurement: '°C'
       value_template: "{{ state_attr('sensor.light_2', 'temperature') }}"
       device_class: temperature
+
+- platform: command_line
+  name: Twinkly sensor
+  command: >
+    /config/scripts/twinkly.py 192.168.0.41 get_color get_brightness get_mode
+  scan_interval: 10
+  value_template: "{{ value_json.get_mode }}"
+  json_attributes:
+    - get_color
+    - get_brightness
+    - get_mode
+

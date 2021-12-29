@@ -40,8 +40,20 @@ garage_door_trigger:
       state: 'off'
     - service: shell_command.garage_door
  
-test:
-  alias: Test
+twinkly_random_color:
   sequence:
-    - delay:
-        seconds: 10
+    - service: shell_command.twinkly
+      data:
+        args: >
+          set_mode:color
+          set_color:red={{ [0, 0, 128, 255] | random }},green={{ [0, 0, 128, 255] | random }},blue={{ [0, 0, 128, 255] | random }}
+          set_brightness:100
+
+twinkly_vanilla:
+  sequence:
+    - service: shell_command.twinkly
+      data:
+        args: >
+          set_mode:color
+          set_color:red=0,green=0,blue=0,white=255
+          set_brightness:40

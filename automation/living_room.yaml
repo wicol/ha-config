@@ -30,14 +30,11 @@
     - condition: state
       entity_id: media_player.living_room_stereo
       state: 'off'
-    - condition: state
-      entity_id: media_player.sony_bravia_tv
-      state: 'off'
   action:
     - service: homeassistant.turn_off
       entity_id: switch.zb_plug_6
 
-- alias: 'Living room secondary lights'
+- alias: 'Christmas lights random color'
   initial_state: 'on'
   trigger:
     platform: event
@@ -46,37 +43,16 @@
       id: 'button_3'
       event: 1002 # normal release
   action:
-    - service: switch.toggle
-      entity_id: switch.zb_plug_4
-    - service: switch.toggle
-      entity_id: switch.zb_plug_8
+    - service: script.twinkly_random_color
 
-- alias: 'Living room secondary lights left'
-  initial_state: 'on'
-  trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_3' # double press
-      event: 1004
-  action:
-    - service: switch.toggle
-      entity_id: switch.zb_plug_4
-
-- alias: 'Turn off all lights'
+- alias: 'Christmas lights vanilla'
   initial_state: 'on'
   trigger:
     platform: event
     event_type: deconz_event
     event_data:
       id: 'button_3'
-      event: 1001 # hold
+      event: 1004 # double press
   action:
-    - service: switch.turn_off
-      entity_id: switch.zb_plug_4
-    - service: switch.turn_off
-      entity_id: switch.zb_plug_8
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.kitchen_cabinet_lights
-        value: 0
+    - service: script.twinkly_vanilla
+
