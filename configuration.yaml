@@ -94,11 +94,16 @@ logger:
     homeassistant.components.telegram_bot: debug
 
 python_script:
+
 wake_on_lan:
+
 mqtt:
   broker: localhost
   username: !secret mqtt_username
   password: !secret mqtt_password
+
+mqtt_eventstream:
+  publish_topic: homeassistant/events
 
 alarm_control_panel:
   - platform: manual
@@ -122,3 +127,4 @@ google_assistant: !include google_assistant.yaml
 telegram_bot: !include telegram_bot.yaml
 lock: !include locks.yaml
 shell_command: !include shell_commands.yaml
+climate: !include climate.yaml

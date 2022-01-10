@@ -1,4 +1,3 @@
-#- platform: yr
 #- platform: command_line
 #  name: kodi
 #  command: "(ping -c3 -W2 -w8 ht > /dev/null 2>&1 && echo ON) || echo OFF"
@@ -33,3 +32,41 @@
   #name: dummy
   #command: "cat /config/dummysensor"
   #scan_interval: 5
+
+- platform: mqtt
+  object_id: hp_compressor
+  state_topic: "+/HP/1A01"
+  name: "Compressor"
+  payload_on: "1"
+  payload_off: "0"
+- platform: mqtt
+  object_id: hp_switch_valve
+  state_topic: "+/HP/1A07"
+  name: "Switch valve"
+  payload_on: "1"
+  payload_off: "0"
+- platform: mqtt
+  object_id: hp_pump_cold_circuit
+  state_topic: "+/HP/1A04"
+  #name: "Brine pump"
+  name: "Pump Cold circuit"
+  payload_on: "1"
+  payload_off: "0"
+- platform: mqtt
+  object_id: hp_radiator_pump
+  state_topic: "+/HP/1A06"
+  name: "Radiator pump"
+  payload_on: "1"
+  payload_off: "0"
+- platform: mqtt
+  object_id: hp_heat_carrier_pump
+  state_topic: "+/HP/1A05"
+  name: "Heat carrier pump"
+  payload_on: "1"
+  payload_off: "0"
+- platform: mqtt
+  object_id: hp_alarm
+  state_topic: "+/HP/1A20"
+  name: "Alarm"
+  payload_on: "1"
+  payload_off: "0"

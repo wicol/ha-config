@@ -4,6 +4,7 @@
   unit_of_measurement: W
   value_template: '{{ value | int }}'
   device_class: power
+
 #- platform: influxdb
 #  scan_interval: 300
 #  queries:
@@ -13,41 +14,33 @@
 #      group_function: last
 #      where: 'friendly_name = ''Outside'''
 #      unit_of_measurement: '°C'
-- platform: command_line
-  name: TV today
-  command: /config/sensors/device_time.py telegraf device_log entity_id living_room_tv
-  unit_of_measurement: minutes
-  scan_interval: 60
-- platform: command_line
-  name: TV last session
-  #friendly_name: TV Time last session
-  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id living_room_tv
-  unit_of_measurement: minutes
-  scan_interval: 60
-- platform: command_line
-  name: Denon 3300 today
-  command: /config/sensors/device_time.py --states on,playing telegraf device_log entity_id denon_3300
-  unit_of_measurement: minutes
-  scan_interval: 60
-- platform: command_line
-  name: Pixel outside time today
-  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_pixel
-  unit_of_measurement: minutes
-  scan_interval: 60
-- platform: command_line
-  name: Polly outside time today
-  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_polly
-  unit_of_measurement: minutes
-  scan_interval: 60
 
-
-- platform: template
-  sensors:
-    outside_temperature:
-      friendly_name: "Outside temp"
-      unit_of_measurement: '°C'
-      value_template: "{{ state_attr('sensor.light_2', 'temperature') }}"
-      device_class: temperature
+#- platform: command_line
+#  name: TV today
+#  command: /config/sensors/device_time.py telegraf device_log entity_id living_room_tv
+#  unit_of_measurement: minutes
+#  scan_interval: 60
+#- platform: command_line
+#  name: TV last session
+#  #friendly_name: TV Time last session
+#  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id living_room_tv
+#  unit_of_measurement: minutes
+#  scan_interval: 60
+#- platform: command_line
+#  name: Denon 3300 today
+#  command: /config/sensors/device_time.py --states on,playing telegraf device_log entity_id denon_3300
+#  unit_of_measurement: minutes
+#  scan_interval: 60
+#- platform: command_line
+#  name: Pixel outside time today
+#  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_pixel
+#  unit_of_measurement: minutes
+#  scan_interval: 60
+#- platform: command_line
+#  name: Polly outside time today
+#  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_polly
+#  unit_of_measurement: minutes
+#  scan_interval: 60
 
 - platform: command_line
   name: Twinkly sensor
@@ -60,3 +53,57 @@
     - get_brightness
     - get_mode
 
+- platform: mqtt
+  object_id: hp_rad_forward
+  state_topic: "+/HP/0002"
+  name: "Rad Forward"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_heat_carrier_return
+  state_topic: "+/HP/0003"
+  name: "Heat Carrier Return"
+  unit_of_measurement: "c"    
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_heat_carrier_forward
+  state_topic: "+/HP/0004"
+  name: "Heat Carrier Forward"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_brine_in
+  state_topic: "+/HP/0005"
+  name: "Brine In"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_brine_out
+  state_topic: "+/HP/0006"
+  name: "Brine Out"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_outdoor
+  state_topic: "+/HP/0007"
+  name: "Outdoor"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_warm_water
+  state_topic: "+/HP/0009"
+  name: "Warm water"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_hot_gas
+  state_topic: "+/HP/000B"
+  name: "Hot gas"
+  unit_of_measurement: "c"
+  icon: mdi:thermometer
+- platform: mqtt
+  object_id: hp_additional_electric_heater
+  state_topic: "+/HP/3104"
+  name: "Additional electric heater"
+  unit_of_measurement: "%"
+  icon: mdi:flash
