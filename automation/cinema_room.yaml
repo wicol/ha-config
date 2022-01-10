@@ -1,24 +1,24 @@
-- alias: 'Ventilate for max 2h'
+- alias: 'Ventilate for max 8h'
   trigger:
     platform: state
-    entity_id: switch.zb_plug_2
+    entity_id: switch.in_wall_2
     to: 'on'
     for:
-      minutes: 120
+      hours: 8
   action:
     service: homeassistant.turn_off
-    entity_id: switch.zb_plug_2
+    entity_id: switch.in_wall_2
  
-- alias: 'Ventilate for max 6h'
+- alias: 'Ventilate for max 8h - lower'
   trigger:
     platform: state
-    entity_id: light.in_wall_2
+    entity_id: fan.cinema_fans
     to: 'on'
     for:
-      hours: 6
+      hours: 8
   action:
     service: homeassistant.turn_off
-    entity_id: light.in_wall_2
+    entity_id: fans.cinema_fans
 
 - alias: 'Sub auto on'
   trigger:
