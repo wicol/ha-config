@@ -55,55 +55,56 @@
 
 - platform: mqtt
   object_id: hp_rad_forward
-  state_topic: "+/HP/0002"
   name: "Rad Forward"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0002"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_heat_carrier_return
-  state_topic: "+/HP/0003"
   name: "Heat Carrier Return"
-  unit_of_measurement: "c"    
-  icon: mdi:thermometer
+  state_topic: "+/HP/0003"
+  device_class: temperature
+  unit_of_measurement: "°C"    
 - platform: mqtt
   object_id: hp_heat_carrier_forward
-  state_topic: "+/HP/0004"
   name: "Heat Carrier Forward"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0004"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_brine_in
-  state_topic: "+/HP/0005"
   name: "Brine In"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0005"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_brine_out
-  state_topic: "+/HP/0006"
   name: "Brine Out"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0006"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_outdoor
-  state_topic: "+/HP/0007"
   name: "Outdoor"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0007"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_warm_water
-  state_topic: "+/HP/0009"
   name: "Warm water"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/0009"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_hot_gas
-  state_topic: "+/HP/000B"
   name: "Hot gas"
-  unit_of_measurement: "c"
-  icon: mdi:thermometer
+  state_topic: "+/HP/000B"
+  device_class: temperature
+  unit_of_measurement: "°C"
 - platform: mqtt
   object_id: hp_additional_electric_heater
-  state_topic: "+/HP/3104"
   name: "Additional electric heater"
+  state_topic: "+/HP/3104"
+  device_class: temperature
   unit_of_measurement: "%"
   icon: mdi:flash

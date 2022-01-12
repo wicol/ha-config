@@ -1,0 +1,10 @@
+- platform: mqtt
+  object_id: hp_warm_water_program
+  name: "Warm water program"
+  state_topic: "+/HP/2213"
+  value_template: '{{ {0: "Comfort", 1: "Economy"}[int(value)] | default(value) }}'
+  command_topic: "8cce4efdacab/HP/SET/2213" 
+  command_template: '{{ {"Comfort": 0, "Economy": 1}[value] }}'
+  options:
+    - "Comfort"
+    - "Economy"

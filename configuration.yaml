@@ -128,3 +128,5 @@ telegram_bot: !include telegram_bot.yaml
 lock: !include locks.yaml
 shell_command: !include shell_commands.yaml
 climate: !include climate.yaml
+number: !include numbers.yaml
+select: !include selects.yaml
