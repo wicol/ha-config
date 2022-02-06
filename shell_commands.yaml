@@ -1,2 +1,2 @@
 garage_door: 'cd /config; password=$(./get_secret.py garage_door_password) ./switches/garage_door.py'
-twinkly: '/config/scripts/twinkly.py 192.168.0.41 {{args}}'
+#twinkly: '/config/scripts/twinkly.py 192.168.0.41 {{args}}'

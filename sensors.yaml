@@ -42,16 +42,16 @@
 #  unit_of_measurement: minutes
 #  scan_interval: 60
 
-- platform: command_line
-  name: Twinkly sensor
-  command: >
-    /config/scripts/twinkly.py 192.168.0.41 get_color get_brightness get_mode
-  scan_interval: 10
-  value_template: "{{ value_json.get_mode }}"
-  json_attributes:
-    - get_color
-    - get_brightness
-    - get_mode
+  #- platform: command_line
+  #  name: Twinkly sensor
+  #  command: >
+  #    /config/scripts/twinkly.py 192.168.0.41 get_color get_brightness get_mode
+  #  scan_interval: 10
+  #  value_template: "{{ value_json.get_mode }}"
+  #  json_attributes:
+  #    - get_color
+  #    - get_brightness
+  #    - get_mode
 
 - platform: mqtt
   object_id: hp_rad_forward

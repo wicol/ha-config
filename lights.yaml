@@ -41,30 +41,30 @@
           # 0 = 0, 1-80% = 1, 80%+ = 2
           # actually it never seems to be 0 but whatever
           value: "{{ (brightness/203)|round(0, 'ceil') }}"
-    mytwinkly:
-      friendly_name: Twinkly
-      unique_id: mytwinkly
-      value_template: "{{ state_attr('sensor.twinkly_sensor', 'get_mode') != 'off' }}"
-      level_template: "{{ state_attr('sensor.twinkly_sensor', 'get_brightness') }}"
-      #white_value_template: "{{ state_attr('sensor.twinkly_sensor', 'get_color').white }}"
-      color_template: "({{ state_attr('sensor.twinkly_sensor', 'get_color').hue | int }}, {{ int(state_attr('sensor.twinkly_sensor', 'get_color').saturation/255*100) }})"
-      turn_on:
-        service: shell_command.twinkly
-        data:
-          args: "set_mode:color"
-      turn_off:
-        service: shell_command.twinkly
-        data:
-          args: "set_mode:off"
-      set_level:
-        service: shell_command.twinkly
-        data:
-          args: "set_brightness:{{ brightness }}"
-      set_color:
-        service: shell_command.twinkly
-        data:
-          args: "-d set_color:white=0,hue={{ h }},saturation={{ (s/100*255) | int }},value=255"
-      #set_white_value:
-      #  service: shell_command.twinkly
-      #  data:
-      #    args: "-d set_color:white={{ white_value }}"
+    #mytwinkly:
+    #  friendly_name: Twinkly
+    #  unique_id: mytwinkly
+    #  value_template: "{{ state_attr('sensor.twinkly_sensor', 'get_mode') != 'off' }}"
+    #  level_template: "{{ state_attr('sensor.twinkly_sensor', 'get_brightness') }}"
+    #  #white_value_template: "{{ state_attr('sensor.twinkly_sensor', 'get_color').white }}"
+    #  color_template: "({{ state_attr('sensor.twinkly_sensor', 'get_color').hue | int }}, {{ int(state_attr('sensor.twinkly_sensor', 'get_color').saturation/255*100) }})"
+    #  turn_on:
+    #    service: shell_command.twinkly
+    #    data:
+    #      args: "set_mode:color"
+    #  turn_off:
+    #    service: shell_command.twinkly
+    #    data:
+    #      args: "set_mode:off"
+    #  set_level:
+    #    service: shell_command.twinkly
+    #    data:
+    #      args: "set_brightness:{{ brightness }}"
+    #  set_color:
+    #    service: shell_command.twinkly
+    #    data:
+    #      args: "-d set_color:white=0,hue={{ h }},saturation={{ (s/100*255) | int }},value=255"
+    #  #set_white_value:
+    #  #  service: shell_command.twinkly
+    #  #  data:
+    #  #    args: "-d set_color:white={{ white_value }}"
