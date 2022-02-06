@@ -1,7 +1,7 @@
-- platform: androidtv
-  name: Shield
-  host: 192.168.0.101
-  exclude_unnamed_apps: false
-  screencap: false
+#- platform: androidtv
+#  name: Shield
+#  host: 192.168.0.101
+#  exclude_unnamed_apps: false
+#  screencap: false
 
 
