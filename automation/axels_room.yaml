@@ -29,13 +29,19 @@
     entity_id: switch.zb_plug_7
     state: 'off'
   action:
+    # Axels secondary
     - service: homeassistant.turn_on
       data:
         entity_id: switch.zb_plug_7
+    # Bathroom
     - service: light.turn_on
       data:
         entity_id: light.zb_in_wall_1
         brightness_pct: 15
+    # Office secondary
+    - service: homeassistant.turn_on
+      data:
+        entity_id: switch.plug_1
 
 - alias: 'Axels button long press off'
   initial_state: 'on'
@@ -50,10 +56,16 @@
     entity_id: switch.zb_plug_7
     state: 'on'
   action:
+    # Axels secondary
     - service: homeassistant.turn_off
       data:
         entity_id: switch.zb_plug_7
+    # Bathroom
     - service: light.turn_off
       data:
         entity_id: light.zb_in_wall_1
+    # Office secondary
+    - service: homeassistant.turn_off
+      data:
+        entity_id: switch.plug_1
 
