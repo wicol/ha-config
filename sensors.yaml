@@ -5,43 +5,6 @@
   value_template: '{{ value | int }}'
   device_class: power
 
-#- platform: influxdb
-#  scan_interval: 300
-#  queries:
-#    - name: temperature_darksky
-#      database: telegraf
-#      measurement: temperature
-#      group_function: last
-#      where: 'friendly_name = ''Outside'''
-#      unit_of_measurement: '°C'
-
-#- platform: command_line
-#  name: TV today
-#  command: /config/sensors/device_time.py telegraf device_log entity_id living_room_tv
-#  unit_of_measurement: minutes
-#  scan_interval: 60
-#- platform: command_line
-#  name: TV last session
-#  #friendly_name: TV Time last session
-#  command: /config/sensors/device_time.py --last-session telegraf device_log entity_id living_room_tv
-#  unit_of_measurement: minutes
-#  scan_interval: 60
-#- platform: command_line
-#  name: Denon 3300 today
-#  command: /config/sensors/device_time.py --states on,playing telegraf device_log entity_id denon_3300
-#  unit_of_measurement: minutes
-#  scan_interval: 60
-#- platform: command_line
-#  name: Pixel outside time today
-#  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_pixel
-#  unit_of_measurement: minutes
-#  scan_interval: 60
-#- platform: command_line
-#  name: Polly outside time today
-#  command: /config/sensors/device_time.py --states off telegraf device_log entity_id pet_polly
-#  unit_of_measurement: minutes
-#  scan_interval: 60
-
   #- platform: command_line
   #  name: Twinkly sensor
   #  command: >
