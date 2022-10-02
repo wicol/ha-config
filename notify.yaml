@@ -1,4 +1,0 @@
-- platform: group
-  name: all
-  services:
-    - service: mobile_app_wicphone

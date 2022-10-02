@@ -1,0 +1,259 @@
+- alias: 'Warm water scheduling'
+  trigger:
+    platform: time
+    at: "14:00:00"
+  action:
+    service: input_text.set_value
+    target:
+      entity_id: input_text.warm_water_scheduled
+    data:
+      # Find the last occurence of the cheapest price between 22:00 and 06:00
+      value: >
+        {%- set today = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'today') -%}
+        {%- set tomorrow = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'tomorrow') -%}
+        {%- set tomorrow = tomorrow if tomorrow[0] else [] -%}
+        {%- set prices = today[22:] + tomorrow[:7] -%}
+        {##- Round prices to the nearest ten -##}
+        {%- set rounded_prices = prices|map('round', -1)|list -%}
+        {%- set cheapest_price = (rounded_prices|sort)[0] -%}
+        {%- set reverse_index = (rounded_prices|reverse|list).index(cheapest_price) -%}
+        {%- set last_index = rounded_prices|length - reverse_index - 1 -%}
+        {{- (today_at('22:00') + timedelta(hours=last_index)).strftime('%H:%M') -}}
+
+
+- alias: 'Heat water'
+  trigger:
+    platform: time_pattern
+    hours: '*'
+  condition:
+    - "{{ now().strftime('%H:%M') == states('input_text.warm_water_scheduled') }}"
+  action:
+    - service: number.set_value
+      target:
+        entity_id: number.hp_extra_warm_water
+      data:
+        value: 1
+    - service: input_text.set_value
+      target:
+        entity_id: input_text.warm_water_scheduled
+      data:
+        value: ''
+
+
+- alias: 'Warm water top-up scheduling'
+  trigger:
+    platform: time
+    at: "07:00:00"
+  action:
+    service: input_text.set_value
+    target:
+      entity_id: input_text.warm_water_topup_scheduled
+    data:
+      value: >
+        {%- set today = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'today') -%}
+        {%- set prices = today[11:17] -%}
+        {%- set cheapest_price = (prices|sort)[0] -%}
+        {%- set index = prices.index(cheapest_price) -%}
+        {{- (today_at('11:00') + timedelta(hours=index)).strftime('%H:%M') -}}
+
+
+- alias: 'Heat water - top-up'
+  trigger:
+    platform: time_pattern
+    hours: '*'
+  condition:
+    - "{{ now().strftime('%H:%M') == states('input_text.warm_water_topup_scheduled') }}"
+  action:
+    - service: input_text.set_value
+      target:
+        entity_id: input_text.warm_water_topup_scheduled
+      data:
+        value: ''
+    - service: number.set_value
+      target:
+        entity_id: number.hp_extra_warm_water
+      data:
+        value: 1
+        # Just a top-up, 30 mins should be enough
+    - delay:
+        minutes: 30
+    - service: number.set_value
+      target:
+        entity_id: number.hp_extra_warm_water
+      data:
+        value: 0
+
+
+#- alias: 'Warm water mid-day top-up'
+#  trigger:
+#    platform: state
+#    entity_id: sensor.nordpool_kwh_se3_sek_0_07_025
+#    attribute: current_price
+#  condition:
+#    - condition: time
+#      after: '12:00:00'
+#      before: '17:00:00'
+#    - "{{ states('sensor.hp_warm_water')|float < 43 }}"
+#    - >
+#      {%- set prices = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'today') -%}
+#      {{ state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'current_price') == (prices[12:18]|sort)[0] }}
+#  action:
+#    - service: number.set_value
+#      target:
+#        entity_id: number.hp_extra_warm_water
+#      data:
+#        value: 1
+#        # Just a top-up, 30 mins should be enough
+#    - delay:
+#        minutes: 30
+#    - service: number.set_value
+#      target:
+#        entity_id: number.hp_extra_warm_water
+#      data:
+#        value: 0
+
+
+- alias: 'Heating scheduling'
+  # This is an automation for triggering an appdaemon app
+  trigger:
+    platform: time
+    at: "23:50:00"
+  action:
+    event: run_heat_scheduling
+
+
+#- alias: 'Heating price influence'
+#  trigger:
+#    platform: time_pattern
+#    hours: '*'
+#  condition:
+#    alias: "This is a scheduled hour OR it's not and input_number.heating_energy_price_influence needs to be reset to 0"
+#    condition: or
+#    conditions:
+#      - "{{ now().strftime('%H:%M') in states('input_text.heating_cheap_hours') + states('input_text.heating_expensive_hours') }}"
+#      - "{{ states('input_number.heating_energy_price_influence')|int != 0 }}"
+#  action:
+#    service: input_number.set_value
+#    target:
+#      entity_id: input_number.heating_energy_price_influence
+#    data:
+#      value: >
+#        {%- set cheap_hours = states('input_text.heating_cheap_hours') -%}
+#        {%- set expensive_hours = states('input_text.heating_expensive_hours') -%}
+#        {%- set now_time = now().strftime('%H:%M') -%}
+#        {%- if now_time in cheap_hours -%}
+#          -2
+#        {%- elif now_time in expensive_hours -%}
+#          2
+#        {%- else -%}
+#          0
+#        {%- endif -%}
+
+
+- alias: 'Heating blocker'
+  trigger:
+    platform: time_pattern
+    hours: '*'
+  condition:
+    alias: "This is an expensive hour OR it's not and switch.hp_external_control_2 needs to be reset to off"
+    condition: or
+    conditions:
+      - "{{ now().strftime('%H:%M') in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'off' }}"
+      - "{{ now().strftime('%H:%M') not in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'on' }}"
+  action:
+    service: switch.toggle
+    target:
+      entity_id: switch.hp_external_control_2
+
+
+
+#- alias: 'Heating sun influence'
+#  # TODO: todo
+#  trigger:
+#  #  platform: time
+#  #  at: '20:00:00'
+#  action:
+#    service: input_number.set_value
+#    target:
+#      entity_id: input_number.heating_sun_influence
+#    data:
+#      value: 2
+
+
+#- alias: 'Heating wind influence'
+#  # TODO: todo
+#  trigger:
+#  #  platform: time
+#  #  at: '20:00:00'
+#  action:
+#    service: input_number.set_value
+#    target:
+#      entity_id: input_number.heating_sun_influence
+#    data:
+#      value: 2
+
+
+#- alias: "Set calibrated outdoor temp"
+#  # Calculate the value for outdoor temp before offset was applied
+#  mode: queued
+#  trigger:
+#    - platform: state
+#      entity_id: sensor.hp_outdoor
+#    #- platform: state
+#    #  entity_id: input_number.outdoor_temp_offset
+#    - platform: homeassistant
+#      event: start
+#  action:
+#    - delay: 3  # wait for outdoor_temp_offset to affect hp_outdoor (mqtt -> heatpump -> mqtt)
+#    - service: mqtt.publish
+#      data:
+#        topic: "homeassistant/sensor/hp_outdoor_calibrated"
+#        payload_template: >
+#          {% set hp_outdoor = states('sensor.hp_outdoor') | float %}
+#          {% set offset = states('input_number.outdoor_temp_offset') | float %}
+#          {{ (hp_outdoor - offset) | round(1, default=0) }}
+#        retain: true
+
+
+- alias: "Set outdoor temp offset"
+  mode: queued
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+    - platform: state
+      entity_id: sensor.heating_blocker_compensator
+    - platform: state
+      entity_id: sensor.heating_sun_influence
+    - platform: state
+      entity_id: sensor.heating_wind_influence
+  action:
+    service: input_number.set_value
+    target:
+      entity_id: input_number.outdoor_temp_offset
+    data:
+      value: >
+        {{ 
+          states('sensor.heating_blocker_compensator')|int
+          + 
+          states('sensor.heating_sun_influence')|int
+          + 
+          states('sensor.heating_wind_influence')|int
+        }}
+
+
+- alias: 'Apply outdoor temp offset'
+  trigger:
+    - platform: state
+      entity_id: input_number.outdoor_temp_offset
+    - platform: state
+      entity_id: input_number.outdoor_temp_sensor_calibration
+  action:
+    service: number.set_value
+    target:
+      entity_id: number.hp_outdoor_temp_offset
+    data:
+      value: "{{ states('input_number.outdoor_temp_sensor_calibration')|float + states('input_number.outdoor_temp_offset')|float }}"
+
+

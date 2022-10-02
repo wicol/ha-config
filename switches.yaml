@@ -45,3 +45,21 @@
       value_template: "{{ is_state('binary_sensor.openclose_1', 'on') }}"
 
 
+- platform: mqtt
+  object_id: hp_external_control_1
+  name: "External control 1"
+  state_topic: "+/HP/2233"
+  command_topic: "8cce4efdacab/HP/SET/2233"
+  payload_on: "1.00"
+  payload_off: "0.00"
+  optimistic: false
+
+- platform: mqtt
+  object_id: hp_external_control_2
+  name: "External control 2"
+  state_topic: "+/HP/2234"
+  command_topic: "8cce4efdacab/HP/SET/2234"
+  payload_on: "1.00"
+  payload_off: "0.00"
+  optimistic: false
+

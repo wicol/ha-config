@@ -30,3 +30,18 @@
       entity_id: media_player.shield
       source: Android TV Launcher
   mode: single
+- id: '1647434912320'
+  alias: Telegram garage activation notification
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.telegram_command_garage_door
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+      target: -188664497
+      message: Garage door control enabled
+  mode: single

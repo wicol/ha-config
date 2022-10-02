@@ -1,7 +1,44 @@
 kitchen_cabinet_lights:
   name: Kitchen cabinet lights
-  initial: 0
+  #initial: 0
   min: 0
   max: 2
   step: 1
   icon: mdi:lightbulb
+
+outdoor_temp_offset:
+  name: Outdoor temp offset
+  #initial: 0
+  min: -10
+  max: 10
+  step: 1
+  icon: mdi:thermometer
+
+outdoor_temp_sensor_calibration:
+  name: Outdoor temp sensor calibration
+  #initial: -1.9
+  min: -2
+  max: -1
+  step: 0.1
+  icon: mdi:thermometer
+
+#heating_energy_price_influence:
+#  name: Heating energy price influence
+#  min: -10
+#  max: 10
+#  step: 1
+#  icon: mdi:thermometer
+#
+#heating_sun_influence:
+#  name: Heating sun influence
+#  min: -10
+#  max: 10
+#  step: 1
+#  icon: mdi:thermometer
+#
+#heating_wind_influence:
+#  name: Heating wind influence
+#  min: -10
+#  max: 10
+#  step: 1
+#  icon: mdi:thermometer

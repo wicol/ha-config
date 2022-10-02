@@ -6,6 +6,16 @@
   unit_of_measurement: "°C"
   min: 0
   max: 10
+
+- platform: mqtt
+  object_id: hp_outdoor_temp_offset
+  name: "Outdoor temp offset"
+  state_topic: "+/HP/0217"
+  command_topic: "8cce4efdacab/HP/SET/0217" 
+  unit_of_measurement: "°C"
+  min: -10
+  max: 10
+
 - platform: mqtt
   object_id: hp_extra_warm_water
   name: "Extra warm water period"
@@ -13,5 +23,5 @@
   command_topic: "8cce4efdacab/HP/SET/6209" 
   unit_of_measurement: "h"
   min: 0
-  max: 48
+  max: 8
 

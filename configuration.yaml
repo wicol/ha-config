@@ -84,6 +84,9 @@ logger:
     #homeassistant.components.unifi: debug
     #homeassistant.components.device_tracker.unifi: debug
     homeassistant.components.telegram_bot: debug
+    custom_components.nordpool: debug
+    custom_components.nordpool.sensor: debug
+    custom_components.nordpool.aio_price: debug
 
 python_script:
 
@@ -107,7 +110,7 @@ input_boolean: !include input_boolean.yaml
 input_number: !include input_numbers.yaml
 input_text: !include input_text.yaml
 camera: !include cameras.yaml
-notify: !include notify.yaml
+#notify: !include notify.yaml
 timer: !include timers.yaml
 google_assistant: !include google_assistant.yaml
 telegram_bot: !include telegram_bot.yaml
@@ -116,3 +119,5 @@ shell_command: !include shell_commands.yaml
 climate: !include climate.yaml
 number: !include numbers.yaml
 select: !include selects.yaml
+template: !include template.yaml
+

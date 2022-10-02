@@ -1,2 +1,14 @@
 triggered_alarm_entities:
   name: Triggered alarm entities
+
+warm_water_scheduled:
+  name: Warm water scheduled
+
+warm_water_topup_scheduled:
+  name: Warm water top-up scheduled
+
+heating_cheap_hours:
+  name: Heating cheap hours
+
+heating_expensive_hours:
+  name: Heating expensive hours

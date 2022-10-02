@@ -1,5 +1,4 @@
 - alias: 'Bathroom lights trigger'
-  initial_state: 'on'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_4
@@ -24,7 +23,6 @@
       #  {% endif %}
 
 - alias: 'Bathroom lights auto off'
-  initial_state: 'on'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_4

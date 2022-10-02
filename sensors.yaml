@@ -22,52 +22,106 @@
   state_topic: "+/HP/0002"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_heat_carrier_return
   name: "Heat Carrier Return"
   state_topic: "+/HP/0003"
   device_class: temperature
   unit_of_measurement: "°C"    
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_heat_carrier_forward
   name: "Heat Carrier Forward"
   state_topic: "+/HP/0004"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_brine_in
   name: "Brine In"
   state_topic: "+/HP/0005"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_brine_out
   name: "Brine Out"
   state_topic: "+/HP/0006"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_outdoor
-  name: "Outdoor"
+  name: "Outdoor raw"
   state_topic: "+/HP/0007"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_warm_water
   name: "Warm water"
   state_topic: "+/HP/0009"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_hot_gas
   name: "Hot gas"
   state_topic: "+/HP/000B"
   device_class: temperature
   unit_of_measurement: "°C"
+  value_template: "{{ value|float }}"
 - platform: mqtt
   object_id: hp_additional_electric_heater
   name: "Additional electric heater"
   state_topic: "+/HP/3104"
   device_class: temperature
   unit_of_measurement: "%"
+  value_template: "{{ value|float }}"
   icon: mdi:flash
+
+  #- platform: mqtt
+  #  object_id: calibrated_outdoor_temp
+  #  name: "Calibrated outdoor temp"
+  #  state_topic: "homeassistant/sensor/hp_outdoor_calibrated"
+  #  device_class: temperature
+  #  unit_of_measurement: "°C"
+  #  value_template: "{{ value|float }}"
+
+
+
+- platform: nordpool
+
+  # Should the prices include vat? Default True
+  VAT: True
+
+  # What currency the api fetches the prices in
+  # this is only need if you want a sensor in a non local currency
+  currency: "SEK"
+  
+  # Option to show prices in cents (or the equivalent in local currency)
+  price_in_cents: True
+
+  # Helper so you can set your "low" price
+  # low_price = hour_price < average * low_price_cutoff
+  low_price_cutoff: 0.70
+
+  # What power regions your are interested in.
+  # Possible values: "DK1", "DK2", "FI", "LT", "LV", "Oslo", "Kr.sand", "Bergen", "Molde", "Tr.heim", "Tromsø", "SE1", "SE2", "SE3","SE4", "SYS", "EE"
+  region: "SE3"
+
+  # How many decimals to use in the display of the price
+  precision: 0
+
+  # What the price should be displayed in default
+  # Possible values: MWh, kWh and Wh
+  # default: kWh
+  price_type: kWh
+
+  # This option allows the usage of a template to add a tariff.
+  # now() always refers start of the hour of that price.
+  # this way we can calculate the correct costs add that to graphs etc.
+  # The price result of the additional_costs template expects this additional cost to be in kWh and not cents as a float
+  # default {{0.0|float}}
+  additional_costs: "{{0.0|float}}"
