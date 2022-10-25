@@ -1,0 +1,174 @@
+#- alias: 'Los button - Lights'
+#  trigger:
+#    platform: event
+#    event_type: deconz_event
+#    event_data:
+#      id: 'button_3'
+#      event: 1002 # short press release
+#  action:
+#    service: light.toggle
+#    data:
+#      entity_id: 
+
+- alias: 'Los button - Los playlist'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      #event: 1001 # long press
+      event: 1002 # 1x press (release)
+  action:
+    service: spotcast.start
+    data: >
+      {
+        "entity_id": "media_player.los_room_speaker",
+        "uri": "spotify:playlist:7vF6G4f8fCjAtdsoWLHR15",
+        "random_song": True,
+        {% if states("media_player.los_room_speaker") != "playing" %}
+        {# only set volume if we're not already playing #}
+        "start_volume": 38,
+        {% endif %}
+        "shuffle": True
+      }
+
+- alias: 'Los button - Los godnattvisor'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1004 # 2x press
+  action:
+    service: spotcast.start
+    data: >
+      {
+        "entity_id": "media_player.los_room_speaker",
+        "uri": "spotify:playlist:7Acn4kaBSl3ntPfUMw0NJw",
+        "random_song": True,
+        {% if states("media_player.los_room_speaker") != "playing" %}
+        {# only set volume if we're not already playing #}
+        "start_volume": 28,
+        {% endif %}
+        "shuffle": True
+      }
+
+- alias: 'Los button - Stop playing'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1001 # long press
+  action:
+    service: media_player.media_stop
+    target:
+      entity_id: media_player.los_room_speaker
+
+
+- alias: 'Los button 3 - Los playlist'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'los_buttons'
+  condition: "{{ trigger.event.data.event in [3001, 3002, 3004] }}" # long press, 1x or 2x
+  action:
+    service: spotcast.start
+    data: >
+      {
+        "entity_id": "media_player.los_room_speaker",
+        "uri": "spotify:playlist:7vF6G4f8fCjAtdsoWLHR15",
+        "random_song": True,
+        {% if states("media_player.los_room_speaker") != "playing" %}
+        {# only set volume if we're not already playing #}
+        "start_volume": 38,
+        {% endif %}
+        "shuffle": True
+      }
+
+- alias: 'Los button 4 - Los godnattvisor'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'los_buttons'
+      event: 4002 # 1x press button 4
+  condition: "{{ trigger.event.data.event in [4001, 4002, 4004] }}" # long press, 1x or 2x
+  action:
+    service: spotcast.start
+    data: >
+      {
+        "entity_id": "media_player.los_room_speaker",
+        "uri": "spotify:playlist:7Acn4kaBSl3ntPfUMw0NJw",
+        "random_song": True,
+        {% if states("media_player.los_room_speaker") != "playing" %}
+        {# only set volume if we're not already playing #}
+        "start_volume": 28,
+        {% endif %}
+        "shuffle": True
+      }
+
+
+- alias: 'Los button 5 - Volume down'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: 'los_buttons'
+  condition: "{{ trigger.event.data.event in [5002, 5004] }}" # 1x or 2x press
+  action:
+    service: media_player.volume_set
+    target:
+      entity_id: media_player.los_room_speaker
+    data:
+      volume_level: >
+        {% if trigger.event.data.event == 5002 %}
+          {# 1x press #}
+          {% set step = 0.05 %}
+        {% else %}
+          {# 2x press #}
+          {% set step = 0.10 %}
+        {% endif %}
+        {{ [(state_attr('media_player.los_room_speaker', 'volume_level') or 0) - step, 0]|max }}
+
+
+- alias: 'Los button 5 - Stop playing'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'los_buttons'
+      event: 5001 # long press
+  action:
+    service: media_player.media_stop
+    target:
+      entity_id: media_player.los_room_speaker
+
+
+
+- alias: 'Los button 6 - Volume up'
+  trigger:
+    - platform: event
+      event_type: deconz_event
+      event_data:
+        id: 'los_buttons'
+  condition: "{{ trigger.event.data.event in [6001, 6002, 6004] }}" # long press, 1x or 2x
+  action:
+    service: media_player.volume_set
+    target:
+      entity_id: media_player.los_room_speaker
+    data:
+      volume_level: >
+        {% if trigger.event.data.event == 6002 %}
+          {# 1x press #}
+          {% set step = 0.05 %}
+        {% else %}
+          {# 2x press #}
+          {% set step = 0.10 %}
+        {% endif %}
+        {{ [(state_attr('media_player.los_room_speaker', 'volume_level') or 0) + step, 1]|min }}
+
+
+
+

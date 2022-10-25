@@ -34,25 +34,25 @@
     - service: homeassistant.turn_off
       entity_id: switch.zb_plug_6
 
-- alias: 'Christmas lights random color'
-  initial_state: 'on'
-  trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_3'
-      event: 1002 # normal release
-  action:
-    - service: script.twinkly_random_color
-
-- alias: 'Christmas lights vanilla'
-  initial_state: 'on'
-  trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_3'
-      event: 1004 # double press
-  action:
-    - service: script.twinkly_vanilla
+#- alias: 'Christmas lights random color'
+#  initial_state: 'on'
+#  trigger:
+#    platform: event
+#    event_type: deconz_event
+#    event_data:
+#      id: 'button_3'
+#      event: 1002 # normal release
+#  action:
+#    - service: script.twinkly_random_color
+#
+#- alias: 'Christmas lights vanilla'
+#  initial_state: 'on'
+#  trigger:
+#    platform: event
+#    event_type: deconz_event
+#    event_data:
+#      id: 'button_3'
+#      event: 1004 # double press
+#  action:
+#    - service: script.twinkly_vanilla
 
