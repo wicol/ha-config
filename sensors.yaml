@@ -1,9 +1,3 @@
-- platform: mqtt
-  name: Power usage
-  state_topic: "power_meter/power"
-  unit_of_measurement: W
-  value_template: '{{ value | int }}'
-  device_class: power
 
   #- platform: command_line
   #  name: Twinkly sensor
@@ -15,80 +9,6 @@
   #    - get_color
   #    - get_brightness
   #    - get_mode
-
-- platform: mqtt
-  object_id: hp_rad_forward
-  name: "Rad Forward"
-  state_topic: "+/HP/0002"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_heat_carrier_return
-  name: "Heat Carrier Return"
-  state_topic: "+/HP/0003"
-  device_class: temperature
-  unit_of_measurement: "°C"    
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_heat_carrier_forward
-  name: "Heat Carrier Forward"
-  state_topic: "+/HP/0004"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_brine_in
-  name: "Brine In"
-  state_topic: "+/HP/0005"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_brine_out
-  name: "Brine Out"
-  state_topic: "+/HP/0006"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_outdoor
-  name: "Outdoor raw"
-  state_topic: "+/HP/0007"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_warm_water
-  name: "Warm water"
-  state_topic: "+/HP/0009"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_hot_gas
-  name: "Hot gas"
-  state_topic: "+/HP/000B"
-  device_class: temperature
-  unit_of_measurement: "°C"
-  value_template: "{{ value|float }}"
-- platform: mqtt
-  object_id: hp_additional_electric_heater
-  name: "Additional electric heater"
-  state_topic: "+/HP/3104"
-  device_class: temperature
-  unit_of_measurement: "%"
-  value_template: "{{ value|float }}"
-  icon: mdi:flash
-
-  #- platform: mqtt
-  #  object_id: calibrated_outdoor_temp
-  #  name: "Calibrated outdoor temp"
-  #  state_topic: "homeassistant/sensor/hp_outdoor_calibrated"
-  #  device_class: temperature
-  #  unit_of_measurement: "°C"
-  #  value_template: "{{ value|float }}"
-
 
 
 - platform: nordpool

@@ -73,7 +73,7 @@
             and now_time in cheap_hours
             and (now_time_1 in expensive_hours or now_time_2 in expensive_hours or now_time_3 in expensive_hours) 
             and avg_temp < 21 -%}
-          -2
+          -4
         {%- else -%}
           0
         {%- endif -%}
@@ -132,4 +132,32 @@
         {%- set power = states('sensor.power_usage') | int -%}
         {%- set price = states('sensor.nordpool_kwh_se3_sek_0_07_025') | int -%}
         {{ (power/1000 * price/100) | round(1, default=0) }}
+
+- trigger:
+    - platform: state
+      entity_id: sensor.energy_usage_hour
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  sensor:
+    - name: "Energy usage this hour"
+      unique_id: energy_usage_hour_kwh
+      device_class: energy
+      unit_of_measurement: "kWh"
+      state: "{{ (states('sensor.energy_usage_hour') | float / 1000) | round(1) }}"
+
+- trigger:
+    - platform: state
+      entity_id: sensor.energy_usage_month
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  sensor:
+    - name: "Energy usage this month"
+      unique_id: energy_usage_month_kwh
+      device_class: energy
+      unit_of_measurement: "kWh"
+      state: "{{ (states('sensor.energy_usage_month') | float / 1000) | round(1) }}"
 

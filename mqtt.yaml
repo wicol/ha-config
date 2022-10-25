@@ -1,0 +1,171 @@
+sensor:
+  - name: Power usage
+    state_topic: "power_meter/power"
+    unit_of_measurement: W
+    value_template: '{{ value | int }}'
+    device_class: power
+
+  - name: Energy usage
+    state_topic: "power_meter/energy"
+    unit_of_measurement: Wh
+    value_template: '{{ value | float }}'
+    device_class: energy
+
+  - object_id: hp_rad_forward
+    name: "Rad Forward"
+    state_topic: "+/HP/0002"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_heat_carrier_return
+    name: "Heat Carrier Return"
+    state_topic: "+/HP/0003"
+    device_class: temperature
+    unit_of_measurement: "°C"    
+    value_template: "{{ value|float }}"
+  - object_id: hp_heat_carrier_forward
+    name: "Heat Carrier Forward"
+    state_topic: "+/HP/0004"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_brine_in
+    name: "Brine In"
+    state_topic: "+/HP/0005"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_brine_out
+    name: "Brine Out"
+    state_topic: "+/HP/0006"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_outdoor
+    name: "Outdoor raw"
+    state_topic: "+/HP/0007"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_warm_water
+    name: "Warm water"
+    state_topic: "+/HP/0009"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_hot_gas
+    name: "Hot gas"
+    state_topic: "+/HP/000B"
+    device_class: temperature
+    unit_of_measurement: "°C"
+    value_template: "{{ value|float }}"
+  - object_id: hp_additional_electric_heater
+    name: "Additional electric heater"
+    state_topic: "+/HP/3104"
+    device_class: temperature
+    unit_of_measurement: "%"
+    value_template: "{{ value|float }}"
+    icon: mdi:flash
+
+binary_sensor:
+  - name: cam_01_motion
+    state_topic: "emqtt/cam-01unts.se"
+    device_class: motion
+  - object_id: hp_compressor
+    state_topic: "+/HP/1A01"
+    name: "Compressor"
+    payload_on: "1"
+    payload_off: "0"
+  - object_id: hp_switch_valve
+    state_topic: "+/HP/1A07"
+    name: "Switch valve"
+    payload_on: "1"
+    payload_off: "0"
+  - object_id: hp_pump_cold_circuit
+    state_topic: "+/HP/1A04"
+    #name: "Brine pump"
+    name: "Pump Cold circuit"
+    payload_on: "1"
+    payload_off: "0"
+  - object_id: hp_radiator_pump
+    state_topic: "+/HP/1A06"
+    name: "Radiator pump"
+    payload_on: "1"
+    payload_off: "0"
+  - object_id: hp_heat_carrier_pump
+    state_topic: "+/HP/1A05"
+    name: "Heat carrier pump"
+    payload_on: "1"
+    payload_off: "0"
+  - object_id: hp_alarm
+    state_topic: "+/HP/1A20"
+    name: "Alarm"
+    payload_on: "1"
+    payload_off: "0"
+
+switch:
+  - object_id: hp_external_control_1
+    name: "External control 1"
+    state_topic: "+/HP/2233"
+    command_topic: "8cce4efdacab/HP/SET/2233"
+    payload_on: "1.00"
+    payload_off: "0.00"
+    optimistic: false
+  
+  - object_id: hp_external_control_2
+    name: "External control 2"
+    state_topic: "+/HP/2234"
+    command_topic: "8cce4efdacab/HP/SET/2234"
+    payload_on: "1.00"
+    payload_off: "0.00"
+    optimistic: false
+
+number:
+  - object_id: hp_room_sensor_influence
+    name: "Room sensor influence"
+    state_topic: "+/HP/2204"
+    command_topic: "8cce4efdacab/HP/SET/0203" 
+    unit_of_measurement: "°C"
+    min: 0
+    max: 10
+  
+  - object_id: hp_outdoor_temp_offset
+    name: "Outdoor temp offset"
+    state_topic: "+/HP/0217"
+    command_topic: "8cce4efdacab/HP/SET/0217" 
+    unit_of_measurement: "°C"
+    min: -10
+    max: 10
+  
+  - object_id: hp_extra_warm_water
+    name: "Extra warm water period"
+    state_topic: "+/HP/6209"
+    command_topic: "8cce4efdacab/HP/SET/6209" 
+    unit_of_measurement: "h"
+    min: 0
+    max: 8
+
+select:
+  - object_id: hp_warm_water_program
+    name: "Warm water program"
+    state_topic: "+/HP/2213"
+    value_template: '{{ {0: "Comfort", 1: "Economy"}[int(value)] | default(value) }}'
+    command_topic: "8cce4efdacab/HP/SET/2213" 
+    command_template: '{{ {"Comfort": 0, "Economy": 1}[value] }}'
+    options:
+      - "Comfort"
+      - "Economy"
+
+climate:
+  - object_id: room_temp
+    name: "Room temp"
+    modes:
+    current_temperature_topic: "+/HP/0203"
+    temperature_state_topic: "+/HP/0203"
+    temperature_command_topic: "8cce4efdacab/HP/SET/0203"
+    action_topic: "+/HP/1A01"
+    action_template: "{{ 'heating' if value == '1' else 'idle' }}"
+    min_temp: 13
+    max_temp: 28
+    temp_step: .1
+

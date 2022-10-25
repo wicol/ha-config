@@ -30,6 +30,8 @@ http:
   use_x_forwarded_for: true
   trusted_proxies: 127.0.0.1
 
+my:
+
 # Discover some devices automatically
 #discovery:
 
@@ -37,6 +39,11 @@ mobile_app:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 # conversation:
+
+recorder:
+  db_url: !secret db_url
+  purge_keep_days: 90
+
 
 # Enables support for tracking state changes over time.
 history:
@@ -47,6 +54,8 @@ history:
       - switch
       - media_player
       - device_tracker
+      - input_number
+      - number
 
 # View all events in a logbook
 logbook:
@@ -84,9 +93,11 @@ logger:
     #homeassistant.components.unifi: debug
     #homeassistant.components.device_tracker.unifi: debug
     homeassistant.components.telegram_bot: debug
-    custom_components.nordpool: debug
-    custom_components.nordpool.sensor: debug
-    custom_components.nordpool.aio_price: debug
+    custom_components.spotcast: debug
+    #custom_components.nordpool: debug
+    #custom_components.nordpool.sensor: debug
+    #custom_components.nordpool.aio_price: debug
+    homeassistant.components.tibber: debug
 
 python_script:
 
@@ -97,6 +108,10 @@ mqtt_eventstream:
 
 alarm_control_panel:
   - platform: manual
+
+spotcast:
+  sp_dc: !secret spotcast_sp_dc
+  sp_key: !secret spotcast_sp_key
 
 group: !include groups.yaml
 switch: !include switches.yaml
@@ -116,8 +131,6 @@ google_assistant: !include google_assistant.yaml
 telegram_bot: !include telegram_bot.yaml
 lock: !include locks.yaml
 shell_command: !include shell_commands.yaml
-climate: !include climate.yaml
-number: !include numbers.yaml
-select: !include selects.yaml
 template: !include template.yaml
-
+mqtt: !include mqtt.yaml
+utility_meter: !include utility_meters.yaml

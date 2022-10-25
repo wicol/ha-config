@@ -5,19 +5,23 @@ import pytz
 import hassapi as hass
 
 #
-# Denon AVR auto source/off
+# MQTT Export
+#
+# Publishes states of entities to MQTT on change and interval
+# Topic is <configurable prefix>/entity_id
+# Payload is influxdb line format for easy telegraf parsing
+# Measurement will default to device_class of entity (can be overridden in config)
 #
 # Args:
-# receiver_entity_id: <entity id of receiver>
-# auto_off_timeout: <seconds> # turn off receiver n seconds after last device is turned off
-# devices:
-#   <entity_id>:
-#     # "on"-states for this device
-#     states: ['playing', 'paused']
-#     # receivers source name for this device
-#     source: HTPC
-#   <entity_id2>:
-#     ...
+# topic_prefix: <topic_prefix> # homeassistant/states for example
+# entities: # list of regexes or objects with {entity_id: <id regex>, measurement: <str>, exclude: <regex>}
+#   - sensor.temperature_\d+$
+#   - sensor.calibrated_outdoor_temp
+#   - entity_id: input_number.outdoor_temp_offset
+#     measurement: temperature
+#   - entity_id: sensor\..+_battery_level$
+#     exclude: sensor.(s21|bl_wic)
+#     measurement: battery_level
 #
 
 class MQTTExport(hass.Hass):

@@ -23,50 +23,10 @@
   command: /config/sensors/ps5.py -b -q 192.168.0.37
   scan_interval: 10
 
-- platform: mqtt
-  name: cam_01_motion
-  state_topic: "emqtt/cam-01unts.se"
-  device_class: motion
 
-  #- platform: command_line
-  #name: dummy
-  #command: "cat /config/dummysensor"
-  #scan_interval: 5
+#- platform: command_line
+#  name: dummy
+#  command: "cat /config/dummysensor"
+#  scan_interval: 5
 
-- platform: mqtt
-  object_id: hp_compressor
-  state_topic: "+/HP/1A01"
-  name: "Compressor"
-  payload_on: "1"
-  payload_off: "0"
-- platform: mqtt
-  object_id: hp_switch_valve
-  state_topic: "+/HP/1A07"
-  name: "Switch valve"
-  payload_on: "1"
-  payload_off: "0"
-- platform: mqtt
-  object_id: hp_pump_cold_circuit
-  state_topic: "+/HP/1A04"
-  #name: "Brine pump"
-  name: "Pump Cold circuit"
-  payload_on: "1"
-  payload_off: "0"
-- platform: mqtt
-  object_id: hp_radiator_pump
-  state_topic: "+/HP/1A06"
-  name: "Radiator pump"
-  payload_on: "1"
-  payload_off: "0"
-- platform: mqtt
-  object_id: hp_heat_carrier_pump
-  state_topic: "+/HP/1A05"
-  name: "Heat carrier pump"
-  payload_on: "1"
-  payload_off: "0"
-- platform: mqtt
-  object_id: hp_alarm
-  state_topic: "+/HP/1A20"
-  name: "Alarm"
-  payload_on: "1"
-  payload_off: "0"
+

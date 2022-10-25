@@ -1,0 +1,13 @@
+energy_usage_month:
+  source: sensor.energy_usage
+  cycle: monthly
+  name: Energy usage this month
+  unique_id: energy_usage_month
+  delta_values: true
+
+energy_usage_hour:
+  source: sensor.energy_usage
+  cycle: hourly
+  name: Energy usage this hour
+  unique_id: energy_usage_hour
+  delta_values: true
