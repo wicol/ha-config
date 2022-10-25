@@ -1,0 +1,69 @@
+denonauto:
+  module: denonavr
+  class: DenonAuto
+  constrain_input_boolean: input_boolean.denonavr_auto
+  receiver_entity_id: media_player.denon_3300
+  auto_off_timeout: 60
+  devices:
+    #media_player.kodi:
+    #  states: ['idle', 'playing', 'paused']
+    #  source: HTPC
+    #binary_sensor.xbox360:
+    #  states: ['on']
+    #  source: 'XBOX 360'
+    #binary_sensor.ps3:
+    #  states: ['on']
+    #  source: PS3
+    #media_player.playstation_4:
+    #  states: ['playing']
+    #  source: PS4
+    media_player.shield:
+      # TODO: check these states
+      states: ['idle', 'playing', 'paused']
+      source: HTPC
+    binary_sensor.ps5:
+      states: ['on']
+      source: PS5
+    # For auto off
+    media_player.denon_3300:
+      states: ['playing']
+    binary_sensor.dummy:
+      states: ['on']
+      source: AUX1
+
+telegram_commands:
+  module: telegram_commands
+  class: TelegramCommands
+
+#statelogger:
+#  module: statelogger
+#  class: StateLogger
+
+deconz_helper:
+  module: deconz_helper
+  class: DeconzHelper
+
+heat_scheduling:
+  module: heat_scheduling
+  class: HeatScheduling
+
+mqtt_export:
+  module: mqtt_export
+  class: MQTTExport
+  topic_prefix: homeassistant/states
+  entities:
+    - sensor.temperature_\d+$
+    - sensor.+_temperature$
+    - sensor.hp_outdoor$
+    - sensor.calibrated_outdoor_temp
+    - entity_id: input_number.outdoor_temp_offset
+      measurement: temperature
+    - sensor..*humidity.*
+    - entity_id: sensor.motion_\d+_light
+      measurement: light
+    - entity_id: sensor\..+_battery_level$
+      exclude: sensor.(s21|bl_wic)
+      measurement: battery_level
+    - entity_id: sensor..*nordpool.*
+      measurement: money
+
