@@ -157,10 +157,11 @@ select:
       - "Economy"
 
 climate:
-  - object_id: room_temp
-    name: "Room temp"
+  - object_id: heat_pump_thermostat
+    name: "Heat pump thermostat"
     modes:
-    current_temperature_topic: "+/HP/0203"
+    #current_temperature_topic: "homeassistant/states/sensor.indoor_average_temperature"
+    #current_temperature_template: "{{ states('sensor.indoor_average_temperature')  }}"
     temperature_state_topic: "+/HP/0203"
     temperature_command_topic: "8cce4efdacab/HP/SET/0203"
     action_topic: "+/HP/1A01"
