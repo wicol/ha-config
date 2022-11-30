@@ -15,6 +15,35 @@
         {%- set offset = states('input_number.outdoor_temp_offset') | int -%}
         {{ (hp_outdoor - offset) | round(1, default=0) }}
 
+
+- trigger:
+    - platform: state
+      entity_id:
+        - sensor.temperature_1
+        - sensor.bedroom_temperature
+        - sensor.temperature_4
+        - sensor.axels_room_temperature
+        - sensor.office_temperature
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  sensor:
+    - name: "Indoor average temperature"
+      unique_id: indoor_average_temperature
+      device_class: temperature
+      unit_of_measurement: "°C"
+      state: >
+        {{ ((
+           states('sensor.temperature_1')|float
+           + states('sensor.bedroom_temperature')|float
+           + states('sensor.temperature_4')|float
+           + states('sensor.axels_room_temperature')|float
+           + states('sensor.office_temperature')|float
+           ) / 5 ) | round(1)
+        }}
+
+
 #- trigger:
 #    - platform: homeassistant
 #      event: start
@@ -40,43 +69,84 @@
 #        {%- endif -%}
 
 
+# Deactivated for now
+#- trigger:
+#    - platform: homeassistant
+#      event: start
+#    - platform: event
+#      event_type: event_template_reloaded
+#    - platform: time_pattern
+#      hours: "*"
+#  sensor:
+#    - name: "Heating price influence"
+#      unique_id: heating_price_influence
+#      device_class: temperature
+#      unit_of_measurement: "°C"
+#      # if cold and cheap - heat to 21C
+#      state: >
+#        {%- set prices_today = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'today') -%}
+#        {%- set current_price = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'current_price') -%}
+#        {%- set avg_temp = states('sensor.indoor_average_temperature') -%}
+#        {%- if current_price in (prices_today|sort)[:8] and avg_temp|float < state_attr('climate.heat_pump_thermostat', 'temperature') -%}
+#          -8
+#        {%- else -%}
+#          0
+#        {%- endif -%}
+
+# Deactivated for now
+#    - name: "Heating blocker compensator"
+#      unique_id: heating_blocker_compensator
+#      device_class: temperature
+#      unit_of_measurement: "°C"
+#      # if heating will be blocked in 4 hours or less - compensate by pre-heating to 21C
+#      state: >
+#        {%- set cheap_hours = states('input_text.heating_cheap_hours') -%}
+#        {%- set expensive_hours = states('input_text.heating_expensive_hours') -%}
+#        {%- set now_time = now().strftime('%H:%M') -%}
+#        {%- set now_time_1 = (now() + timedelta(hours=1)).strftime('%H:%M') -%}
+#        {%- set now_time_2 = (now() + timedelta(hours=2)).strftime('%H:%M') -%}
+#        {%- set now_time_3 = (now() + timedelta(hours=3)).strftime('%H:%M') -%}
+#        {%- set avg_temp = (
+#              states('sensor.temperature_1')|float
+#              + states('sensor.bedroom_temperature')|float
+#              + states('sensor.temperature_4')|float
+#              + states('sensor.axels_room_temperature')|float
+#            ) / 4
+#        -%}
+#        {# dont activate during the last hours since future times will be tomorrow and wrap to earlier today #}
+#        {# dont need it then anyways since first few hours are never considered expensive #}
+#        {%- if now() < today_at("21:00")
+#            and now_time in cheap_hours
+#            and (now_time_1 in expensive_hours or now_time_2 in expensive_hours or now_time_3 in expensive_hours) 
+#            and avg_temp < 21 -%}
+#          -8
+#        {%- else -%}
+#          0
+#        {%- endif -%}
+
+
 - trigger:
     - platform: homeassistant
       event: start
     - platform: event
       event_type: event_template_reloaded
-    - platform: time_pattern
-      hours: "*"
+    - platform: state
+      entity_id:
+        - sensor.indoor_average_temperature
+        - climate.heat_pump_thermostat
   sensor:
-    - name: "Heating blocker compensator"
-      unique_id: heating_blocker_compensator
+    - name: "Heating temperature influence"
+      unique_id: heating_temperature_influence
       device_class: temperature
       unit_of_measurement: "°C"
-      # if heating will be blocked in 4 hours or less - compensate by pre-heating to 21C
+      # sutff
       state: >
-        {%- set cheap_hours = states('input_text.heating_cheap_hours') -%}
-        {%- set expensive_hours = states('input_text.heating_expensive_hours') -%}
-        {%- set now_time = now().strftime('%H:%M') -%}
-        {%- set now_time_1 = (now() + timedelta(hours=1)).strftime('%H:%M') -%}
-        {%- set now_time_2 = (now() + timedelta(hours=2)).strftime('%H:%M') -%}
-        {%- set now_time_3 = (now() + timedelta(hours=3)).strftime('%H:%M') -%}
-        {%- set avg_temp = (
-              states('sensor.temperature_1')|float
-              + states('sensor.temperature_3')|float
-              + states('sensor.temperature_4')|float
-              + states('sensor.temperature_6')|float
-            ) / 4
-        -%}
-        {# dont activate during the last hours since future times will be tomorrow and wrap to earlier today #}
-        {# dont need it then anyways since first few hours are never considered expensive #}
-        {%- if now() < today_at("21:00")
-            and now_time in cheap_hours
-            and (now_time_1 in expensive_hours or now_time_2 in expensive_hours or now_time_3 in expensive_hours) 
-            and avg_temp < 21 -%}
-          -4
-        {%- else -%}
-          0
-        {%- endif -%}
+        {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
+        {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
+        {#- 3.5 is the multiplier for scaling +/- 2 to +/- 7; 2C under should yield -7C offset -#}
+        {%- set offset = (avg_temp - target_temp) * 3.5 -%}
+        {#- limit offset to +/- 7 -#}
+        {{- max(min(7, offset), -7)|int -}}
 
 
 - trigger:
@@ -106,6 +176,8 @@
           0
         {%- endif -%}
 
+
+# TODO: todo
 - trigger:
     - platform: homeassistant
       event: start
@@ -117,6 +189,7 @@
       device_class: temperature
       unit_of_measurement: "°C"
       state: 0
+
 
 - trigger:
     - platform: state
@@ -133,6 +206,7 @@
         {%- set price = states('sensor.nordpool_kwh_se3_sek_0_07_025') | int -%}
         {{ (power/1000 * price/100) | round(1, default=0) }}
 
+
 - trigger:
     - platform: state
       entity_id: sensor.energy_usage_hour
@@ -146,6 +220,7 @@
       device_class: energy
       unit_of_measurement: "kWh"
       state: "{{ (states('sensor.energy_usage_hour') | float / 1000) | round(1) }}"
+
 
 - trigger:
     - platform: state
