@@ -59,3 +59,13 @@
     - service: homeassistant.toggle
       entity_id: script.garage_door_trigger
     # TODO: telegram chat response
+
+- alias: 'Knocker garage door trigger'
+  initial_state: 'off'
+  trigger:
+    - platform: mqtt
+      topic: "knocker/trigger"
+  action:
+    - service: homeassistant.toggle
+      entity_id: script.garage_door_trigger
+
