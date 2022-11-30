@@ -1,69 +1,14 @@
-#- alias: 'Los button - Lights'
-#  trigger:
-#    platform: event
-#    event_type: deconz_event
-#    event_data:
-#      id: 'button_3'
-#      event: 1002 # short press release
-#  action:
-#    service: light.toggle
-#    data:
-#      entity_id: 
-
-- alias: 'Los button - Los playlist'
+- alias: 'Los button 1 - Main light'
   trigger:
     platform: event
     event_type: deconz_event
     event_data:
-      id: 'button_3'
-      #event: 1001 # long press
-      event: 1002 # 1x press (release)
+      id: 'los_buttons'
+  condition: "{{ trigger.event.data.event in [1001, 1002, 1004] }}" # long press, 1x or 2x
   action:
-    service: spotcast.start
-    data: >
-      {
-        "entity_id": "media_player.los_room_speaker",
-        "uri": "spotify:playlist:7vF6G4f8fCjAtdsoWLHR15",
-        "random_song": True,
-        {% if states("media_player.los_room_speaker") != "playing" %}
-        {# only set volume if we're not already playing #}
-        "start_volume": 38,
-        {% endif %}
-        "shuffle": True
-      }
-
-- alias: 'Los button - Los godnattvisor'
-  trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_3'
-      event: 1004 # 2x press
-  action:
-    service: spotcast.start
-    data: >
-      {
-        "entity_id": "media_player.los_room_speaker",
-        "uri": "spotify:playlist:7Acn4kaBSl3ntPfUMw0NJw",
-        "random_song": True,
-        {% if states("media_player.los_room_speaker") != "playing" %}
-        {# only set volume if we're not already playing #}
-        "start_volume": 28,
-        {% endif %}
-        "shuffle": True
-      }
-
-- alias: 'Los button - Stop playing'
-  trigger:
-    platform: event
-    event_type: deconz_event
-    event_data:
-      id: 'button_3'
-      event: 1001 # long press
-  action:
-    service: media_player.media_stop
-    target:
-      entity_id: media_player.los_room_speaker
+    service: switch.toggle
+    data:
+      entity_id: switch.in_wall_11
 
 
 - alias: 'Los button 3 - Los playlist'
@@ -86,6 +31,7 @@
         {% endif %}
         "shuffle": True
       }
+
 
 - alias: 'Los button 4 - Los godnattvisor'
   trigger:
@@ -168,7 +114,4 @@
           {% set step = 0.10 %}
         {% endif %}
         {{ [(state_attr('media_player.los_room_speaker', 'volume_level') or 0) + step, 1]|min }}
-
-
-
 
