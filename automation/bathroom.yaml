@@ -4,9 +4,13 @@
     entity_id: binary_sensor.motion_4
     to: 'on'
   condition:
-    condition: state
-    entity_id: light.zb_in_wall_1
-    state: 'off'
+    - condition: state
+      entity_id: light.zb_in_wall_1
+      state: 'off'
+    - condition: numeric_state
+      entity_id: sun.sun
+      attribute: elevation
+      below: -4
   action:
     service: light.turn_on
     data:
