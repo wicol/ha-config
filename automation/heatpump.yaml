@@ -84,35 +84,6 @@
         value: 0
 
 
-#- alias: 'Warm water mid-day top-up'
-#  trigger:
-#    platform: state
-#    entity_id: sensor.nordpool_kwh_se3_sek_0_07_025
-#    attribute: current_price
-#  condition:
-#    - condition: time
-#      after: '12:00:00'
-#      before: '17:00:00'
-#    - "{{ states('sensor.hp_warm_water')|float < 43 }}"
-#    - >
-#      {%- set prices = state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'today') -%}
-#      {{ state_attr('sensor.nordpool_kwh_se3_sek_0_07_025', 'current_price') == (prices[12:18]|sort)[0] }}
-#  action:
-#    - service: number.set_value
-#      target:
-#        entity_id: number.hp_extra_warm_water
-#      data:
-#        value: 1
-#        # Just a top-up, 30 mins should be enough
-#    - delay:
-#        minutes: 30
-#    - service: number.set_value
-#      target:
-#        entity_id: number.hp_extra_warm_water
-#      data:
-#        value: 0
-
-
 - alias: 'Heating scheduling'
   # This is an automation for triggering an appdaemon app
   trigger:
@@ -150,69 +121,58 @@
 #        {%- endif -%}
 
 
-- alias: 'Heating blocker'
+#- alias: 'Heating blocker'
+#  trigger:
+#    platform: time_pattern
+#    hours: '*'
+#  condition:
+#    alias: "This is an expensive hour OR it's not and switch.hp_external_control_2 needs to be reset to off"
+#    condition: or
+#    conditions:
+#      - "{{ now().strftime('%H:%M') in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'off' }}"
+#      - "{{ now().strftime('%H:%M') not in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'on' }}"
+#  action:
+#    service: switch.toggle
+#    target:
+#      entity_id: switch.hp_external_control_2
+
+
+- alias: 'Heating blocker on'
   trigger:
     platform: time_pattern
     hours: '*'
-  condition:
-    alias: "This is an expensive hour OR it's not and switch.hp_external_control_2 needs to be reset to off"
-    condition: or
-    conditions:
-      - "{{ now().strftime('%H:%M') in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'off' }}"
-      - "{{ now().strftime('%H:%M') not in states('input_text.heating_expensive_hours') and states('switch.hp_external_control_2') == 'on' }}"
+  # This is an expensive hour and indoor temp is > 19.6
+  condition: >
+    {{
+      now().strftime('%H:%M') in states('input_text.heating_expensive_hours')
+      and states('sensor.indoor_average_temperature')|float > 19.6
+      and states('switch.hp_external_control_2') == 'off'
+    }}
   action:
-    service: switch.toggle
+    service: switch.turn_on
     target:
       entity_id: switch.hp_external_control_2
 
 
-
-#- alias: 'Heating sun influence'
-#  # TODO: todo
-#  trigger:
-#  #  platform: time
-#  #  at: '20:00:00'
-#  action:
-#    service: input_number.set_value
-#    target:
-#      entity_id: input_number.heating_sun_influence
-#    data:
-#      value: 2
-
-
-#- alias: 'Heating wind influence'
-#  # TODO: todo
-#  trigger:
-#  #  platform: time
-#  #  at: '20:00:00'
-#  action:
-#    service: input_number.set_value
-#    target:
-#      entity_id: input_number.heating_sun_influence
-#    data:
-#      value: 2
-
-
-#- alias: "Set calibrated outdoor temp"
-#  # Calculate the value for outdoor temp before offset was applied
-#  mode: queued
-#  trigger:
-#    - platform: state
-#      entity_id: sensor.hp_outdoor
-#    #- platform: state
-#    #  entity_id: input_number.outdoor_temp_offset
-#    - platform: homeassistant
-#      event: start
-#  action:
-#    - delay: 3  # wait for outdoor_temp_offset to affect hp_outdoor (mqtt -> heatpump -> mqtt)
-#    - service: mqtt.publish
-#      data:
-#        topic: "homeassistant/sensor/hp_outdoor_calibrated"
-#        payload_template: >
-#          {% set hp_outdoor = states('sensor.hp_outdoor') | float %}
-#          {% set offset = states('input_number.outdoor_temp_offset') | float %}
-#          {{ (hp_outdoor - offset) | round(1, default=0) }}
-#        retain: true
+- alias: 'Heating blocker off'
+  trigger:
+    - platform: time_pattern
+      hours: '*'
+    - platform: state
+      entity_id: sensor.indoor_average_temperature
+  # This is NOT an expensive hour OR indoor temp is < 19.6
+  condition: >
+    {{
+      (
+        (now().strftime('%H') + ":00") not in states('input_text.heating_expensive_hours')
+        or states('sensor.indoor_average_temperature')|float < 19.6
+      )
+      and states('switch.hp_external_control_2') == 'on'
+    }}
+  action:
+    service: switch.turn_off
+    target:
+      entity_id: switch.hp_external_control_2
 
 
 - alias: "Set outdoor temp offset"
@@ -223,7 +183,7 @@
     - platform: event
       event_type: event_template_reloaded
     - platform: state
-      entity_id: sensor.heating_blocker_compensator
+      entity_id: sensor.heating_temperature_influence
     - platform: state
       entity_id: sensor.heating_sun_influence
     - platform: state
@@ -234,13 +194,12 @@
       entity_id: input_number.outdoor_temp_offset
     data:
       value: >
-        {{ 
-          states('sensor.heating_blocker_compensator')|int
-          + 
-          states('sensor.heating_sun_influence')|int
-          + 
-          states('sensor.heating_wind_influence')|int
-        }}
+        {%- set offset = states('sensor.heating_temperature_influence')|int
+          + states('sensor.heating_sun_influence')|int
+          + states('sensor.heating_wind_influence')|int
+        -%}
+        {#- limit to +/- 8 - this is max offset for the HP -#}
+        {{- max(min(8, offset), -8) -}}
 
 
 - alias: 'Apply outdoor temp offset'
