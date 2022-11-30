@@ -12,16 +12,14 @@
   action:
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.all
-      data_template:
+    - service: notify.notify
+      data:
         title: 'Arming alarm'
         message: "No one home at {{ now().strftime('%H:%M') }}"
-      data:
-        data:
-          #tag: arming
-          actions:
-            - action: disarm_alarm
-              title: Disarm
+        #tag: arming
+        actions:
+          - action: disarm_alarm
+            title: Disarm
 
 - alias: 'Abort alarm arming'
   trigger:
@@ -33,7 +31,7 @@
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
     - service: logbook.log
-      data_template:
+      data:
         name: 'Aborted arming'
     
 - alias: 'Disarm alarm when someone comes home'
@@ -50,8 +48,8 @@
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.all
-      data_template:
+    - service: notify.notify
+      data:
         title: 'Disarming alarm'
         # TODO: who?
         message: "Someone came home at {{ now().strftime('%H:%M') }}"
@@ -69,7 +67,7 @@
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.ha_alarm
     - service: input_text.set_value
-      data_template:
+      data:
         entity_id: input_text.triggered_alarm_entities
         value: |
           {%- for entity in states.group.alarm.attributes.entity_id if states(entity) == 'on' %}
@@ -82,8 +80,8 @@
       entity_id: alarm_control_panel.ha_alarm
       to: 'triggered'
   action:    
-    - service: notify.all
-      data_template:
+    - service: notify.notify
+      data:
         title: 'Alarm triggered'
         message: >
           Triggered sensors:
@@ -146,7 +144,7 @@
     entity_id: group.family
     state: not_home
   action:
-    service: notify.all
+    service: notify.notify
     data_template:
       title: 'Garage door open'
       message: "It's been open for 15 mins..."
@@ -165,16 +163,14 @@
   action:
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.all
-      data_template:
+    - service: notify.notify
+      data:
         title: 'Arming alarm'
         message: "No one home and it's {{ now().strftime('%H:%M') }}"
-      data:
-        data:
-          tag: arming
-          actions:
-            - action: disarm_alarm
-              title: Disarm
+        tag: arming
+        actions:
+          - action: disarm_alarm
+            title: Disarm
 
 - alias: 'Alarm auto off'
   initial_state: 'off'
@@ -184,8 +180,8 @@
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.ha_alarm
-    - service: notify.all
-      data_template:
+    - service: notify.notify
+      data:
         title: 'Disarming alarm'
         message: "At {{ now().strftime('%H:%M') }}"
 
