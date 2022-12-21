@@ -16,59 +16,78 @@ entity_config:
   #  expose: false
   #  room: LIVING_ROOM
   light.kitchen_kabinet_lights:
-    name: Kitchen cabinet lights
+    name: Diskbänk
     expose: true
-    room: Kitchen
-  light.in_wall_2:
-    name: Cinema ventilation
-    expose: true
-    room: Cinema
-  switch.garage_door:
-    name: Garage door
-    expose: true
-    room: Garage
-  switch.zb_plug_4:
-    name: Secondary lights left
-    expose: true
-    room: Living Room
+    room: Köket 
   switch.zb_plug_8:
-    name: Secondary lights right
+    name: Ljusstake
     expose: true
-    room: Living Room
+    room: Köket 
+  switch.garage_door:
+    name: Garagedörr
+    expose: true
+    room: Garaget
+
+  # Living room
+  switch.zb_plug_4:
+    name: Sekundärbelysning vänster
+    expose: true
+    room: Vardagsrummet
+  switch.zb_plug_2:
+    name: Sekundärbelysning höger
+    expose: true
+    room: Vardagsrummet
+
+  # Axels room
   switch.zb_plug_7:
-    name: Secondary lights
+    name: Sekundärbelysning
     expose: true
-    room: Axels Room
+    room: Axels rum
+
+  # Patio
   switch.in_wall_2:
-    name: Patio wall lights
+    name: Utebelysning
     expose: true
-    room: Patio
-  switch.in_wall_5:
-    name: Office main light
-    expose: true
-  switch.in_wall_6:
-    name: Office secondary lights
-    expose: true
+    room: Baksidan
   switch.in_wall_3:
-    name: Patio spotlight motion trigger
+    name: Strålkastaren
     expose: true
-    room: Patio
+    room: Baksidan
+
+  switch.in_wall_5:
+    name: Huvudbelysning
+    expose: true
+    room: Kontoret
+  switch.in_wall_6:
+    name: Sekundärbelysning
+    expose: true
+    room: Kontoret
+
   switch.projector:
-    name: Projector
+    name: Projektorn
     expose: true
-    room: Cinema
+    room: Biorummet
   #media_player.cinema_chromecast:
   #media_player.garden_speaker:
   media_player.kodi:
     name: Kodi
     expose: true
-    room: Cinema
+    room: Biorummet
   #media_player.living_room_stereo:
   media_player.playstation_4:
     name: Playstation 4
     expose: true
-    room: Cinema
+    room: Biorummet
   media_player.denon_3300:
     name: Receiver
     expose: true
-    room: Cinema
+    room: Biorummet
+  light.in_wall_2:
+    name: Ventilation tak
+    expose: true
+    room: Biorummet
+  fan.cinema_fans:
+    name: Ventilation rum
+    expose: true
+    room: Biorummet
+
