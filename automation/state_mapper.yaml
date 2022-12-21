@@ -28,5 +28,6 @@
         # living room secondary lights
         switch.in_wall_9:
           target:
-            - switch.zb_plug_4
-            - switch.zb_plug_8
+            - switch.zb_plug_4 # left
+            - switch.zb_plug_2 # right
+            - switch.zb_plug_8 # kitchen christmas lights

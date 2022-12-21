@@ -56,3 +56,16 @@
 #  action:
 #    - service: script.twinkly_vanilla
 
+- alias: 'Twinkly 1 toggle'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1002 # normal release
+  action:
+    - service: light.toggle
+      entity_id: light.twinkly1
+    - service: light.toggle
+      entity_id: light.twinkly2
+
