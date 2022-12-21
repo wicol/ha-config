@@ -141,11 +141,13 @@
   trigger:
     platform: time_pattern
     hours: '*'
-  # This is an expensive hour and indoor temp is > 19.6
+  # This is an expensive hour and indoor temp is > target - 2C
   condition: >
+    {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
+    {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
     {{
       now().strftime('%H:%M') in states('input_text.heating_expensive_hours')
-      and states('sensor.indoor_average_temperature')|float > 19.6
+      and avg_temp > target_temp - 2  
       and states('switch.hp_external_control_2') == 'off'
     }}
   action:
@@ -154,18 +156,21 @@
       entity_id: switch.hp_external_control_2
 
 
+
 - alias: 'Heating blocker off'
   trigger:
     - platform: time_pattern
       hours: '*'
     - platform: state
       entity_id: sensor.indoor_average_temperature
-  # This is NOT an expensive hour OR indoor temp is < 19.6
+  # This is NOT an expensive hour OR indoor temp is < target - 2C
   condition: >
-    {{
+    {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
+    {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
+    {{-
       (
         (now().strftime('%H') + ":00") not in states('input_text.heating_expensive_hours')
-        or states('sensor.indoor_average_temperature')|float < 19.6
+        or avg_temp < target_temp - 2
       )
       and states('switch.hp_external_control_2') == 'on'
     }}

@@ -143,10 +143,27 @@
       state: >
         {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
         {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
-        {#- 3.5 is the multiplier for scaling +/- 2 to +/- 7; 2C under should yield -7C offset -#}
-        {%- set offset = (avg_temp - target_temp) * 3.5 -%}
-        {#- limit offset to +/- 7 -#}
-        {{- max(min(7, offset), -7)|int -}}
+        {% set diff = avg_temp - target_temp %}
+        {%- if diff|abs <= 0.2 %}
+          {%- set offset = 0 %}
+        {%- elif diff|abs <= 0.3 %}
+          {%- set offset = 3 %}
+        {%- elif diff|abs <= 0.5 %}
+          {%- set offset = 4 %}
+        {%- elif diff|abs <= 1 %}
+          {%- set offset = 5 %}
+        {%- else %}
+          {%- set offset = 6 %}
+        {%- endif %}
+        {%- if diff < 0 %}
+          {%- set offset = offset * -1 %}
+        {%- endif %}
+        {{- offset -}}
+
+#        {#- 3.5 is the multiplier for scaling +/- 2 to +/- 7; 2C under should yield -7C offset -#}
+#        {%- set offset = (avg_temp - target_temp) * 3.5 -%}
+#        {#- limit offset to +/- 7 -#}
+#        {{- max(min(7, offset), -7)|int -}}
 
 
 - trigger:
