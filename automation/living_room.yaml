@@ -56,16 +56,30 @@
 #  action:
 #    - service: script.twinkly_vanilla
 
-- alias: 'Twinkly 1 toggle'
+- alias: 'Twinkly effects cycle'
   trigger:
     platform: event
     event_type: deconz_event
     event_data:
       id: 'button_3'
-      event: 1002 # normal release
+  condition: "{{ trigger.event.data.event in [1002, 1004] }}" # 1x or 2x press
   action:
-    - service: light.toggle
-      entity_id: light.twinkly1
-    - service: light.toggle
-      entity_id: light.twinkly2
+    - service: script.twinkly_effects_cycle
+      data:
+        target: >
+          {%- set targets = {1002: "light.twinkly2", 1004: "light.twinkly1" } %}
+          {{- targets[trigger.event.data.event] }}
 
+- alias: 'Twinkly off'
+  trigger:
+    platform: event
+    event_type: deconz_event
+    event_data:
+      id: 'button_3'
+      event: 1001 # long press
+  action:
+    - service: light.turn_off
+      target:
+        entity_id:
+          - light.twinkly1
+          - light.twinkly2

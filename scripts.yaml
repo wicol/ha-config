@@ -57,3 +57,23 @@ garage_door_trigger:
 #          set_mode:color
 #          set_color:red=0,green=0,blue=0,white=255
 #          set_brightness:40
+
+twinkly_effects_cycle:
+  fields:
+    target:
+      description: "target entity_id"
+  sequence:
+    - service: light.turn_on
+      target:
+        entity_id: "{{ target }}"
+      data:
+        effect: >
+          {%- set effects = state_attr(target, "effect_list") %}
+          {%- set effect = state_attr(target, "effect") %}
+          {%- if effect %}
+            {%- set effect_index = effects.index(effect) %}
+            {%- set next_index = (effect_index + 1) % effects|length %}
+          {%- else %}
+            {%- set next_index = 0 %}
+          {%- endif %}
+          {{- effects[next_index] }}
