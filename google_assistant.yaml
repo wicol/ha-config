@@ -39,7 +39,11 @@ entity_config:
     room: Vardagsrummet
 
   # Axels room
-  switch.zb_plug_7:
+  light.axels_main_light:
+    name: Taklampan
+    expose: true
+    room: Axels rum
+  light.axels_secondary_lights:
     name: Sekundärbelysning
     expose: true
     room: Axels rum

@@ -12,3 +12,7 @@ heating_cheap_hours:
 
 heating_expensive_hours:
   name: Heating expensive hours
+
+energy_usage_data:
+  name: Energy usage data
+  max: 255

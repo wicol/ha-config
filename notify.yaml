@@ -1,0 +1,5 @@
+- platform: group
+  name: "J&W"
+  services:
+    - service: mobile_app_wicphone
+    - service: mobile_app_jophone

@@ -69,15 +69,40 @@
 #        {%- endif -%}
 
 
+
+- trigger:
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+    - platform: time_pattern
+      hours: "*"
+  sensor:
+    - name: "Heating blocker compensator"
+      unique_id: heating_blocker_compensator
+      device_class: temperature
+      unit_of_measurement: "°C"
+      # if heating will be blocked in 4 hours or less - compensate by pre-heating to target_temp + 1
+      state: >
+        {%- set cheap_hours = states('input_text.heating_cheap_hours') -%}
+        {%- set expensive_hours = states('input_text.heating_expensive_hours') -%}
+        {%- set now_time = now().strftime('%H:%M') -%}
+        {%- set now_time_1 = (now() + timedelta(hours=1)).strftime('%H:%M') -%}
+        {%- set now_time_2 = (now() + timedelta(hours=2)).strftime('%H:%M') -%}
+        {%- set now_time_3 = (now() + timedelta(hours=3)).strftime('%H:%M') -%}
+        {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
+        {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
+        {#- dont activate during the last hours since future times will be tomorrow and wrap to earlier today #}
+        {#- dont need it then anyways since first few hours are never considered expensive #}
+        {%- if now() < today_at("21:00")
+            and now_time in cheap_hours
+            and (now_time_1 in expensive_hours or now_time_2 in expensive_hours or now_time_3 in expensive_hours) 
+            and avg_temp < target_temp + 1 -%}
+          -6
+        {%- else -%}
+          0
+        {%- endif -%}
 # Deactivated for now
-#- trigger:
-#    - platform: homeassistant
-#      event: start
-#    - platform: event
-#      event_type: event_template_reloaded
-#    - platform: time_pattern
-#      hours: "*"
-#  sensor:
 #    - name: "Heating price influence"
 #      unique_id: heating_price_influence
 #      device_class: temperature
@@ -93,36 +118,6 @@
 #          0
 #        {%- endif -%}
 
-# Deactivated for now
-#    - name: "Heating blocker compensator"
-#      unique_id: heating_blocker_compensator
-#      device_class: temperature
-#      unit_of_measurement: "°C"
-#      # if heating will be blocked in 4 hours or less - compensate by pre-heating to 21C
-#      state: >
-#        {%- set cheap_hours = states('input_text.heating_cheap_hours') -%}
-#        {%- set expensive_hours = states('input_text.heating_expensive_hours') -%}
-#        {%- set now_time = now().strftime('%H:%M') -%}
-#        {%- set now_time_1 = (now() + timedelta(hours=1)).strftime('%H:%M') -%}
-#        {%- set now_time_2 = (now() + timedelta(hours=2)).strftime('%H:%M') -%}
-#        {%- set now_time_3 = (now() + timedelta(hours=3)).strftime('%H:%M') -%}
-#        {%- set avg_temp = (
-#              states('sensor.temperature_1')|float
-#              + states('sensor.bedroom_temperature')|float
-#              + states('sensor.temperature_4')|float
-#              + states('sensor.axels_room_temperature')|float
-#            ) / 4
-#        -%}
-#        {# dont activate during the last hours since future times will be tomorrow and wrap to earlier today #}
-#        {# dont need it then anyways since first few hours are never considered expensive #}
-#        {%- if now() < today_at("21:00")
-#            and now_time in cheap_hours
-#            and (now_time_1 in expensive_hours or now_time_2 in expensive_hours or now_time_3 in expensive_hours) 
-#            and avg_temp < 21 -%}
-#          -8
-#        {%- else -%}
-#          0
-#        {%- endif -%}
 
 
 - trigger:
@@ -237,6 +232,21 @@
       device_class: energy
       unit_of_measurement: "kWh"
       state: "{{ (states('sensor.energy_usage_hour') | float / 1000) | round(1) }}"
+
+
+- trigger:
+    - platform: state
+      entity_id: sensor.energy_usage_day
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: event_template_reloaded
+  sensor:
+    - name: "Energy usage this day"
+      unique_id: energy_usage_day_kwh
+      device_class: energy
+      unit_of_measurement: "kWh"
+      state: "{{ (states('sensor.energy_usage_day') | float / 1000) | round(1) }}"
 
 
 - trigger:

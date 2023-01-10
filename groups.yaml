@@ -14,30 +14,12 @@ appdaemon_apps:
         - input_boolean.denon_auto_source
         - input_boolean.denon_auto_off
         - input_boolean.denonavr_auto
-
-measurements:
-    name: Measurements
-    entities:
-        - sensor.power_usage
-        - sensor.weather_temperature
-        - sensor.outside_temperature
-        - sensor.temperature_1
-        - sensor.temperature_2
-        - sensor.temperature_3
-        - sensor.temperature_4
-        - sensor.humidity_1
-        - sensor.humidity_2
-        - sensor.humidity_3
-        - sensor.humidity_4
-        - sensor.light_1
-        - sensor.light_2
-
 family:
     name: Family
     icon: mdi:account-multiple
     entities:
         - person.wictor
-        - device_tracker.jophone
+        - person.johanna
 
 relatives:
     name: Relatives
@@ -61,26 +43,7 @@ friends:
         - device_tracker.samuels_iphone
         - device_tracker.alex_iphone
 
-battery_levels:
-    name: Battery levels
-    entities:
-        - sensor.axels_room_temp_battery_level
-        - sensor.back_door_motion_battery_level
-        - sensor.back_door_sensor_battery_level
-        - sensor.basement_door_motion_battery_level
-        - sensor.basement_door_sensor_battery_level
-        - sensor.bedroom_door_sensor_battery_level
-        - sensor.bedroom_temp_battery_level
-        - sensor.button_2_battery_level
-        - sensor.button_3_battery_level
-        - sensor.cinema_room_temp_battery_level
-        - sensor.flap_flap_battery_level
-        - sensor.garage_door_sensor_battery_level
-        - sensor.living_room_temp_battery_level
-        - sensor.motion_sensor_battery_level
-
 watch_entities:
     name: Watch entities
     entities:
         - switch.garage_door
-        - switch.zb_plug_4

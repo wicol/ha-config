@@ -188,11 +188,11 @@
     - platform: event
       event_type: event_template_reloaded
     - platform: state
-      entity_id: sensor.heating_temperature_influence
-    - platform: state
-      entity_id: sensor.heating_sun_influence
-    - platform: state
-      entity_id: sensor.heating_wind_influence
+      entity_id:
+        - sensor.heating_temperature_influence
+        - sensor.heating_sun_influence
+        - sensor.heating_wind_influence
+        - sensor.heating_blocker_compensator
   action:
     service: input_number.set_value
     target:
@@ -202,6 +202,7 @@
         {%- set offset = states('sensor.heating_temperature_influence')|int
           + states('sensor.heating_sun_influence')|int
           + states('sensor.heating_wind_influence')|int
+          + states('sensor.heating_blocker_compensator')|int
         -%}
         {#- limit to +/- 8 - this is max offset for the HP -#}
         {{- max(min(8, offset), -8) -}}

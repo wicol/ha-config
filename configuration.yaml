@@ -10,6 +10,7 @@ homeassistant:
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Stockholm
+  country: SE
 
   external_url: !secret base_url
   internal_url: "http://192.168.0.2:8123"
@@ -127,6 +128,8 @@ media_player: !include media_players.yaml
 input_boolean: !include input_boolean.yaml
 input_number: !include input_numbers.yaml
 input_text: !include input_text.yaml
+input_button:
+input_select:
 camera: !include cameras.yaml
 #notify: !include notify.yaml
 timer: !include timers.yaml
@@ -137,3 +140,6 @@ shell_command: !include shell_commands.yaml
 template: !include template.yaml
 mqtt: !include mqtt.yaml
 utility_meter: !include utility_meters.yaml
+notify: !include notify.yaml
+schedule:
+
