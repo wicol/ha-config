@@ -36,15 +36,17 @@ class MQTTExport(hass.Hass):
         self.entities = {}
         all_states = self.get_state()
 
-        # Set state and start listeners for each device
+        # Set state and start listeners for each entity
         for entity_conf in self.config["entities"]:
             if isinstance(entity_conf, str):
                 entity_id_pat = entity_conf
                 entity_conf = {}
                 measurement = None
+                attribute = None
             elif isinstance(entity_conf, dict):
                 entity_id_pat = entity_conf["entity_id"]
                 measurement = entity_conf.get("measurement")
+                attribute = entity_conf.get("attribute")
 
             matches = []
             for entity_id, state in all_states.items():
@@ -53,10 +55,12 @@ class MQTTExport(hass.Hass):
                         continue
                     self.entities[entity_id] = {
                         "measurement": measurement or state["attributes"]["device_class"],
+                        "attribute": attribute,
                         "friendly_name": state["attributes"]["friendly_name"]
                     }
+                    self.listen_state(self.callback, entity_id, attribute=attribute or "state")
                     
-        self.listen_state(self.callback, list(self.entities.keys()), attribute="state")
+        #self.listen_state(self.callback, list(self.entities.keys()), attribute="state")
         interval_time = self.get_now().replace(minute=0, second=0, microsecond=0)
         self.log("Will update every 10 mins from: %s", interval_time)
         self.run_every(self.publish_all, interval_time, 600)
@@ -69,8 +73,8 @@ class MQTTExport(hass.Hass):
     def publish_all(self, kwargs):
         values = []
         # Collect all values first and publish after that - to narrow the window of sampling
-        for entity_id in self.entities.keys():
-            values.append((entity_id, self.get_state(entity_id), self.get_now_ts()))
+        for entity_id, config in self.entities.items():
+            values.append((entity_id, self.get_state(entity_id, attribute=config["attribute"]), self.get_now_ts()))
         for entity_id, value, ts in values:
             self.publish(entity_id, value, ts)
 

@@ -65,6 +65,12 @@ class DenonAuto(hass.Hass):
         active_entities = self.active_devices()
         if active_entities:
             self.log(f'Entities still active: {active_entities}')
+            
+            if len(active_entities) == 1:
+                # Only one active device left? Switch to it.
+                entity_id = active_entities[0]
+                if 'source' in self.devices[entity_id]:
+                     self.select_source(self.devices[entity_id]['source'])
             return
         
         self.log('All devices have been off for {}s - turning off receiver'.format(self.auto_off_timeout))

@@ -58,6 +58,9 @@ mqtt_export:
     - sensor.calibrated_outdoor_temp
     - entity_id: input_number.outdoor_temp_offset
       measurement: temperature
+    - entity_id: climate.heat_pump_thermostat
+      attribute: temperature
+      measurement: temperature
     - sensor..*humidity.*
     - entity_id: sensor.motion_\d+_light
       measurement: light
@@ -67,3 +70,6 @@ mqtt_export:
     - entity_id: sensor..*nordpool.*
       measurement: money
 
+energy_usage:
+  module: energy_usage
+  class: EnergyUsage

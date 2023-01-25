@@ -39,7 +39,7 @@ class TelegramCommands(hass.Hass):
             self.send_message(event_data['chat_id'], 'Garage door control is disabled - requesting unlock...')
             self.notify(
                 message='Telegram - Garage door requested but its LOCKED YO',
-                name='mobile_app_s21',
+                name='mobile_app_wicphone',
                 data={
                     'tag': 'garage-telegram-request',
                     'actions': [
