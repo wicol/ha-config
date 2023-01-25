@@ -17,9 +17,10 @@
         title: 'Arming alarm'
         message: "No one home at {{ now().strftime('%H:%M') }}"
         #tag: arming
-        actions:
-          - action: disarm_alarm
-            title: Disarm
+        data:
+          actions:
+            - action: disarm_alarm
+              title: Disarm
 
 - alias: 'Abort alarm arming'
   trigger:
@@ -70,7 +71,7 @@
       data:
         entity_id: input_text.triggered_alarm_entities
         value: |
-          {%- for entity in states.group.alarm.attributes.entity_id if states(entity) == 'on' %}
+          {%- for entity in state_attr('group.alarm', 'entity_id') if states(entity) == 'on' %}
           * {{ state_attr(entity, 'friendly_name') -}}
           {% endfor %}
 
@@ -83,7 +84,7 @@
     - service: notify.notify
       data:
         title: 'Alarm triggered'
-        message: >
+        message: |
           Triggered sensors:
           {{ states('input_text.triggered_alarm_entities') }}
     # Clear variable
@@ -168,9 +169,10 @@
         title: 'Arming alarm'
         message: "No one home and it's {{ now().strftime('%H:%M') }}"
         tag: arming
-        actions:
-          - action: disarm_alarm
-            title: Disarm
+        data:
+          actions:
+            - action: disarm_alarm
+              title: Disarm
 
 - alias: 'Alarm auto off'
   initial_state: 'off'

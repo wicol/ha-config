@@ -1,7 +1,6 @@
 alarm:
     name: Alarm
     entities:
-        - alarm_control_panel.ha_alarm
         - binary_sensor.openclose_1
         - binary_sensor.openclose_2
         - binary_sensor.openclose_3
