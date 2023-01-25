@@ -4,7 +4,7 @@
     platform: state
     entity_id:
       - switch.in_wall_2
-      - switch.in_wall_6
+      - light.office_secondary_lights
       - alarm_control_panel.ha_alarm
       - switch.in_wall_9
   action:
@@ -17,8 +17,8 @@
         switch.in_wall_2: 
           target: switch.zb_plug_5
         # office secondary lights switch -> plug
-        switch.in_wall_6:
-          target: switch.plug_1
+        light.office_secondary_lights:
+          target: switch.zb_plug_8
         # alarm disarmed -> unlock garage
         alarm_control_panel.ha_alarm:
           state: disarmed
@@ -30,4 +30,3 @@
           target:
             - switch.zb_plug_4 # left
             - switch.zb_plug_2 # right
-            - switch.zb_plug_8 # kitchen christmas lights

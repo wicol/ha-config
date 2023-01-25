@@ -1,3 +1,0 @@
-- platform: ffmpeg
-  name: Living room
-  input: !secret cam-02_uri

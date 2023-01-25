@@ -1,13 +1,13 @@
 - alias: 'Ventilate for max 8h'
   trigger:
     platform: state
-    entity_id: switch.in_wall_2
+    entity_id: light.in_wall_2
     to: 'on'
     for:
       hours: 8
   action:
     service: homeassistant.turn_off
-    entity_id: switch.in_wall_2
+    entity_id: light.in_wall_2
  
 - alias: 'Ventilate for max 8h - lower'
   trigger:

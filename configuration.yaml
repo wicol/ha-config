@@ -112,6 +112,7 @@ mqtt_eventstream:
 
 alarm_control_panel:
   - platform: manual
+    delay_time: 0
 
 spotcast:
   sp_dc: !secret spotcast_sp_dc
@@ -130,7 +131,6 @@ input_number: !include input_numbers.yaml
 input_text: !include input_text.yaml
 input_button:
 input_select:
-camera: !include cameras.yaml
 #notify: !include notify.yaml
 timer: !include timers.yaml
 google_assistant: !include google_assistant.yaml
