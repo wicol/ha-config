@@ -168,12 +168,12 @@
       event_type: event_template_reloaded
     - platform: numeric_state
       entity_id: sensor.motion_1_light
-      above: 3200
+      above: 1600
       for:
         minutes: 10
     - platform: numeric_state
       entity_id: sensor.motion_1_light
-      below: 3200
+      below: 1600
       for:
         minutes: 10
   sensor:
@@ -182,25 +182,31 @@
       device_class: temperature
       unit_of_measurement: "°C"
       state: >
-        {%- if states('sensor.motion_1_light')|int > 3200 -%}
-          2
+        {%- if states('sensor.motion_1_light')|int > 1600 -%}
+          4
         {%- else -%}
           0
         {%- endif -%}
 
 
-# TODO: todo
 - trigger:
     - platform: homeassistant
       event: start
     - platform: event
       event_type: event_template_reloaded
+    - platform: state
+      entity_id: sensor.openweathermap_wind_speed
   sensor:
     - name: "Heating wind influence"
       unique_id: heating_wind_influence
       device_class: temperature
       unit_of_measurement: "°C"
-      state: 0
+      state: >
+        {%- if states('sensor.openweathermap_wind_speed')|int > 7 -%}
+          -3
+        {%- else -%}
+          0
+        {%- endif -%}
 
 
 - trigger:
