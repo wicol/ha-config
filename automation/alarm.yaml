@@ -52,8 +52,11 @@
     - service: notify.notify
       data:
         title: 'Disarming alarm'
-        # TODO: who?
-        message: "Someone came home at {{ now().strftime('%H:%M') }}"
+        #message: "Someone came home at {{ now().strftime('%H:%M') }}"
+        message: |
+          {%- for entity in state_attr('group.family', 'entity_id') if states(entity) == 'home' %}
+            {{- state_attr(entity, 'friendly_name') -}}
+          {% endfor %} came home.
 
 - alias: 'Trigger alarm'
   trigger:
@@ -65,8 +68,6 @@
       entity_id: alarm_control_panel.ha_alarm
       state: armed_away
   action:
-    - service: alarm_control_panel.alarm_trigger
-      entity_id: alarm_control_panel.ha_alarm
     - service: input_text.set_value
       data:
         entity_id: input_text.triggered_alarm_entities
@@ -74,6 +75,8 @@
           {%- for entity in state_attr('group.alarm', 'entity_id') if states(entity) == 'on' %}
           * {{ state_attr(entity, 'friendly_name') -}}
           {% endfor %}
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.ha_alarm
 
 - alias: 'Notify alarm triggered'
   trigger:
