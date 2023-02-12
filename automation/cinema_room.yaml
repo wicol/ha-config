@@ -11,9 +11,9 @@
  
 - alias: 'Ventilate for max 8h - lower'
   trigger:
-    platform: state
-    entity_id: fan.cinema_fans
-    to: 'on'
+    # It's sometimes unavailable instead of on..
+    platform: template
+    value_template: "{{ not is_state('fan.cinema_fans', 'off') }}"
     for:
       hours: 8
   action:
@@ -38,7 +38,7 @@
     entity_id: media_player.denon_3300
     to: 'off'
     for:
-      minutes: 7
+      minutes: 5
   action:
     service: homeassistant.turn_off
     entity_id: switch.plug_2
