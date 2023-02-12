@@ -15,26 +15,27 @@ homeassistant:
   external_url: !secret base_url
   internal_url: "http://192.168.0.2:8123"
 
-# Show links to resources in log and frontend
-#introduction:
-
-# Enables the frontend
-frontend:
-
-# Enables configuration UI
-config:
-
 http:
   use_x_forwarded_for: true
   trusted_proxies: 127.0.0.1
 
+# Enables the frontend
+frontend:
+# Enables configuration UI
+config:
+# my-ha feature
 my:
-
+backup:
+network:
+zeroconf:
+# Track the sun
+sun:
+python_script:
+wake_on_lan:
+schedule:
 # Discover some devices automatically
 #discovery:
-
 mobile_app:
-
 # Allows you to issue voice commands from the frontend in enabled browsers
 # conversation:
 
@@ -65,18 +66,9 @@ logbook:
       - sensor.s21_*
       - sensor.bl_wic_*
 
-# Track the sun
-sun:
-
 # Text to speech
 tts:
   platform: google_translate
-
-zeroconf:
-  # Fixes "OSError: [Errno 105] No buffer space available" by binding to.. less.. stuff..?
-  default_interface: true
-
-
 
 logger:
   default: warning
@@ -102,13 +94,11 @@ logger:
     #custom_components.nordpool.sensor: debug
     #custom_components.nordpool.aio_price: debug
     homeassistant.components.tibber: debug
+    #homeassistant.components.network: debug
+    #homeassistant.components.zeroconf: debug
 
-python_script:
-
-wake_on_lan:
-
-mqtt_eventstream:
-  publish_topic: homeassistant/events
+#mqtt_eventstream:
+#  publish_topic: homeassistant/events
 
 alarm_control_panel:
   - platform: manual
@@ -141,5 +131,4 @@ template: !include template.yaml
 mqtt: !include mqtt.yaml
 utility_meter: !include utility_meters.yaml
 notify: !include notify.yaml
-schedule:
 
