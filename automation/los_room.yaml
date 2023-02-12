@@ -22,7 +22,8 @@
     service: spotcast.start
     data: >
       {
-        "entity_id": "media_player.los_room_speaker",
+        {# "entity_id": "media_player.los_room_speaker", #}
+        "device_name": "Los högtalare",
         "uri": "spotify:playlist:7vF6G4f8fCjAtdsoWLHR15",
         "random_song": True,
         {% if states("media_player.los_room_speaker") != "playing" %}
@@ -45,14 +46,14 @@
     service: spotcast.start
     data: >
       {
-        "entity_id": "media_player.los_room_speaker",
+        {# "entity_id": "media_player.los_room_speaker", #}
+        "device_name": "Los högtalare",
         "uri": "spotify:playlist:7Acn4kaBSl3ntPfUMw0NJw",
-        "random_song": True,
+        {# nope: "random_song": True, "shuffle": True #}
         {% if states("media_player.los_room_speaker") != "playing" %}
         {# only set volume if we're not already playing #}
         "start_volume": 28,
         {% endif %}
-        "shuffle": True
       }
 
 
