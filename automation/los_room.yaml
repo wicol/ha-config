@@ -52,7 +52,7 @@
         {# nope: "random_song": True, "shuffle": True #}
         {% if states("media_player.los_room_speaker") != "playing" %}
         {# only set volume if we're not already playing #}
-        "start_volume": 28,
+        "start_volume": 15,
         {% endif %}
       }
 

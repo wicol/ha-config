@@ -1,0 +1,4 @@
+- binary_sensor:
+    name: ps5
+    command: /config/sensors/ps5.py -b -q ps5
+    scan_interval: 10

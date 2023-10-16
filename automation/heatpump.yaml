@@ -190,7 +190,7 @@
     - platform: state
       entity_id:
         - sensor.heating_temperature_influence
-        - sensor.heating_sun_influence
+        #- sensor.heating_sun_influence
         - sensor.heating_wind_influence
         - sensor.heating_blocker_compensator
   action:
@@ -199,8 +199,8 @@
       entity_id: input_number.outdoor_temp_offset
     data:
       value: >
+        {# add back later: + states('sensor.heating_sun_influence')|int #}
         {%- set offset = states('sensor.heating_temperature_influence')|int
-          + states('sensor.heating_sun_influence')|int
           + states('sensor.heating_wind_influence')|int
           + states('sensor.heating_blocker_compensator')|int
         -%}

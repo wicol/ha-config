@@ -42,10 +42,6 @@ mobile_app:
 recorder:
   db_url: !secret db_url
   purge_keep_days: 90
-
-
-# Enables support for tracking state changes over time.
-history:
   include:
     domains:
       - sensor
@@ -55,6 +51,11 @@ history:
       - device_tracker
       - input_number
       - number
+      - light
+      - fan
+
+# Enables support for tracking state changes over time.
+history:
 
 # View all events in a logbook
 logbook:
@@ -96,6 +97,7 @@ logger:
     homeassistant.components.tibber: debug
     #homeassistant.components.network: debug
     #homeassistant.components.zeroconf: debug
+    homeassistant.components.zwave_js: debug
 
 #mqtt_eventstream:
 #  publish_topic: homeassistant/events
@@ -112,7 +114,7 @@ group: !include groups.yaml
 switch: !include switches.yaml
 light: !include lights.yaml
 sensor: !include sensors.yaml
-binary_sensor: !include binary_sensors.yaml
+command_line: !include command_line.yaml
 automation: !include_dir_merge_list automation
 script: !include scripts.yaml
 media_player: !include media_players.yaml
