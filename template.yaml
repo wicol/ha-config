@@ -34,13 +34,15 @@
       device_class: temperature
       unit_of_measurement: "°C"
       state: >
-        {{ ((
-           states('sensor.temperature_1')|float
-           + states('sensor.bedroom_temperature')|float
-           + states('sensor.temperature_4')|float
-           + states('sensor.axels_room_temperature')|float
-           + states('sensor.office_temperature')|float
-           ) / 5 ) | round(1)
+        {{
+        average([
+          'sensor.temperature_1',
+          'sensor.bedroom_temperature',
+          'sensor.temperature_4',
+          'sensor.axels_room_temperature',
+          'sensor.office_temperature'
+          ]|select('has_value')|map('states')|map('float')
+        )|round(1)
         }}
 
 
@@ -220,52 +222,52 @@
       device_class: monetary
       unit_of_measurement: "Kr/h"
       state: >
-        {%- set power = states('sensor.power_usage') | int -%}
+        {%- set power = states('sensor.power_consumed') | int -%}
         {%- set price = states('sensor.nordpool_kwh_se3_sek_0_07_025') | int -%}
         {{ (power/1000 * price/100) | round(1, default=0) }}
 
 
-- trigger:
-    - platform: state
-      entity_id: sensor.energy_usage_hour
-    - platform: homeassistant
-      event: start
-    - platform: event
-      event_type: event_template_reloaded
-  sensor:
-    - name: "Energy usage this hour"
-      unique_id: energy_usage_hour_kwh
-      device_class: energy
-      unit_of_measurement: "kWh"
-      state: "{{ (states('sensor.energy_usage_hour') | float / 1000) | round(1) }}"
-
-
-- trigger:
-    - platform: state
-      entity_id: sensor.energy_usage_day
-    - platform: homeassistant
-      event: start
-    - platform: event
-      event_type: event_template_reloaded
-  sensor:
-    - name: "Energy usage this day"
-      unique_id: energy_usage_day_kwh
-      device_class: energy
-      unit_of_measurement: "kWh"
-      state: "{{ (states('sensor.energy_usage_day') | float / 1000) | round(1) }}"
-
-
-- trigger:
-    - platform: state
-      entity_id: sensor.energy_usage_month
-    - platform: homeassistant
-      event: start
-    - platform: event
-      event_type: event_template_reloaded
-  sensor:
-    - name: "Energy usage this month"
-      unique_id: energy_usage_month_kwh
-      device_class: energy
-      unit_of_measurement: "kWh"
-      state: "{{ (states('sensor.energy_usage_month') | float / 1000) | round(1) }}"
+#- trigger:
+#    - platform: state
+#      entity_id: sensor.energy_usage_hour
+#    - platform: homeassistant
+#      event: start
+#    - platform: event
+#      event_type: event_template_reloaded
+#  sensor:
+#    - name: "Energy usage this hour"
+#      unique_id: energy_usage_hour_kwh
+#      device_class: energy
+#      unit_of_measurement: "kWh"
+#      state: "{{ (states('sensor.energy_usage_hour') | float / 1000) | round(1) }}"
+#
+#
+#- trigger:
+#    - platform: state
+#      entity_id: sensor.energy_usage_day
+#    - platform: homeassistant
+#      event: start
+#    - platform: event
+#      event_type: event_template_reloaded
+#  sensor:
+#    - name: "Energy usage this day"
+#      unique_id: energy_usage_day_kwh
+#      device_class: energy
+#      unit_of_measurement: "kWh"
+#      state: "{{ (states('sensor.energy_usage_day') | float / 1000) | round(1) }}"
+#
+#
+#- trigger:
+#    - platform: state
+#      entity_id: sensor.energy_usage_month
+#    - platform: homeassistant
+#      event: start
+#    - platform: event
+#      event_type: event_template_reloaded
+#  sensor:
+#    - name: "Energy usage this month"
+#      unique_id: energy_usage_month_kwh
+#      device_class: energy
+#      unit_of_measurement: "kWh"
+#      state: "{{ (states('sensor.energy_usage_month') | float / 1000) | round(1) }}"
 
