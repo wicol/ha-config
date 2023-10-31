@@ -146,7 +146,7 @@
     {%- set target_temp = state_attr('climate.heat_pump_thermostat', 'temperature') -%}
     {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
     {{
-      now().strftime('%H:%M') in states('input_text.heating_expensive_hours')
+      now().strftime('%H:00') in states('input_text.heating_expensive_hours')
       and avg_temp > target_temp - 2  
       and states('switch.hp_external_control_2') == 'off'
     }}
@@ -169,7 +169,7 @@
     {%- set avg_temp = states('sensor.indoor_average_temperature')|float -%}
     {{-
       (
-        (now().strftime('%H') + ":00") not in states('input_text.heating_expensive_hours')
+        now().strftime('%H:00') not in states('input_text.heating_expensive_hours')
         or avg_temp < target_temp - 1.7
       )
       and states('switch.hp_external_control_2') == 'on'
