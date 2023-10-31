@@ -1,0 +1,23 @@
+- alias: 'HA Humlö export cheap hours'
+  trigger:
+    platform: state
+    entity_id: input_text.heating_cheap_hours
+  action:
+    service: mqtt.publish
+    data:
+      topic: "ha-humlo/heating_cheap_hours"
+      payload: "{{ trigger.to_state.state }}"
+      retain: true
+
+- alias: 'HA Humlö export expensive hours'
+  trigger:
+    platform: state
+    entity_id: input_text.heating_expensive_hours
+  action:
+    service: mqtt.publish
+    data:
+      topic: "ha-humlo/heating_expensive_hours"
+      payload: "{{ trigger.to_state.state }}"
+      retain: true
+
+
